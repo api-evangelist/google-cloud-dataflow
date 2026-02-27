@@ -1,0 +1,73 @@
+name: Google Cloud Dataflow
+description: 'Google Cloud Dataflow is a fully managed service for executing Apache Beam pipelines  for batch and streaming data processing. It provides a serverless, fast, and cost-effective  way to process data at scale.
+
+  '
+image: https://cloud.google.com/images/social-icon-google-cloud-1200-630.png
+tags:
+- Data Processing
+- Stream Processing
+- Batch Processing
+- ETL
+- Apache Beam
+- Big Data
+created: '2024-01-01'
+modified: '2024-01-01'
+url: https://cloud.google.com/dataflow
+specificationVersion: '0.18'
+apis:
+- name: Google Cloud Dataflow API
+  description: 'Manages Google Cloud Dataflow projects on Google Cloud Platform for creating  and managing data processing pipelines.
+
+    '
+  image: https://cloud.google.com/images/social-icon-google-cloud-1200-630.png
+  humanURL: https://cloud.google.com/dataflow/docs
+  baseURL: https://dataflow.googleapis.com
+  tags:
+  - Data Processing
+  - Pipelines
+  - Streaming
+  - Batch
+  properties:
+  - type: X-documentation
+    url: https://cloud.google.com/dataflow/docs/reference/rest
+  - type: X-openapi
+    url: https://dataflow.googleapis.com/$discovery/rest?version=v1b3
+  - type: X-getting-started
+    url: https://cloud.google.com/dataflow/docs/quickstarts
+  - type: X-guides
+    url: https://cloud.google.com/dataflow/docs/guides
+  - type: X-pricing
+    url: https://cloud.google.com/dataflow/pricing
+  - type: X-authentication
+    url: https://cloud.google.com/dataflow/docs/concepts/access-control
+  - type: X-samples
+    url: https://cloud.google.com/dataflow/docs/samples
+  - type: X-support
+    url: https://cloud.google.com/dataflow/docs/support
+  - type: X-rate-limits
+    url: https://cloud.google.com/dataflow/quotas
+  - type: X-sdk
+    url: https://cloud.google.com/dataflow/docs/reference/libraries
+  - type: X-console
+    url: https://console.cloud.google.com/dataflow
+  - type: X-status
+    url: https://status.cloud.google.com/
+maintainers:
+- FN: Google Cloud Platform
+  email: cloud-support@google.com
+  url: https://cloud.google.com/support
+common:
+- type: X-blog
+  url: https://cloud.google.com/blog/products/data-analytics
+- type: X-terms-of-service
+  url: https://cloud.google.com/terms
+- type: X-privacy-policy
+  url: https://cloud.google.com/privacy
+- type: X-change-log
+  url: https://cloud.google.com/dataflow/docs/release-notes
+- type: X-community
+  url: https://stackoverflow.com/questions/tagged/google-cloud-dataflow
+- type: X-tutorials
+  url: https://cloud.google.com/dataflow/docs/tutorials
+- type: X-videos
+  url: https://www.youtube.com/results?search_query=google+cloud+dataflow
