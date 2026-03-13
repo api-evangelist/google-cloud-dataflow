@@ -1,0 +1,254 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-search/google-cloud-dataflow/json-schema/google-cloud-dataflow-pipeline-schema.json",
+  "title": "Google Cloud Dataflow Pipeline Description",
+  "description": "A descriptive representation of a Dataflow pipeline, providing structural information about the stages and transforms in the pipeline graph.",
+  "type": "object",
+  "properties": {
+    "originalPipelineTransform": {
+      "type": "array",
+      "description": "Description of each transform in the pipeline as provided by the user.",
+      "items": {
+        "$ref": "#/$defs/TransformSummary"
+      }
+    },
+    "executionPipelineStage": {
+      "type": "array",
+      "description": "Description of each stage of execution after the pipeline has been optimized by the service.",
+      "items": {
+        "$ref": "#/$defs/ExecutionStageSummary"
+      }
+    },
+    "displayData": {
+      "type": "array",
+      "description": "Pipeline level display data.",
+      "items": {
+        "$ref": "#/$defs/DisplayData"
+      }
+    }
+  },
+  "$defs": {
+    "TransformSummary": {
+      "type": "object",
+      "description": "Description of a transform executed as part of a Dataflow job.",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "description": "The type of transform.",
+          "enum": [
+            "UNKNOWN_KIND",
+            "PAR_DO_KIND",
+            "GROUP_BY_KEY_KIND",
+            "FLATTEN_KIND",
+            "READ_KIND",
+            "WRITE_KIND",
+            "CONSTANT_KIND",
+            "SINGLETON_KIND",
+            "SHUFFLE_KIND"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "description": "SDK-generated unique identifier of the transform."
+        },
+        "name": {
+          "type": "string",
+          "description": "User-provided name of the transform."
+        },
+        "displayData": {
+          "type": "array",
+          "description": "Transform-specific display data.",
+          "items": {
+            "$ref": "#/$defs/DisplayData"
+          }
+        },
+        "outputCollectionName": {
+          "type": "array",
+          "description": "User names for the output collections of this transform.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "inputCollectionName": {
+          "type": "array",
+          "description": "User names for the input collections of this transform.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ExecutionStageSummary": {
+      "type": "object",
+      "description": "Description of a stage of execution after pipeline optimization.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Dataflow service generated name for this stage."
+        },
+        "id": {
+          "type": "string",
+          "description": "Dataflow service generated unique ID for this stage."
+        },
+        "kind": {
+          "type": "string",
+          "description": "The type of execution stage.",
+          "enum": [
+            "UNKNOWN_KIND",
+            "PAR_DO_KIND",
+            "GROUP_BY_KEY_KIND",
+            "FLATTEN_KIND",
+            "READ_KIND",
+            "WRITE_KIND",
+            "CONSTANT_KIND",
+            "SINGLETON_KIND",
+            "SHUFFLE_KIND"
+          ]
+        },
+        "inputSource": {
+          "type": "array",
+          "description": "Input sources for this stage.",
+          "items": {
+            "$ref": "#/$defs/StageSource"
+          }
+        },
+        "outputSource": {
+          "type": "array",
+          "description": "Output sources for this stage.",
+          "items": {
+            "$ref": "#/$defs/StageSource"
+          }
+        },
+        "componentTransform": {
+          "type": "array",
+          "description": "Transforms that comprise this execution stage.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "userName": {
+                "type": "string",
+                "description": "Human-readable name for this transform."
+              },
+              "name": {
+                "type": "string",
+                "description": "Dataflow service generated name for this transform."
+              },
+              "originalTransform": {
+                "type": "string",
+                "description": "User name for the original user transform."
+              }
+            }
+          }
+        },
+        "componentSource": {
+          "type": "array",
+          "description": "Collections produced and consumed by component transforms.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "userName": {
+                "type": "string",
+                "description": "Human-readable name for this source."
+              },
+              "name": {
+                "type": "string",
+                "description": "Dataflow service generated name for this source."
+              },
+              "originalTransformOrCollection": {
+                "type": "string",
+                "description": "User name for the original transform or collection."
+              }
+            }
+          }
+        },
+        "prerequisiteStage": {
+          "type": "array",
+          "description": "Other stages that must complete before this stage can run.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "StageSource": {
+      "type": "object",
+      "description": "Describes a stream of data that flows in or out of a stage.",
+      "properties": {
+        "userName": {
+          "type": "string",
+          "description": "Human-readable name for this source."
+        },
+        "name": {
+          "type": "string",
+          "description": "Dataflow service generated name for this source."
+        },
+        "originalTransformOrCollection": {
+          "type": "string",
+          "description": "User name for the original transform or collection."
+        },
+        "sizeBytes": {
+          "type": "string",
+          "format": "int64",
+          "description": "Size of the source in bytes, if known."
+        }
+      }
+    },
+    "DisplayData": {
+      "type": "object",
+      "description": "Data provided with a pipeline or transform for descriptive information.",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "The key identifying the display data."
+        },
+        "namespace": {
+          "type": "string",
+          "description": "The namespace for the key, usually a class name."
+        },
+        "strValue": {
+          "type": "string",
+          "description": "Contains value if the data is of string type."
+        },
+        "int64Value": {
+          "type": "string",
+          "format": "int64",
+          "description": "Contains value if the data is of int64 type."
+        },
+        "floatValue": {
+          "type": "number",
+          "format": "float",
+          "description": "Contains value if the data is of float type."
+        },
+        "javaClassValue": {
+          "type": "string",
+          "description": "Contains value if the data is of java class type."
+        },
+        "timestampValue": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Contains value if the data is of timestamp type."
+        },
+        "durationValue": {
+          "type": "string",
+          "description": "Contains value if the data is of duration type."
+        },
+        "boolValue": {
+          "type": "boolean",
+          "description": "Contains value if the data is of bool type."
+        },
+        "shortStrValue": {
+          "type": "string",
+          "description": "A possible additional shorter value to display."
+        },
+        "url": {
+          "type": "string",
+          "description": "An optional full URL."
+        },
+        "label": {
+          "type": "string",
+          "description": "An optional label to display with the value."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-search/google-cloud-dataflow/json-schema/google-cloud-dataflow-metrics-schema.json",
+  "title": "Google Cloud Dataflow Job Metrics",
+  "description": "Contains metrics and their values for a Dataflow job, including counters, distributions, and other execution metrics that provide insight into pipeline performance.",
+  "type": "object",
+  "properties": {
+    "metricTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp as of which metric values are current."
+    },
+    "metrics": {
+      "type": "array",
+      "description": "All metrics for this job.",
+      "items": {
+        "$ref": "#/$defs/MetricUpdate"
+      }
+    }
+  },
+  "$defs": {
+    "MetricUpdate": {
+      "type": "object",
+      "description": "Describes the state of a metric at a particular point in time.",
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/MetricStructuredName",
+          "description": "The structured name of the metric."
+        },
+        "kind": {
+          "type": "string",
+          "description": "Metric aggregation kind. Possible values include Sum, Max, Min, Mean, Set, And, Or, Distribution, LatestValue."
+        },
+        "cumulative": {
+          "type": "boolean",
+          "description": "True if this metric is reported as the total cumulative aggregate value."
+        },
+        "scalar": {
+          "description": "Worker-computed aggregate value for aggregation kinds Sum, Max, Min."
+        },
+        "meanSum": {
+          "description": "Worker-computed aggregate sum value for the Mean aggregation kind."
+        },
+        "meanCount": {
+          "description": "Worker-computed aggregate count value for the Mean aggregation kind."
+        },
+        "set": {
+          "description": "Worker-computed aggregate value for the Set aggregation kind."
+        },
+        "distribution": {
+          "description": "A struct value describing properties of a distribution of numeric values."
+        },
+        "gauge": {
+          "description": "A struct value describing properties of a gauge metric."
+        },
+        "internal": {
+          "description": "Worker-computed aggregate value for internal use by the service."
+        },
+        "updateTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp associated with the metric value."
+        }
+      }
+    },
+    "MetricStructuredName": {
+      "type": "object",
+      "description": "Identifies a metric, using both the key and the context in which it appears.",
+      "properties": {
+        "origin": {
+          "type": "string",
+          "description": "Origin (namespace) of metric name. Typical values are dataflow/v1b3 and user."
+        },
+        "name": {
+          "type": "string",
+          "description": "Worker-defined metric name."
+        },
+        "context": {
+          "type": "object",
+          "description": "Zero or more labeled fields identifying the part of the job this metric is associated with.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-search/google-cloud-dataflow/json-schema/google-cloud-dataflow-worker-pool-schema.json",
+  "title": "Google Cloud Dataflow Worker Pool",
+  "description": "Describes a pool of workers that execute pipeline transforms, including machine type, disk configuration, networking, and autoscaling behavior.",
+  "type": "object",
+  "properties": {
+    "kind": {
+      "type": "string",
+      "description": "The kind of worker pool, either harness for pipeline execution or shuffle for shuffle operations."
+    },
+    "numWorkers": {
+      "type": "integer",
+      "format": "int32",
+      "description": "The initial number of worker instances in the pool."
+    },
+    "machineType": {
+      "type": "string",
+      "description": "The Compute Engine machine type for worker instances, such as n1-standard-4 or e2-standard-2."
+    },
+    "diskSizeGb": {
+      "type": "integer",
+      "format": "int32",
+      "description": "The size in GB of the root disk for each worker instance."
+    },
+    "diskType": {
+      "type": "string",
+      "description": "The type of root disk for each worker instance, such as pd-standard, pd-ssd, or pd-balanced."
+    },
+    "zone": {
+      "type": "string",
+      "description": "The Compute Engine zone where worker instances should be created."
+    },
+    "network": {
+      "type": "string",
+      "description": "The name or full URL of the VPC network for worker instances."
+    },
+    "subnetwork": {
+      "type": "string",
+      "description": "The full URL of the VPC subnetwork for worker instances."
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Metadata key-value pairs to set on the worker Compute Engine instances.",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "packages": {
+      "type": "array",
+      "description": "Packages to install on each worker instance.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the package."
+          },
+          "location": {
+            "type": "string",
+            "description": "The Cloud Storage location of the package."
+          }
+        }
+      }
+    },
+    "defaultPackageSet": {
+      "type": "string",
+      "description": "The default package set to install on the worker instances.",
+      "enum": [
+        "DEFAULT_PACKAGE_SET_UNKNOWN",
+        "DEFAULT_PACKAGE_SET_NONE",
+        "DEFAULT_PACKAGE_SET_JAVA",
+        "DEFAULT_PACKAGE_SET_PYTHON"
+      ]
+    },
+    "autoscalingSettings": {
+      "type": "object",
+      "description": "Settings for autoscaling the number of worker instances in a pool.",
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "description": "The autoscaling algorithm to use.",
+          "enum": [
+            "AUTOSCALING_ALGORITHM_UNKNOWN",
+            "AUTOSCALING_ALGORITHM_NONE",
+            "AUTOSCALING_ALGORITHM_BASIC"
+          ]
+        },
+        "maxNumWorkers": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The maximum number of workers to scale up to."
+        }
+      }
+    },
+    "ipConfiguration": {
+      "type": "string",
+      "description": "Configuration for the network IP address assignment for workers.",
+      "enum": [
+        "WORKER_IP_UNSPECIFIED",
+        "WORKER_IP_PUBLIC",
+        "WORKER_IP_PRIVATE"
+      ]
+    },
+    "sdkHarnessContainerImages": {
+      "type": "array",
+      "description": "Set of SDK harness container images for the worker pool.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "containerImage": {
+            "type": "string",
+            "description": "The Docker container image URI."
+          },
+          "useSingleCorePerContainer": {
+            "type": "boolean",
+            "description": "Whether to use a single CPU core per container."
+          },
+          "environmentId": {
+            "type": "string",
+            "description": "The environment ID this container image is associated with."
+          },
+          "capabilities": {
+            "type": "array",
+            "description": "The capabilities of this SDK harness container.",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "teardownPolicy": {
+      "type": "string",
+      "description": "The policy that determines when worker instances are torn down.",
+      "enum": [
+        "TEARDOWN_POLICY_UNKNOWN",
+        "TEARDOWN_ALWAYS",
+        "TEARDOWN_ON_SUCCESS",
+        "TEARDOWN_NEVER"
+      ]
+    },
+    "workerHarnessContainerImage": {
+      "type": "string",
+      "description": "The Docker container image to use for the worker harness."
+    }
+  }
+}

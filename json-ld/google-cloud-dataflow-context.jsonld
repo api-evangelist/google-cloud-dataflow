@@ -1,0 +1,360 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "gcd": "https://cloud.google.com/dataflow/docs/reference/rest/v1b3/",
+    "gcp": "https://cloud.google.com/apis/design/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "Job": {
+      "@id": "gcd:projects.locations.jobs",
+      "@context": {
+        "id": {
+          "@id": "schema:identifier",
+          "@type": "xsd:string"
+        },
+        "name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "projectId": {
+          "@id": "gcp:projectId",
+          "@type": "xsd:string"
+        },
+        "type": {
+          "@id": "schema:additionalType",
+          "@type": "xsd:string"
+        },
+        "currentState": {
+          "@id": "gcd:JobState",
+          "@type": "xsd:string"
+        },
+        "requestedState": {
+          "@id": "gcd:JobState",
+          "@type": "xsd:string"
+        },
+        "createTime": {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+        },
+        "startTime": {
+          "@id": "schema:startDate",
+          "@type": "xsd:dateTime"
+        },
+        "currentStateTime": {
+          "@id": "schema:dateModified",
+          "@type": "xsd:dateTime"
+        },
+        "location": {
+          "@id": "schema:locationCreated",
+          "@type": "xsd:string"
+        },
+        "labels": {
+          "@id": "schema:keywords",
+          "@type": "xsd:string"
+        },
+        "environment": {
+          "@id": "gcd:Environment",
+          "@type": "@id"
+        },
+        "pipelineDescription": {
+          "@id": "gcd:PipelineDescription",
+          "@type": "@id"
+        },
+        "jobMetadata": {
+          "@id": "gcd:JobMetadata",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Environment": {
+      "@id": "gcd:Environment",
+      "@context": {
+        "tempStoragePrefix": {
+          "@id": "gcd:tempStoragePrefix",
+          "@type": "xsd:string"
+        },
+        "serviceAccountEmail": {
+          "@id": "schema:email",
+          "@type": "xsd:string"
+        },
+        "workerRegion": {
+          "@id": "schema:addressRegion",
+          "@type": "xsd:string"
+        },
+        "workerZone": {
+          "@id": "gcd:workerZone",
+          "@type": "xsd:string"
+        },
+        "serviceKmsKeyName": {
+          "@id": "gcd:serviceKmsKeyName",
+          "@type": "xsd:string"
+        },
+        "streamingMode": {
+          "@id": "gcd:streamingMode",
+          "@type": "xsd:string"
+        },
+        "workerPools": {
+          "@id": "gcd:WorkerPool",
+          "@type": "@id",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "WorkerPool": {
+      "@id": "gcd:WorkerPool",
+      "@context": {
+        "kind": {
+          "@id": "schema:additionalType",
+          "@type": "xsd:string"
+        },
+        "numWorkers": {
+          "@id": "gcd:numWorkers",
+          "@type": "xsd:integer"
+        },
+        "machineType": {
+          "@id": "gcd:machineType",
+          "@type": "xsd:string"
+        },
+        "diskSizeGb": {
+          "@id": "gcd:diskSizeGb",
+          "@type": "xsd:integer"
+        },
+        "diskType": {
+          "@id": "gcd:diskType",
+          "@type": "xsd:string"
+        },
+        "zone": {
+          "@id": "gcd:zone",
+          "@type": "xsd:string"
+        },
+        "network": {
+          "@id": "gcd:network",
+          "@type": "xsd:string"
+        },
+        "subnetwork": {
+          "@id": "gcd:subnetwork",
+          "@type": "xsd:string"
+        },
+        "ipConfiguration": {
+          "@id": "gcd:ipConfiguration",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "Snapshot": {
+      "@id": "gcd:projects.locations.snapshots",
+      "@context": {
+        "id": {
+          "@id": "schema:identifier",
+          "@type": "xsd:string"
+        },
+        "projectId": {
+          "@id": "gcp:projectId",
+          "@type": "xsd:string"
+        },
+        "sourceJobId": {
+          "@id": "gcd:sourceJobId",
+          "@type": "xsd:string"
+        },
+        "creationTime": {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+        },
+        "ttl": {
+          "@id": "gcd:ttl",
+          "@type": "xsd:duration"
+        },
+        "state": {
+          "@id": "gcd:SnapshotState",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "schema:description",
+          "@type": "xsd:string"
+        },
+        "diskSizeBytes": {
+          "@id": "schema:contentSize",
+          "@type": "xsd:integer"
+        },
+        "region": {
+          "@id": "schema:addressRegion",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "PipelineDescription": {
+      "@id": "gcd:PipelineDescription",
+      "@context": {
+        "originalPipelineTransform": {
+          "@id": "gcd:TransformSummary",
+          "@type": "@id",
+          "@container": "@list"
+        },
+        "executionPipelineStage": {
+          "@id": "gcd:ExecutionStageSummary",
+          "@type": "@id",
+          "@container": "@list"
+        }
+      }
+    },
+
+    "TransformSummary": {
+      "@id": "gcd:TransformSummary",
+      "@context": {
+        "kind": {
+          "@id": "schema:additionalType",
+          "@type": "xsd:string"
+        },
+        "id": {
+          "@id": "schema:identifier",
+          "@type": "xsd:string"
+        },
+        "name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "TemplateMetadata": {
+      "@id": "gcd:TemplateMetadata",
+      "@context": {
+        "name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "schema:description",
+          "@type": "xsd:string"
+        },
+        "streaming": {
+          "@id": "gcd:streaming",
+          "@type": "xsd:boolean"
+        },
+        "parameters": {
+          "@id": "gcd:ParameterMetadata",
+          "@type": "@id",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "ParameterMetadata": {
+      "@id": "gcd:ParameterMetadata",
+      "@context": {
+        "name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "label": {
+          "@id": "rdfs:label",
+          "@type": "xsd:string"
+        },
+        "helpText": {
+          "@id": "schema:description",
+          "@type": "xsd:string"
+        },
+        "isOptional": {
+          "@id": "gcd:isOptional",
+          "@type": "xsd:boolean"
+        },
+        "paramType": {
+          "@id": "gcd:paramType",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "JobMetrics": {
+      "@id": "gcd:JobMetrics",
+      "@context": {
+        "metricTime": {
+          "@id": "schema:dateModified",
+          "@type": "xsd:dateTime"
+        },
+        "metrics": {
+          "@id": "gcd:MetricUpdate",
+          "@type": "@id",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "MetricUpdate": {
+      "@id": "gcd:MetricUpdate",
+      "@context": {
+        "name": {
+          "@id": "gcd:MetricStructuredName",
+          "@type": "@id"
+        },
+        "kind": {
+          "@id": "schema:additionalType",
+          "@type": "xsd:string"
+        },
+        "cumulative": {
+          "@id": "gcd:cumulative",
+          "@type": "xsd:boolean"
+        },
+        "updateTime": {
+          "@id": "schema:dateModified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "JobMessage": {
+      "@id": "gcd:JobMessage",
+      "@context": {
+        "id": {
+          "@id": "schema:identifier",
+          "@type": "xsd:string"
+        },
+        "time": {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+        },
+        "messageText": {
+          "@id": "schema:text",
+          "@type": "xsd:string"
+        },
+        "messageImportance": {
+          "@id": "gcd:JobMessageImportance",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "AutoscalingEvent": {
+      "@id": "gcd:AutoscalingEvent",
+      "@context": {
+        "currentNumWorkers": {
+          "@id": "gcd:currentNumWorkers",
+          "@type": "xsd:integer"
+        },
+        "targetNumWorkers": {
+          "@id": "gcd:targetNumWorkers",
+          "@type": "xsd:integer"
+        },
+        "eventType": {
+          "@id": "schema:additionalType",
+          "@type": "xsd:string"
+        },
+        "time": {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+        },
+        "workerPool": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        }
+      }
+    }
+  }
+}

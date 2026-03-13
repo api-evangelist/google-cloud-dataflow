@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-search/google-cloud-dataflow/json-schema/google-cloud-dataflow-environment-schema.json",
+  "title": "Google Cloud Dataflow Environment",
+  "description": "Describes the environment in which a Dataflow job runs, including worker pool configuration, networking, encryption, and runtime settings.",
+  "type": "object",
+  "properties": {
+    "tempStoragePrefix": {
+      "type": "string",
+      "description": "The prefix of the Cloud Storage path for temporary storage used during job execution."
+    },
+    "clusterManagerApiService": {
+      "type": "string",
+      "description": "The type of cluster manager API to use for managing workers."
+    },
+    "experiments": {
+      "type": "array",
+      "description": "A list of experiment flags passed to the SDK and Dataflow service for enabling experimental features.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "serviceOptions": {
+      "type": "array",
+      "description": "A list of service-level feature flags for the Dataflow service.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "serviceKmsKeyName": {
+      "type": "string",
+      "description": "The Cloud KMS key used for encrypting data at rest. Format: projects/{project}/locations/{location}/keyRings/{keyRing}/cryptoKeys/{key}."
+    },
+    "workerPools": {
+      "type": "array",
+      "description": "The worker pool configuration for the job, defining machine type, disk, network, and autoscaling settings.",
+      "items": {
+        "$ref": "google-cloud-dataflow-worker-pool-schema.json"
+      }
+    },
+    "userAgent": {
+      "type": "object",
+      "description": "A structure describing the SDK and its version used by the job.",
+      "additionalProperties": true
+    },
+    "version": {
+      "type": "object",
+      "description": "A structure describing which version of the Dataflow service the job requires.",
+      "additionalProperties": true
+    },
+    "dataset": {
+      "type": "string",
+      "description": "The BigQuery dataset for workflow logging tables. Format: bigquery.googleapis.com/projects/{project}/datasets/{dataset}."
+    },
+    "sdkPipelineOptions": {
+      "type": "object",
+      "description": "The Cloud Dataflow SDK pipeline options specified by the user.",
+      "additionalProperties": true
+    },
+    "serviceAccountEmail": {
+      "type": "string",
+      "format": "email",
+      "description": "The email address of the service account to run the workers as."
+    },
+    "flexResourceSchedulingGoal": {
+      "type": "string",
+      "description": "Which Flexible Resource Scheduling mode to run in for Flex RS jobs.",
+      "enum": [
+        "FLEXRS_UNSPECIFIED",
+        "FLEXRS_SPEED_OPTIMIZED",
+        "FLEXRS_COST_OPTIMIZED"
+      ]
+    },
+    "workerRegion": {
+      "type": "string",
+      "description": "The Compute Engine region where workers should be created."
+    },
+    "workerZone": {
+      "type": "string",
+      "description": "The specific Compute Engine zone where workers should be created."
+    },
+    "shuffleMode": {
+      "type": "string",
+      "description": "The shuffle mode for the job, set by the service.",
+      "readOnly": true,
+      "enum": [
+        "SHUFFLE_MODE_UNSPECIFIED",
+        "VM_BASED",
+        "SERVICE_BASED"
+      ]
+    },
+    "debugOptions": {
+      "type": "object",
+      "description": "Debugging options for the job.",
+      "properties": {
+        "enableHotKeyLogging": {
+          "type": "boolean",
+          "description": "When true, enables logging of hot key detections during job execution."
+        }
+      }
+    },
+    "streamingMode": {
+      "type": "string",
+      "description": "The streaming mode for the job, specifying the message processing guarantee.",
+      "enum": [
+        "STREAMING_MODE_UNSPECIFIED",
+        "STREAMING_MODE_EXACTLY_ONCE",
+        "STREAMING_MODE_AT_LEAST_ONCE"
+      ]
+    }
+  }
+}

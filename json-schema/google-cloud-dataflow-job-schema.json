@@ -1,0 +1,328 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-search/google-cloud-dataflow/json-schema/google-cloud-dataflow-job-schema.json",
+  "title": "Google Cloud Dataflow Job",
+  "description": "Defines a Dataflow job representing a pipeline execution. A job encapsulates the pipeline configuration, environment, execution state, and metadata for batch or streaming workloads on Google Cloud Platform.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The unique identifier of the job, assigned by the server and immutable once set.",
+      "readOnly": true
+    },
+    "projectId": {
+      "type": "string",
+      "description": "The ID of the Google Cloud project that owns this job."
+    },
+    "name": {
+      "type": "string",
+      "description": "The user-assigned name of the job. Job names do not need to be unique within a project."
+    },
+    "type": {
+      "type": "string",
+      "description": "The type of Dataflow job, indicating batch or streaming execution.",
+      "enum": [
+        "JOB_TYPE_UNKNOWN",
+        "JOB_TYPE_BATCH",
+        "JOB_TYPE_STREAMING"
+      ]
+    },
+    "currentState": {
+      "type": "string",
+      "description": "The current state of the job, representing its lifecycle position from creation through completion or cancellation.",
+      "enum": [
+        "JOB_STATE_UNKNOWN",
+        "JOB_STATE_STOPPED",
+        "JOB_STATE_RUNNING",
+        "JOB_STATE_DONE",
+        "JOB_STATE_FAILED",
+        "JOB_STATE_CANCELLED",
+        "JOB_STATE_UPDATED",
+        "JOB_STATE_DRAINING",
+        "JOB_STATE_DRAINED",
+        "JOB_STATE_PENDING",
+        "JOB_STATE_CANCELLING",
+        "JOB_STATE_QUEUED",
+        "JOB_STATE_RESOURCE_CLEANING_UP"
+      ],
+      "readOnly": true
+    },
+    "currentStateTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The timestamp of the most recent state transition.",
+      "readOnly": true
+    },
+    "requestedState": {
+      "type": "string",
+      "description": "The state requested for the job, such as cancelling or draining.",
+      "enum": [
+        "JOB_STATE_UNKNOWN",
+        "JOB_STATE_STOPPED",
+        "JOB_STATE_RUNNING",
+        "JOB_STATE_DONE",
+        "JOB_STATE_FAILED",
+        "JOB_STATE_CANCELLED",
+        "JOB_STATE_UPDATED",
+        "JOB_STATE_DRAINING",
+        "JOB_STATE_DRAINED",
+        "JOB_STATE_PENDING",
+        "JOB_STATE_CANCELLING",
+        "JOB_STATE_QUEUED",
+        "JOB_STATE_RESOURCE_CLEANING_UP"
+      ]
+    },
+    "createTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The timestamp when the job was initially created.",
+      "readOnly": true
+    },
+    "startTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The timestamp when the job began executing.",
+      "readOnly": true
+    },
+    "environment": {
+      "$ref": "google-cloud-dataflow-environment-schema.json",
+      "description": "The execution environment configuration for the job."
+    },
+    "steps": {
+      "type": "array",
+      "description": "The pipeline processing steps that define the job.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "description": "The type of transform this step represents."
+          },
+          "name": {
+            "type": "string",
+            "description": "The unique name of this step within the job."
+          },
+          "properties": {
+            "type": "object",
+            "description": "Named properties associated with the step.",
+            "additionalProperties": true
+          }
+        }
+      }
+    },
+    "stepsLocation": {
+      "type": "string",
+      "description": "The Cloud Storage location where step information is stored."
+    },
+    "stageStates": {
+      "type": "array",
+      "description": "The per-stage execution state information for the job.",
+      "readOnly": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "executionStageName": {
+            "type": "string",
+            "description": "The name of the execution stage."
+          },
+          "executionStageState": {
+            "type": "string",
+            "description": "The state of the execution stage.",
+            "enum": [
+              "JOB_STATE_UNKNOWN",
+              "JOB_STATE_STOPPED",
+              "JOB_STATE_RUNNING",
+              "JOB_STATE_DONE",
+              "JOB_STATE_FAILED",
+              "JOB_STATE_CANCELLED",
+              "JOB_STATE_UPDATED",
+              "JOB_STATE_DRAINING",
+              "JOB_STATE_DRAINED",
+              "JOB_STATE_PENDING",
+              "JOB_STATE_CANCELLING",
+              "JOB_STATE_QUEUED",
+              "JOB_STATE_RESOURCE_CLEANING_UP"
+            ]
+          },
+          "currentStateTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The time at which the stage entered its current state."
+          }
+        }
+      }
+    },
+    "pipelineDescription": {
+      "$ref": "google-cloud-dataflow-pipeline-schema.json",
+      "description": "A description of the pipeline structure."
+    },
+    "labels": {
+      "type": "object",
+      "description": "User-defined labels for the job as key-value string pairs.",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "location": {
+      "type": "string",
+      "description": "The regional endpoint where this job runs, such as us-central1."
+    },
+    "createdFromSnapshotId": {
+      "type": "string",
+      "description": "If this job was created from a snapshot, the ID of that snapshot.",
+      "readOnly": true
+    },
+    "replacedByJobId": {
+      "type": "string",
+      "description": "If this job has been replaced by another job, the ID of the replacement.",
+      "readOnly": true
+    },
+    "replaceJobId": {
+      "type": "string",
+      "description": "If this job is replacing another job, the ID of the job being replaced."
+    },
+    "clientRequestId": {
+      "type": "string",
+      "description": "A unique client-generated idempotency key for preventing duplicate job creation."
+    },
+    "tempFiles": {
+      "type": "array",
+      "description": "A set of Cloud Storage files used for temporary storage.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "jobMetadata": {
+      "type": "object",
+      "description": "Metadata about the job for filtering and discovery.",
+      "properties": {
+        "sdkVersion": {
+          "type": "object",
+          "description": "The version of the SDK used to run the job.",
+          "properties": {
+            "version": {
+              "type": "string",
+              "description": "The version string."
+            },
+            "versionDisplayName": {
+              "type": "string",
+              "description": "A human-readable version name."
+            },
+            "sdkSupportStatus": {
+              "type": "string",
+              "description": "The support status for this SDK version.",
+              "enum": ["UNKNOWN", "SUPPORTED", "STALE", "DEPRECATED", "UNSUPPORTED"]
+            }
+          }
+        },
+        "spannerDetails": {
+          "type": "array",
+          "description": "Cloud Spanner sources used by this job.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "projectId": { "type": "string" },
+              "instanceId": { "type": "string" },
+              "databaseId": { "type": "string" }
+            }
+          }
+        },
+        "bigqueryDetails": {
+          "type": "array",
+          "description": "BigQuery sources used by this job.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "table": { "type": "string" },
+              "dataset": { "type": "string" },
+              "projectId": { "type": "string" },
+              "query": { "type": "string" }
+            }
+          }
+        },
+        "bigTableDetails": {
+          "type": "array",
+          "description": "Cloud Bigtable sources used by this job.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "projectId": { "type": "string" },
+              "instanceId": { "type": "string" },
+              "tableId": { "type": "string" }
+            }
+          }
+        },
+        "pubsubDetails": {
+          "type": "array",
+          "description": "Pub/Sub sources used by this job.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "topic": { "type": "string" },
+              "subscription": { "type": "string" }
+            }
+          }
+        },
+        "fileDetails": {
+          "type": "array",
+          "description": "File-based sources used by this job.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "filePattern": { "type": "string" }
+            }
+          }
+        },
+        "datastoreDetails": {
+          "type": "array",
+          "description": "Datastore sources used by this job.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "namespace": { "type": "string" },
+              "projectId": { "type": "string" }
+            }
+          }
+        },
+        "userDisplayProperties": {
+          "type": "object",
+          "description": "User-supplied properties for display.",
+          "additionalProperties": { "type": "string" }
+        }
+      }
+    },
+    "runtimeUpdatableParams": {
+      "type": "object",
+      "description": "Parameters that can be updated during execution without stopping the job.",
+      "properties": {
+        "maxNumWorkers": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The maximum number of workers for autoscaling."
+        },
+        "minNumWorkers": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The minimum number of workers for autoscaling."
+        },
+        "workerUtilizationHint": {
+          "type": "number",
+          "format": "double",
+          "description": "Target worker utilization between 0.1 and 0.9."
+        }
+      }
+    },
+    "serviceResources": {
+      "type": "object",
+      "description": "Resources allocated by the Dataflow service for the job.",
+      "properties": {
+        "zones": {
+          "type": "array",
+          "description": "The Cloud zones from which resources are allocated.",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  },
+  "required": ["name"]
+}

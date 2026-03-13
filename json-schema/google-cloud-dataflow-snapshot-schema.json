@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-search/google-cloud-dataflow/json-schema/google-cloud-dataflow-snapshot-schema.json",
+  "title": "Google Cloud Dataflow Snapshot",
+  "description": "Represents a snapshot of a streaming Dataflow job. A snapshot captures the state of the pipeline at a point in time and can be used to start a new job from that state.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The unique identifier of the snapshot.",
+      "readOnly": true
+    },
+    "projectId": {
+      "type": "string",
+      "description": "The project this snapshot belongs to."
+    },
+    "sourceJobId": {
+      "type": "string",
+      "description": "The job from which this snapshot was created."
+    },
+    "creationTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The time this snapshot was created.",
+      "readOnly": true
+    },
+    "ttl": {
+      "type": "string",
+      "description": "The time-to-live duration for the snapshot, after which it will be automatically deleted. Format: a duration string such as 3600s."
+    },
+    "state": {
+      "type": "string",
+      "description": "The current state of the snapshot.",
+      "enum": [
+        "UNKNOWN_SNAPSHOT_STATE",
+        "PENDING",
+        "RUNNING",
+        "READY",
+        "FAILED",
+        "DELETED"
+      ]
+    },
+    "description": {
+      "type": "string",
+      "description": "User-specified description of the snapshot."
+    },
+    "pubsubMetadata": {
+      "type": "array",
+      "description": "Pub/Sub snapshot metadata associated with this Dataflow snapshot.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "topicName": {
+            "type": "string",
+            "description": "The name of the Pub/Sub topic."
+          },
+          "snapshotName": {
+            "type": "string",
+            "description": "The name of the Pub/Sub snapshot."
+          },
+          "expireTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The expire time of the Pub/Sub snapshot."
+          }
+        }
+      }
+    },
+    "diskSizeBytes": {
+      "type": "string",
+      "format": "int64",
+      "description": "The disk byte size of the snapshot.",
+      "readOnly": true
+    },
+    "region": {
+      "type": "string",
+      "description": "The Cloud region where this snapshot resides, such as us-central1."
+    }
+  }
+}

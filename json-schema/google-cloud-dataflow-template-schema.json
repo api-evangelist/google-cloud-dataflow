@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-search/google-cloud-dataflow/json-schema/google-cloud-dataflow-template-schema.json",
+  "title": "Google Cloud Dataflow Template",
+  "description": "Metadata describing a Dataflow template, including its name, description, parameters, and streaming capability. Templates define reusable pipeline structures that can be launched with different runtime parameters.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Required. The name of the template."
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional. A description of the template."
+    },
+    "parameters": {
+      "type": "array",
+      "description": "The parameters for the template, defining inputs that can be configured at launch time.",
+      "items": {
+        "$ref": "#/$defs/ParameterMetadata"
+      }
+    },
+    "streaming": {
+      "type": "boolean",
+      "description": "If true, this template processes unbounded data streams."
+    },
+    "supportsAtLeastOnce": {
+      "type": "boolean",
+      "description": "If true, this template supports at-least-once processing."
+    },
+    "supportsExactlyOnce": {
+      "type": "boolean",
+      "description": "If true, this template supports exactly-once processing."
+    },
+    "defaultStreamingMode": {
+      "type": "string",
+      "description": "The default streaming mode for the template."
+    },
+    "templateType": {
+      "type": "string",
+      "description": "The type of the template.",
+      "enum": [
+        "UNKNOWN",
+        "LEGACY",
+        "FLEX"
+      ]
+    }
+  },
+  "required": ["name"],
+  "$defs": {
+    "ParameterMetadata": {
+      "type": "object",
+      "description": "Metadata for a specific parameter used by a template.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Required. The name of the parameter."
+        },
+        "label": {
+          "type": "string",
+          "description": "Required. The label to display for the parameter."
+        },
+        "helpText": {
+          "type": "string",
+          "description": "Required. Help text to display for the parameter."
+        },
+        "isOptional": {
+          "type": "boolean",
+          "description": "Optional. Whether the parameter is optional. Defaults to false."
+        },
+        "regexes": {
+          "type": "array",
+          "description": "Optional. Regular expressions used to validate the parameter value.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "paramType": {
+          "type": "string",
+          "description": "The type of the parameter.",
+          "enum": [
+            "DEFAULT",
+            "TEXT",
+            "GCS_READ_BUCKET",
+            "GCS_WRITE_BUCKET",
+            "GCS_READ_FILE",
+            "GCS_WRITE_FILE",
+            "GCS_READ_FOLDER",
+            "GCS_WRITE_FOLDER",
+            "PUBSUB_TOPIC",
+            "PUBSUB_SUBSCRIPTION",
+            "BIGQUERY_TABLE",
+            "JAVASCRIPT_UDF_FILE",
+            "SERVICE_ACCOUNT",
+            "MACHINE_TYPE",
+            "KMS_KEY_NAME",
+            "WORKER_REGION",
+            "WORKER_ZONE",
+            "BOOLEAN",
+            "ENUM",
+            "NUMBER",
+            "KAFKA_TOPIC",
+            "KAFKA_READ_TOPIC",
+            "KAFKA_WRITE_TOPIC"
+          ]
+        }
+      },
+      "required": ["name", "label", "helpText"]
+    }
+  }
+}
