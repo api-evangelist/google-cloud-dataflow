@@ -23,6 +23,10 @@ security:
   - oauth2: []
   - apiKey: []
 tags:
+  - name: Debug
+    description: Operations for retrieving debug configuration and submitting debug captures.
+  - name: Flex Templates
+    description: Operations for launching Dataflow Flex Templates.
   - name: Jobs
     description: Operations for creating, managing, and monitoring Dataflow jobs.
   - name: Messages
@@ -31,14 +35,10 @@ tags:
     description: Operations for obtaining job and pipeline execution metrics.
   - name: Snapshots
     description: Operations for creating, listing, getting, and deleting job snapshots.
-  - name: Templates
-    description: Operations for working with Dataflow classic templates.
-  - name: Flex Templates
-    description: Operations for launching Dataflow Flex Templates.
-  - name: Debug
-    description: Operations for retrieving debug configuration and submitting debug captures.
   - name: Stages
     description: Operations for retrieving stage-level execution details.
+  - name: Templates
+    description: Operations for working with Dataflow classic templates.
 paths:
   /v1b3/projects/{projectId}/jobs:aggregated:
     get:
