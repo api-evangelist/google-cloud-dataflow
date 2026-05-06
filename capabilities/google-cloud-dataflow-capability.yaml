@@ -1,0 +1,1222 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Google Cloud Dataflow API
+  description: Manages Google Cloud Dataflow projects on Google Cloud Platform for creating and managing data processing pipelines,
+    including job submission, monitoring, and resource management for both batch and streaming workloads.
+  tags:
+  - Google
+  - Cloud
+  - Dataflow
+  - API
+  created: '2026-05-06'
+  modified: '2026-05-06'
+capability:
+  consumes:
+  - type: http
+    namespace: google-cloud-dataflow
+    baseUri: https://dataflow.googleapis.com
+    description: Google Cloud Dataflow API HTTP API.
+    authentication:
+      type: bearer
+      token: '{{GOOGLE_CLOUD_DATAFLOW_TOKEN}}'
+    resources:
+    - name: v1b3-projects-projectid-jobs-aggregated
+      path: /v1b3/projects/{projectId}/jobs:aggregated
+      operations:
+      - name: listaggregatedjobs
+        method: GET
+        description: Google Cloud Dataflow List aggregated jobs across all regions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1b3-projects-projectid-jobs
+      path: /v1b3/projects/{projectId}/jobs
+      operations:
+      - name: listprojectjobs
+        method: GET
+        description: Google Cloud Dataflow List jobs in a project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createprojectjob
+        method: POST
+        description: Google Cloud Dataflow Create a Dataflow job in a project
+        inputParameters:
+        - name: replaceJobId
+          in: query
+          type: string
+          description: Deprecated. The ID of the job to replace when updating a pipeline.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1b3-projects-projectid-jobs-jobid
+      path: /v1b3/projects/{projectId}/jobs/{jobId}
+      operations:
+      - name: getprojectjob
+        method: GET
+        description: Google Cloud Dataflow Get a Dataflow job in a project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateprojectjob
+        method: PUT
+        description: Google Cloud Dataflow Update a Dataflow job in a project
+        inputParameters:
+        - name: updateMask
+          in: query
+          type: string
+          description: The list of fields to update relative to the job. If empty, only the requestedState field will be considered.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1b3-projects-projectid-jobs-jobid-snapshot
+      path: /v1b3/projects/{projectId}/jobs/{jobId}:snapshot
+      operations:
+      - name: snapshotprojectjob
+        method: POST
+        description: Google Cloud Dataflow Snapshot a Dataflow job in a project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1b3-projects-projectid-jobs-jobid-metrics
+      path: /v1b3/projects/{projectId}/jobs/{jobId}/metrics
+      operations:
+      - name: getprojectjobmetrics
+        method: GET
+        description: Google Cloud Dataflow Get metrics for a Dataflow job in a project
+        inputParameters:
+        - name: startTime
+          in: query
+          type: string
+          description: Return only metric data that has changed since this time. Default is to return all information about
+            all metrics for the job.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1b3-projects-projectid-jobs-jobid-messages
+      path: /v1b3/projects/{projectId}/jobs/{jobId}/messages
+      operations:
+      - name: listprojectjobmessages
+        method: GET
+        description: Google Cloud Dataflow List messages for a Dataflow job in a project
+        inputParameters:
+        - name: minimumImportance
+          in: query
+          type: string
+          description: Filter to return only messages with at least this importance level.
+        - name: startTime
+          in: query
+          type: string
+          description: Return messages with timestamps greater than or equal to this value.
+        - name: endTime
+          in: query
+          type: string
+          description: Return messages with timestamps less than this value.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1b3-projects-projectid-locations-location-jobs
+      path: /v1b3/projects/{projectId}/locations/{location}/jobs
+      operations:
+      - name: listlocationjobs
+        method: GET
+        description: Google Cloud Dataflow List jobs in a specific location
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createlocationjob
+        method: POST
+        description: Google Cloud Dataflow Create a Dataflow job in a specific location
+        inputParameters:
+        - name: replaceJobId
+          in: query
+          type: string
+          description: Deprecated. The ID of the job to replace when updating a pipeline.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1b3-projects-projectid-locations-location-jobs-
+      path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}
+      operations:
+      - name: getlocationjob
+        method: GET
+        description: Google Cloud Dataflow Get a Dataflow job in a specific location
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatelocationjob
+        method: PUT
+        description: Google Cloud Dataflow Update a Dataflow job in a specific location
+        inputParameters:
+        - name: updateMask
+          in: query
+          type: string
+          description: The list of fields to update relative to the job. If empty, only the requestedState field will be considered.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1b3-projects-projectid-locations-location-jobs-
+      path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}:snapshot
+      operations:
+      - name: snapshotlocationjob
+        method: POST
+        description: Google Cloud Dataflow Snapshot a Dataflow job in a specific location
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1b3-projects-projectid-locations-location-jobs-
+      path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}/metrics
+      operations:
+      - name: getlocationjobmetrics
+        method: GET
+        description: Google Cloud Dataflow Get metrics for a Dataflow job in a specific location
+        inputParameters:
+        - name: startTime
+          in: query
+          type: string
+          description: Return only metric data that has changed since this time. Default is to return all information about
+            all metrics for the job.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1b3-projects-projectid-locations-location-jobs-
+      path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}/messages
+      operations:
+      - name: listlocationjobmessages
+        method: GET
+        description: Google Cloud Dataflow List messages for a Dataflow job in a specific location
+        inputParameters:
+        - name: minimumImportance
+          in: query
+          type: string
+          description: Filter to return only messages with at least this importance level.
+        - name: startTime
+          in: query
+          type: string
+          description: Return messages with timestamps greater than or equal to this value.
+        - name: endTime
+          in: query
+          type: string
+          description: Return messages with timestamps less than this value.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1b3-projects-projectid-locations-location-jobs-
+      path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}/executionDetails
+      operations:
+      - name: getlocationjobexecutiondetails
+        method: GET
+        description: Google Cloud Dataflow Get execution details for a Dataflow job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1b3-projects-projectid-locations-location-jobs-
+      path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}/stages/{stageId}/executionDetails
+      operations:
+      - name: getlocationjobstageexecutiondetails
+        method: GET
+        description: Google Cloud Dataflow Get stage execution details for a Dataflow job
+        inputParameters:
+        - name: stageId
+          in: path
+          type: string
+          required: true
+          description: The stage for which to fetch information.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1b3-projects-projectid-locations-location-snaps
+      path: /v1b3/projects/{projectId}/locations/{location}/snapshots/{snapshotId}
+      operations:
+      - name: getlocationsnapshot
+        method: GET
+        description: Google Cloud Dataflow Get a snapshot in a specific location
+        inputParameters:
+        - name: snapshotId
+          in: path
+          type: string
+          required: true
+          description: The ID of the snapshot to retrieve.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletelocationsnapshot
+        method: DELETE
+        description: Google Cloud Dataflow Delete a snapshot in a specific location
+        inputParameters:
+        - name: snapshotId
+          in: path
+          type: string
+          required: true
+          description: The ID of the snapshot to delete.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1b3-projects-projectid-locations-location-snaps
+      path: /v1b3/projects/{projectId}/locations/{location}/snapshots
+      operations:
+      - name: listlocationsnapshots
+        method: GET
+        description: Google Cloud Dataflow List snapshots in a specific location
+        inputParameters:
+        - name: jobId
+          in: query
+          type: string
+          description: If specified, list snapshots created from this job only.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1b3-projects-projectid-locations-location-jobs-
+      path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}/debug/getConfig
+      operations:
+      - name: getlocationjobdebugconfig
+        method: POST
+        description: Google Cloud Dataflow Get debug configuration for a job component
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1b3-projects-projectid-locations-location-jobs-
+      path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}/debug/sendCapture
+      operations:
+      - name: sendlocationjobdebugcapture
+        method: POST
+        description: Google Cloud Dataflow Send debug capture data for a job component
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1b3-projects-projectid-locations-location-flext
+      path: /v1b3/projects/{projectId}/locations/{location}/flexTemplates:launch
+      operations:
+      - name: launchlocationflextemplate
+        method: POST
+        description: Google Cloud Dataflow Launch a Flex Template job in a specific location
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1b3-projects-projectid-locations-location-templ
+      path: /v1b3/projects/{projectId}/locations/{location}/templates
+      operations:
+      - name: createlocationjobfromtemplate
+        method: POST
+        description: Google Cloud Dataflow Create a job from a template in a specific location
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1b3-projects-projectid-locations-location-templ
+      path: /v1b3/projects/{projectId}/locations/{location}/templates:get
+      operations:
+      - name: getlocationtemplate
+        method: GET
+        description: Google Cloud Dataflow Get template metadata in a specific location
+        inputParameters:
+        - name: gcsPath
+          in: query
+          type: string
+          required: true
+          description: Required. A Cloud Storage path to the template from which to create the job. Must be a valid Cloud
+            Storage URL beginning with gs://.
+        - name: view
+          in: query
+          type: string
+          description: The view to retrieve. Defaults to METADATA_ONLY.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1b3-projects-projectid-locations-location-templ
+      path: /v1b3/projects/{projectId}/locations/{location}/templates:launch
+      operations:
+      - name: launchlocationtemplate
+        method: POST
+        description: Google Cloud Dataflow Launch a template job in a specific location
+        inputParameters:
+        - name: gcsPath
+          in: query
+          type: string
+          description: A Cloud Storage path to the template from which to create the job. Must be a valid Cloud Storage URL
+            beginning with gs://.
+        - name: validateOnly
+          in: query
+          type: boolean
+          description: If true, the request is validated but not actually executed. Defaults to false.
+        - name: dynamicTemplate.gcsPath
+          in: query
+          type: string
+          description: Path to the dynamic template spec file on Cloud Storage.
+        - name: dynamicTemplate.stagingLocation
+          in: query
+          type: string
+          description: Cloud Storage path for staging dependencies.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1b3-projects-projectid-templates
+      path: /v1b3/projects/{projectId}/templates
+      operations:
+      - name: createprojectjobfromtemplate
+        method: POST
+        description: Google Cloud Dataflow Create a job from a template in a project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1b3-projects-projectid-templates-get
+      path: /v1b3/projects/{projectId}/templates:get
+      operations:
+      - name: getprojecttemplate
+        method: GET
+        description: Google Cloud Dataflow Get template metadata in a project
+        inputParameters:
+        - name: gcsPath
+          in: query
+          type: string
+          required: true
+          description: Required. A Cloud Storage path to the template from which to create the job. Must be a valid Cloud
+            Storage URL beginning with gs://.
+        - name: view
+          in: query
+          type: string
+          description: The view to retrieve. Defaults to METADATA_ONLY.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1b3-projects-projectid-templates-launch
+      path: /v1b3/projects/{projectId}/templates:launch
+      operations:
+      - name: launchprojecttemplate
+        method: POST
+        description: Google Cloud Dataflow Launch a template job in a project
+        inputParameters:
+        - name: gcsPath
+          in: query
+          type: string
+          description: A Cloud Storage path to the template from which to create the job. Must be a valid Cloud Storage URL
+            beginning with gs://.
+        - name: validateOnly
+          in: query
+          type: boolean
+          description: If true, the request is validated but not actually executed. Defaults to false.
+        - name: dynamicTemplate.gcsPath
+          in: query
+          type: string
+          description: Path to the dynamic template spec file on Cloud Storage.
+        - name: dynamicTemplate.stagingLocation
+          in: query
+          type: string
+          description: Cloud Storage path for staging dependencies.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    port: 8080
+    namespace: google-cloud-dataflow-rest
+    description: REST adapter for Google Cloud Dataflow API.
+    resources:
+    - path: /v1b3/projects/{projectId}/jobs:aggregated
+      name: listaggregatedjobs
+      operations:
+      - method: GET
+        name: listaggregatedjobs
+        description: Google Cloud Dataflow List aggregated jobs across all regions
+        call: google-cloud-dataflow.listaggregatedjobs
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1b3/projects/{projectId}/jobs
+      name: listprojectjobs
+      operations:
+      - method: GET
+        name: listprojectjobs
+        description: Google Cloud Dataflow List jobs in a project
+        call: google-cloud-dataflow.listprojectjobs
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1b3/projects/{projectId}/jobs
+      name: createprojectjob
+      operations:
+      - method: POST
+        name: createprojectjob
+        description: Google Cloud Dataflow Create a Dataflow job in a project
+        call: google-cloud-dataflow.createprojectjob
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1b3/projects/{projectId}/jobs/{jobId}
+      name: getprojectjob
+      operations:
+      - method: GET
+        name: getprojectjob
+        description: Google Cloud Dataflow Get a Dataflow job in a project
+        call: google-cloud-dataflow.getprojectjob
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1b3/projects/{projectId}/jobs/{jobId}
+      name: updateprojectjob
+      operations:
+      - method: PUT
+        name: updateprojectjob
+        description: Google Cloud Dataflow Update a Dataflow job in a project
+        call: google-cloud-dataflow.updateprojectjob
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1b3/projects/{projectId}/jobs/{jobId}:snapshot
+      name: snapshotprojectjob
+      operations:
+      - method: POST
+        name: snapshotprojectjob
+        description: Google Cloud Dataflow Snapshot a Dataflow job in a project
+        call: google-cloud-dataflow.snapshotprojectjob
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1b3/projects/{projectId}/jobs/{jobId}/metrics
+      name: getprojectjobmetrics
+      operations:
+      - method: GET
+        name: getprojectjobmetrics
+        description: Google Cloud Dataflow Get metrics for a Dataflow job in a project
+        call: google-cloud-dataflow.getprojectjobmetrics
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1b3/projects/{projectId}/jobs/{jobId}/messages
+      name: listprojectjobmessages
+      operations:
+      - method: GET
+        name: listprojectjobmessages
+        description: Google Cloud Dataflow List messages for a Dataflow job in a project
+        call: google-cloud-dataflow.listprojectjobmessages
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1b3/projects/{projectId}/locations/{location}/jobs
+      name: listlocationjobs
+      operations:
+      - method: GET
+        name: listlocationjobs
+        description: Google Cloud Dataflow List jobs in a specific location
+        call: google-cloud-dataflow.listlocationjobs
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1b3/projects/{projectId}/locations/{location}/jobs
+      name: createlocationjob
+      operations:
+      - method: POST
+        name: createlocationjob
+        description: Google Cloud Dataflow Create a Dataflow job in a specific location
+        call: google-cloud-dataflow.createlocationjob
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}
+      name: getlocationjob
+      operations:
+      - method: GET
+        name: getlocationjob
+        description: Google Cloud Dataflow Get a Dataflow job in a specific location
+        call: google-cloud-dataflow.getlocationjob
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}
+      name: updatelocationjob
+      operations:
+      - method: PUT
+        name: updatelocationjob
+        description: Google Cloud Dataflow Update a Dataflow job in a specific location
+        call: google-cloud-dataflow.updatelocationjob
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}:snapshot
+      name: snapshotlocationjob
+      operations:
+      - method: POST
+        name: snapshotlocationjob
+        description: Google Cloud Dataflow Snapshot a Dataflow job in a specific location
+        call: google-cloud-dataflow.snapshotlocationjob
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}/metrics
+      name: getlocationjobmetrics
+      operations:
+      - method: GET
+        name: getlocationjobmetrics
+        description: Google Cloud Dataflow Get metrics for a Dataflow job in a specific location
+        call: google-cloud-dataflow.getlocationjobmetrics
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}/messages
+      name: listlocationjobmessages
+      operations:
+      - method: GET
+        name: listlocationjobmessages
+        description: Google Cloud Dataflow List messages for a Dataflow job in a specific location
+        call: google-cloud-dataflow.listlocationjobmessages
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}/executionDetails
+      name: getlocationjobexecutiondetails
+      operations:
+      - method: GET
+        name: getlocationjobexecutiondetails
+        description: Google Cloud Dataflow Get execution details for a Dataflow job
+        call: google-cloud-dataflow.getlocationjobexecutiondetails
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}/stages/{stageId}/executionDetails
+      name: getlocationjobstageexecutiondetails
+      operations:
+      - method: GET
+        name: getlocationjobstageexecutiondetails
+        description: Google Cloud Dataflow Get stage execution details for a Dataflow job
+        call: google-cloud-dataflow.getlocationjobstageexecutiondetails
+        with:
+          stageId: rest.stageId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1b3/projects/{projectId}/locations/{location}/snapshots/{snapshotId}
+      name: getlocationsnapshot
+      operations:
+      - method: GET
+        name: getlocationsnapshot
+        description: Google Cloud Dataflow Get a snapshot in a specific location
+        call: google-cloud-dataflow.getlocationsnapshot
+        with:
+          snapshotId: rest.snapshotId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1b3/projects/{projectId}/locations/{location}/snapshots/{snapshotId}
+      name: deletelocationsnapshot
+      operations:
+      - method: DELETE
+        name: deletelocationsnapshot
+        description: Google Cloud Dataflow Delete a snapshot in a specific location
+        call: google-cloud-dataflow.deletelocationsnapshot
+        with:
+          snapshotId: rest.snapshotId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1b3/projects/{projectId}/locations/{location}/snapshots
+      name: listlocationsnapshots
+      operations:
+      - method: GET
+        name: listlocationsnapshots
+        description: Google Cloud Dataflow List snapshots in a specific location
+        call: google-cloud-dataflow.listlocationsnapshots
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}/debug/getConfig
+      name: getlocationjobdebugconfig
+      operations:
+      - method: POST
+        name: getlocationjobdebugconfig
+        description: Google Cloud Dataflow Get debug configuration for a job component
+        call: google-cloud-dataflow.getlocationjobdebugconfig
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}/debug/sendCapture
+      name: sendlocationjobdebugcapture
+      operations:
+      - method: POST
+        name: sendlocationjobdebugcapture
+        description: Google Cloud Dataflow Send debug capture data for a job component
+        call: google-cloud-dataflow.sendlocationjobdebugcapture
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1b3/projects/{projectId}/locations/{location}/flexTemplates:launch
+      name: launchlocationflextemplate
+      operations:
+      - method: POST
+        name: launchlocationflextemplate
+        description: Google Cloud Dataflow Launch a Flex Template job in a specific location
+        call: google-cloud-dataflow.launchlocationflextemplate
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1b3/projects/{projectId}/locations/{location}/templates
+      name: createlocationjobfromtemplate
+      operations:
+      - method: POST
+        name: createlocationjobfromtemplate
+        description: Google Cloud Dataflow Create a job from a template in a specific location
+        call: google-cloud-dataflow.createlocationjobfromtemplate
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1b3/projects/{projectId}/locations/{location}/templates:get
+      name: getlocationtemplate
+      operations:
+      - method: GET
+        name: getlocationtemplate
+        description: Google Cloud Dataflow Get template metadata in a specific location
+        call: google-cloud-dataflow.getlocationtemplate
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1b3/projects/{projectId}/locations/{location}/templates:launch
+      name: launchlocationtemplate
+      operations:
+      - method: POST
+        name: launchlocationtemplate
+        description: Google Cloud Dataflow Launch a template job in a specific location
+        call: google-cloud-dataflow.launchlocationtemplate
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1b3/projects/{projectId}/templates
+      name: createprojectjobfromtemplate
+      operations:
+      - method: POST
+        name: createprojectjobfromtemplate
+        description: Google Cloud Dataflow Create a job from a template in a project
+        call: google-cloud-dataflow.createprojectjobfromtemplate
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1b3/projects/{projectId}/templates:get
+      name: getprojecttemplate
+      operations:
+      - method: GET
+        name: getprojecttemplate
+        description: Google Cloud Dataflow Get template metadata in a project
+        call: google-cloud-dataflow.getprojecttemplate
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1b3/projects/{projectId}/templates:launch
+      name: launchprojecttemplate
+      operations:
+      - method: POST
+        name: launchprojecttemplate
+        description: Google Cloud Dataflow Launch a template job in a project
+        call: google-cloud-dataflow.launchprojecttemplate
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: google-cloud-dataflow-mcp
+    transport: http
+    description: MCP adapter for Google Cloud Dataflow API for AI agent use.
+    tools:
+    - name: listaggregatedjobs
+      description: Google Cloud Dataflow List aggregated jobs across all regions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow.listaggregatedjobs
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listprojectjobs
+      description: Google Cloud Dataflow List jobs in a project
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow.listprojectjobs
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createprojectjob
+      description: Google Cloud Dataflow Create a Dataflow job in a project
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-cloud-dataflow.createprojectjob
+      with:
+        replaceJobId: tools.replaceJobId
+      inputParameters:
+      - name: replaceJobId
+        type: string
+        description: Deprecated. The ID of the job to replace when updating a pipeline.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getprojectjob
+      description: Google Cloud Dataflow Get a Dataflow job in a project
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow.getprojectjob
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updateprojectjob
+      description: Google Cloud Dataflow Update a Dataflow job in a project
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow.updateprojectjob
+      with:
+        updateMask: tools.updateMask
+      inputParameters:
+      - name: updateMask
+        type: string
+        description: The list of fields to update relative to the job. If empty, only the requestedState field will be considered.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: snapshotprojectjob
+      description: Google Cloud Dataflow Snapshot a Dataflow job in a project
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-cloud-dataflow.snapshotprojectjob
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getprojectjobmetrics
+      description: Google Cloud Dataflow Get metrics for a Dataflow job in a project
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow.getprojectjobmetrics
+      with:
+        startTime: tools.startTime
+      inputParameters:
+      - name: startTime
+        type: string
+        description: Return only metric data that has changed since this time. Default is to return all information about
+          all metrics for the job.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listprojectjobmessages
+      description: Google Cloud Dataflow List messages for a Dataflow job in a project
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow.listprojectjobmessages
+      with:
+        minimumImportance: tools.minimumImportance
+        startTime: tools.startTime
+        endTime: tools.endTime
+      inputParameters:
+      - name: minimumImportance
+        type: string
+        description: Filter to return only messages with at least this importance level.
+      - name: startTime
+        type: string
+        description: Return messages with timestamps greater than or equal to this value.
+      - name: endTime
+        type: string
+        description: Return messages with timestamps less than this value.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listlocationjobs
+      description: Google Cloud Dataflow List jobs in a specific location
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow.listlocationjobs
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createlocationjob
+      description: Google Cloud Dataflow Create a Dataflow job in a specific location
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-cloud-dataflow.createlocationjob
+      with:
+        replaceJobId: tools.replaceJobId
+      inputParameters:
+      - name: replaceJobId
+        type: string
+        description: Deprecated. The ID of the job to replace when updating a pipeline.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getlocationjob
+      description: Google Cloud Dataflow Get a Dataflow job in a specific location
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow.getlocationjob
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatelocationjob
+      description: Google Cloud Dataflow Update a Dataflow job in a specific location
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow.updatelocationjob
+      with:
+        updateMask: tools.updateMask
+      inputParameters:
+      - name: updateMask
+        type: string
+        description: The list of fields to update relative to the job. If empty, only the requestedState field will be considered.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: snapshotlocationjob
+      description: Google Cloud Dataflow Snapshot a Dataflow job in a specific location
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-cloud-dataflow.snapshotlocationjob
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getlocationjobmetrics
+      description: Google Cloud Dataflow Get metrics for a Dataflow job in a specific location
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow.getlocationjobmetrics
+      with:
+        startTime: tools.startTime
+      inputParameters:
+      - name: startTime
+        type: string
+        description: Return only metric data that has changed since this time. Default is to return all information about
+          all metrics for the job.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listlocationjobmessages
+      description: Google Cloud Dataflow List messages for a Dataflow job in a specific location
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow.listlocationjobmessages
+      with:
+        minimumImportance: tools.minimumImportance
+        startTime: tools.startTime
+        endTime: tools.endTime
+      inputParameters:
+      - name: minimumImportance
+        type: string
+        description: Filter to return only messages with at least this importance level.
+      - name: startTime
+        type: string
+        description: Return messages with timestamps greater than or equal to this value.
+      - name: endTime
+        type: string
+        description: Return messages with timestamps less than this value.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getlocationjobexecutiondetails
+      description: Google Cloud Dataflow Get execution details for a Dataflow job
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow.getlocationjobexecutiondetails
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getlocationjobstageexecutiondetails
+      description: Google Cloud Dataflow Get stage execution details for a Dataflow job
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow.getlocationjobstageexecutiondetails
+      with:
+        stageId: tools.stageId
+      inputParameters:
+      - name: stageId
+        type: string
+        description: The stage for which to fetch information.
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getlocationsnapshot
+      description: Google Cloud Dataflow Get a snapshot in a specific location
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow.getlocationsnapshot
+      with:
+        snapshotId: tools.snapshotId
+      inputParameters:
+      - name: snapshotId
+        type: string
+        description: The ID of the snapshot to retrieve.
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletelocationsnapshot
+      description: Google Cloud Dataflow Delete a snapshot in a specific location
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: google-cloud-dataflow.deletelocationsnapshot
+      with:
+        snapshotId: tools.snapshotId
+      inputParameters:
+      - name: snapshotId
+        type: string
+        description: The ID of the snapshot to delete.
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listlocationsnapshots
+      description: Google Cloud Dataflow List snapshots in a specific location
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow.listlocationsnapshots
+      with:
+        jobId: tools.jobId
+      inputParameters:
+      - name: jobId
+        type: string
+        description: If specified, list snapshots created from this job only.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getlocationjobdebugconfig
+      description: Google Cloud Dataflow Get debug configuration for a job component
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-cloud-dataflow.getlocationjobdebugconfig
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: sendlocationjobdebugcapture
+      description: Google Cloud Dataflow Send debug capture data for a job component
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-cloud-dataflow.sendlocationjobdebugcapture
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: launchlocationflextemplate
+      description: Google Cloud Dataflow Launch a Flex Template job in a specific location
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-cloud-dataflow.launchlocationflextemplate
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createlocationjobfromtemplate
+      description: Google Cloud Dataflow Create a job from a template in a specific location
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-cloud-dataflow.createlocationjobfromtemplate
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getlocationtemplate
+      description: Google Cloud Dataflow Get template metadata in a specific location
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow.getlocationtemplate
+      with:
+        gcsPath: tools.gcsPath
+        view: tools.view
+      inputParameters:
+      - name: gcsPath
+        type: string
+        description: Required. A Cloud Storage path to the template from which to create the job. Must be a valid Cloud Storage
+          URL beginning with gs://.
+        required: true
+      - name: view
+        type: string
+        description: The view to retrieve. Defaults to METADATA_ONLY.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: launchlocationtemplate
+      description: Google Cloud Dataflow Launch a template job in a specific location
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-cloud-dataflow.launchlocationtemplate
+      with:
+        gcsPath: tools.gcsPath
+        validateOnly: tools.validateOnly
+        dynamicTemplate.gcsPath: tools.dynamicTemplate.gcsPath
+        dynamicTemplate.stagingLocation: tools.dynamicTemplate.stagingLocation
+      inputParameters:
+      - name: gcsPath
+        type: string
+        description: A Cloud Storage path to the template from which to create the job. Must be a valid Cloud Storage URL
+          beginning with gs://.
+      - name: validateOnly
+        type: boolean
+        description: If true, the request is validated but not actually executed. Defaults to false.
+      - name: dynamicTemplate.gcsPath
+        type: string
+        description: Path to the dynamic template spec file on Cloud Storage.
+      - name: dynamicTemplate.stagingLocation
+        type: string
+        description: Cloud Storage path for staging dependencies.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createprojectjobfromtemplate
+      description: Google Cloud Dataflow Create a job from a template in a project
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-cloud-dataflow.createprojectjobfromtemplate
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getprojecttemplate
+      description: Google Cloud Dataflow Get template metadata in a project
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow.getprojecttemplate
+      with:
+        gcsPath: tools.gcsPath
+        view: tools.view
+      inputParameters:
+      - name: gcsPath
+        type: string
+        description: Required. A Cloud Storage path to the template from which to create the job. Must be a valid Cloud Storage
+          URL beginning with gs://.
+        required: true
+      - name: view
+        type: string
+        description: The view to retrieve. Defaults to METADATA_ONLY.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: launchprojecttemplate
+      description: Google Cloud Dataflow Launch a template job in a project
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-cloud-dataflow.launchprojecttemplate
+      with:
+        gcsPath: tools.gcsPath
+        validateOnly: tools.validateOnly
+        dynamicTemplate.gcsPath: tools.dynamicTemplate.gcsPath
+        dynamicTemplate.stagingLocation: tools.dynamicTemplate.stagingLocation
+      inputParameters:
+      - name: gcsPath
+        type: string
+        description: A Cloud Storage path to the template from which to create the job. Must be a valid Cloud Storage URL
+          beginning with gs://.
+      - name: validateOnly
+        type: boolean
+        description: If true, the request is validated but not actually executed. Defaults to false.
+      - name: dynamicTemplate.gcsPath
+        type: string
+        description: Path to the dynamic template spec file on Cloud Storage.
+      - name: dynamicTemplate.stagingLocation
+        type: string
+        description: Cloud Storage path for staging dependencies.
+      outputParameters:
+      - type: object
+        mapping: $.
+binds:
+- namespace: env
+  keys:
+    GOOGLE_CLOUD_DATAFLOW_TOKEN: GOOGLE_CLOUD_DATAFLOW_TOKEN
