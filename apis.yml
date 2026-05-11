@@ -96,6 +96,8 @@ apis:
         url: json-schema/google-cloud-dataflow-metrics-schema.json
       - type: JSON-LD Context
         url: json-ld/google-cloud-dataflow-context.jsonld
+integrations:
+  - name: Become a Partner
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
@@ -139,3 +141,5 @@ common:
     url: https://cloud.google.com/dataflow/pricing
   - type: Security
     url: https://cloud.google.com/dataflow/docs/concepts/security-and-permissions
+  - type: Integrations
+    url: https://cloud.google.com/marketplace
