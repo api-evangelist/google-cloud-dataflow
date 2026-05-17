@@ -38,7 +38,7 @@ apis:
         url: openapi/google-cloud-dataflow-api-openapi.yml
       - type: OpenAPI Discovery
         url: https://dataflow.googleapis.com/$discovery/rest?version=v1b3
-      - type: Getting Started
+      - type: GettingStarted
         url: https://cloud.google.com/dataflow/docs/quickstarts
       - type: Guides
         url: https://cloud.google.com/dataflow/docs/guides
@@ -50,13 +50,13 @@ apis:
         url: https://cloud.google.com/dataflow/docs/samples
       - type: Support
         url: https://cloud.google.com/dataflow/docs/support
-      - type: Rate Limits
+      - type: RateLimits
         url: https://cloud.google.com/dataflow/quotas
       - type: SDKs
         url: https://cloud.google.com/dataflow/docs/reference/libraries
       - type: Console
         url: https://console.cloud.google.com/dataflow
-      - type: Status
+      - type: StatusPage
         url: https://status.cloud.google.com/
       - type: Security
         url: https://cloud.google.com/dataflow/docs/concepts/security-and-permissions
@@ -74,7 +74,7 @@ apis:
         url: https://cloud.google.com/java/docs/reference/google-cloud-dataflow/latest/overview.html
       - type: Node.js SDK
         url: https://cloud.google.com/nodejs/docs/reference/dataflow/latest/overview
-      - type: API Reference
+      - type: APIReference
         url: https://cloud.google.com/dataflow/docs/apis
       - type: SDK Version Support
         url: https://cloud.google.com/dataflow/docs/support/sdk-version-support-status
@@ -107,21 +107,21 @@ common:
     url: https://cloud.google.com/dataflow
   - type: Documentation
     url: https://cloud.google.com/dataflow/docs
-  - type: Getting Started
+  - type: GettingStarted
     url: https://cloud.google.com/dataflow/docs/quickstarts
   - type: Authentication
     url: https://cloud.google.com/dataflow/docs/concepts/authentication
   - type: Blog
     url: https://cloud.google.com/blog/products/data-analytics
-  - type: Status
+  - type: StatusPage
     url: https://status.cloud.google.com/
   - type: Support
     url: https://cloud.google.com/dataflow/docs/support
-  - type: Terms of Service
+  - type: TermsOfService
     url: https://cloud.google.com/terms
-  - type: Privacy Policy
+  - type: PrivacyPolicy
     url: https://cloud.google.com/privacy
-  - type: Change Log
+  - type: ChangeLog
     url: https://cloud.google.com/dataflow/docs/release-notes
   - type: Community
     url: https://stackoverflow.com/questions/tagged/google-cloud-dataflow
@@ -129,13 +129,13 @@ common:
     url: https://cloud.google.com/dataflow/docs/tutorials
   - type: Videos
     url: https://www.youtube.com/results?search_query=google+cloud+dataflow
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/GoogleCloudPlatform
   - type: Website
     url: https://cloud.google.com
   - type: Login
     url: https://console.cloud.google.com/
-  - type: Sign Up
+  - type: SignUp
     url: https://console.cloud.google.com/freetrial
   - type: Pricing
     url: https://cloud.google.com/dataflow/pricing
