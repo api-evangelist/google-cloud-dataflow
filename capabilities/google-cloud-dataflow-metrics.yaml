@@ -1,0 +1,122 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Google Cloud Dataflow API — Metrics
+  description: 'Google Cloud Dataflow API — Metrics. 2 operations. Lead operation: Google Cloud Dataflow Get metrics for a
+    Dataflow job in a project. Self-contained Naftiko capability covering one Google Cloud Dataflow business surface.'
+  tags:
+  - Google Cloud Dataflow
+  - Metrics
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    GOOGLE_CLOUD_DATAFLOW_API_KEY: GOOGLE_CLOUD_DATAFLOW_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: google-cloud-dataflow-metrics
+    baseUri: https://dataflow.googleapis.com
+    description: Google Cloud Dataflow API — Metrics business capability. Self-contained, no shared references.
+    resources:
+    - name: v1b3-projects-projectId-jobs-jobId-metrics
+      path: /v1b3/projects/{projectId}/jobs/{jobId}/metrics
+      operations:
+      - name: getprojectjobmetrics
+        method: GET
+        description: Google Cloud Dataflow Get metrics for a Dataflow job in a project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: startTime
+          in: query
+          type: string
+          description: Return only metric data that has changed since this time. Default is to return all information about
+            all metrics for the job.
+    - name: v1b3-projects-projectId-locations-location-jobs-jobId-metrics
+      path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}/metrics
+      operations:
+      - name: getlocationjobmetrics
+        method: GET
+        description: Google Cloud Dataflow Get metrics for a Dataflow job in a specific location
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: startTime
+          in: query
+          type: string
+          description: Return only metric data that has changed since this time. Default is to return all information about
+            all metrics for the job.
+    authentication:
+      type: bearer
+      token: '{{env.GOOGLE_CLOUD_DATAFLOW_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: google-cloud-dataflow-metrics-rest
+    port: 8080
+    description: REST adapter for Google Cloud Dataflow API — Metrics. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v1b3/projects/{projectid}/jobs/{jobid}/metrics
+      name: v1b3-projects-projectid-jobs-jobid-metrics
+      description: REST surface for v1b3-projects-projectId-jobs-jobId-metrics.
+      operations:
+      - method: GET
+        name: getprojectjobmetrics
+        description: Google Cloud Dataflow Get metrics for a Dataflow job in a project
+        call: google-cloud-dataflow-metrics.getprojectjobmetrics
+        with:
+          startTime: rest.startTime
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1b3/projects/{projectid}/locations/{location}/jobs/{jobid}/metrics
+      name: v1b3-projects-projectid-locations-location-jobs-jobid-metrics
+      description: REST surface for v1b3-projects-projectId-locations-location-jobs-jobId-metrics.
+      operations:
+      - method: GET
+        name: getlocationjobmetrics
+        description: Google Cloud Dataflow Get metrics for a Dataflow job in a specific location
+        call: google-cloud-dataflow-metrics.getlocationjobmetrics
+        with:
+          startTime: rest.startTime
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: google-cloud-dataflow-metrics-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Google Cloud Dataflow API — Metrics. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: google-cloud-dataflow-get-metrics
+      description: Google Cloud Dataflow Get metrics for a Dataflow job in a project
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow-metrics.getprojectjobmetrics
+      with:
+        startTime: tools.startTime
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: google-cloud-dataflow-get-metrics-2
+      description: Google Cloud Dataflow Get metrics for a Dataflow job in a specific location
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow-metrics.getlocationjobmetrics
+      with:
+        startTime: tools.startTime
+      outputParameters:
+      - type: object
+        mapping: $.

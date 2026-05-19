@@ -1,0 +1,122 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Google Cloud Dataflow API — Debug
+  description: 'Google Cloud Dataflow API — Debug. 2 operations. Lead operation: Google Cloud Dataflow Get debug configuration
+    for a job component. Self-contained Naftiko capability covering one Google Cloud Dataflow business surface.'
+  tags:
+  - Google Cloud Dataflow
+  - Debug
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    GOOGLE_CLOUD_DATAFLOW_API_KEY: GOOGLE_CLOUD_DATAFLOW_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: google-cloud-dataflow-debug
+    baseUri: https://dataflow.googleapis.com
+    description: Google Cloud Dataflow API — Debug business capability. Self-contained, no shared references.
+    resources:
+    - name: v1b3-projects-projectId-locations-location-jobs-jobId-debug-getConfig
+      path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}/debug/getConfig
+      operations:
+      - name: getlocationjobdebugconfig
+        method: POST
+        description: Google Cloud Dataflow Get debug configuration for a job component
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1b3-projects-projectId-locations-location-jobs-jobId-debug-sendCapture
+      path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}/debug/sendCapture
+      operations:
+      - name: sendlocationjobdebugcapture
+        method: POST
+        description: Google Cloud Dataflow Send debug capture data for a job component
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.GOOGLE_CLOUD_DATAFLOW_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: google-cloud-dataflow-debug-rest
+    port: 8080
+    description: REST adapter for Google Cloud Dataflow API — Debug. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v1b3/projects/{projectid}/locations/{location}/jobs/{jobid}/debug/getconfig
+      name: v1b3-projects-projectid-locations-location-jobs-jobid-debug-getconfig
+      description: REST surface for v1b3-projects-projectId-locations-location-jobs-jobId-debug-getConfig.
+      operations:
+      - method: POST
+        name: getlocationjobdebugconfig
+        description: Google Cloud Dataflow Get debug configuration for a job component
+        call: google-cloud-dataflow-debug.getlocationjobdebugconfig
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1b3/projects/{projectid}/locations/{location}/jobs/{jobid}/debug/sendcapture
+      name: v1b3-projects-projectid-locations-location-jobs-jobid-debug-sendcapture
+      description: REST surface for v1b3-projects-projectId-locations-location-jobs-jobId-debug-sendCapture.
+      operations:
+      - method: POST
+        name: sendlocationjobdebugcapture
+        description: Google Cloud Dataflow Send debug capture data for a job component
+        call: google-cloud-dataflow-debug.sendlocationjobdebugcapture
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: google-cloud-dataflow-debug-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Google Cloud Dataflow API — Debug. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: google-cloud-dataflow-get-debug
+      description: Google Cloud Dataflow Get debug configuration for a job component
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: google-cloud-dataflow-debug.getlocationjobdebugconfig
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: google-cloud-dataflow-send-debug
+      description: Google Cloud Dataflow Send debug capture data for a job component
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-cloud-dataflow-debug.sendlocationjobdebugcapture
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

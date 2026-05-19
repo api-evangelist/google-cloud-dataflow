@@ -1,0 +1,354 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Google Cloud Dataflow API — Templates
+  description: 'Google Cloud Dataflow API — Templates. 6 operations. Lead operation: Google Cloud Dataflow Create a job from
+    a template in a specific location. Self-contained Naftiko capability covering one Google Cloud Dataflow business surface.'
+  tags:
+  - Google Cloud Dataflow
+  - Templates
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    GOOGLE_CLOUD_DATAFLOW_API_KEY: GOOGLE_CLOUD_DATAFLOW_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: google-cloud-dataflow-templates
+    baseUri: https://dataflow.googleapis.com
+    description: Google Cloud Dataflow API — Templates business capability. Self-contained, no shared references.
+    resources:
+    - name: v1b3-projects-projectId-locations-location-templates
+      path: /v1b3/projects/{projectId}/locations/{location}/templates
+      operations:
+      - name: createlocationjobfromtemplate
+        method: POST
+        description: Google Cloud Dataflow Create a job from a template in a specific location
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1b3-projects-projectId-locations-location-templates:get
+      path: /v1b3/projects/{projectId}/locations/{location}/templates:get
+      operations:
+      - name: getlocationtemplate
+        method: GET
+        description: Google Cloud Dataflow Get template metadata in a specific location
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: gcsPath
+          in: query
+          type: string
+          description: Required. A Cloud Storage path to the template from which to create the job. Must be a valid Cloud
+            Storage URL beginning with gs://.
+          required: true
+        - name: view
+          in: query
+          type: string
+          description: The view to retrieve. Defaults to METADATA_ONLY.
+    - name: v1b3-projects-projectId-locations-location-templates:launch
+      path: /v1b3/projects/{projectId}/locations/{location}/templates:launch
+      operations:
+      - name: launchlocationtemplate
+        method: POST
+        description: Google Cloud Dataflow Launch a template job in a specific location
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: gcsPath
+          in: query
+          type: string
+          description: A Cloud Storage path to the template from which to create the job. Must be a valid Cloud Storage URL
+            beginning with gs://.
+        - name: validateOnly
+          in: query
+          type: boolean
+          description: If true, the request is validated but not actually executed. Defaults to false.
+        - name: dynamicTemplate.gcsPath
+          in: query
+          type: string
+          description: Path to the dynamic template spec file on Cloud Storage.
+        - name: dynamicTemplate.stagingLocation
+          in: query
+          type: string
+          description: Cloud Storage path for staging dependencies.
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1b3-projects-projectId-templates
+      path: /v1b3/projects/{projectId}/templates
+      operations:
+      - name: createprojectjobfromtemplate
+        method: POST
+        description: Google Cloud Dataflow Create a job from a template in a project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1b3-projects-projectId-templates:get
+      path: /v1b3/projects/{projectId}/templates:get
+      operations:
+      - name: getprojecttemplate
+        method: GET
+        description: Google Cloud Dataflow Get template metadata in a project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: gcsPath
+          in: query
+          type: string
+          description: Required. A Cloud Storage path to the template from which to create the job. Must be a valid Cloud
+            Storage URL beginning with gs://.
+          required: true
+        - name: view
+          in: query
+          type: string
+          description: The view to retrieve. Defaults to METADATA_ONLY.
+    - name: v1b3-projects-projectId-templates:launch
+      path: /v1b3/projects/{projectId}/templates:launch
+      operations:
+      - name: launchprojecttemplate
+        method: POST
+        description: Google Cloud Dataflow Launch a template job in a project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: gcsPath
+          in: query
+          type: string
+          description: A Cloud Storage path to the template from which to create the job. Must be a valid Cloud Storage URL
+            beginning with gs://.
+        - name: validateOnly
+          in: query
+          type: boolean
+          description: If true, the request is validated but not actually executed. Defaults to false.
+        - name: dynamicTemplate.gcsPath
+          in: query
+          type: string
+          description: Path to the dynamic template spec file on Cloud Storage.
+        - name: dynamicTemplate.stagingLocation
+          in: query
+          type: string
+          description: Cloud Storage path for staging dependencies.
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.GOOGLE_CLOUD_DATAFLOW_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: google-cloud-dataflow-templates-rest
+    port: 8080
+    description: REST adapter for Google Cloud Dataflow API — Templates. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v1b3/projects/{projectid}/locations/{location}/templates
+      name: v1b3-projects-projectid-locations-location-templates
+      description: REST surface for v1b3-projects-projectId-locations-location-templates.
+      operations:
+      - method: POST
+        name: createlocationjobfromtemplate
+        description: Google Cloud Dataflow Create a job from a template in a specific location
+        call: google-cloud-dataflow-templates.createlocationjobfromtemplate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1b3/projects/{projectid}/locations/{location}/templates-get
+      name: v1b3-projects-projectid-locations-location-templates-get
+      description: REST surface for v1b3-projects-projectId-locations-location-templates:get.
+      operations:
+      - method: GET
+        name: getlocationtemplate
+        description: Google Cloud Dataflow Get template metadata in a specific location
+        call: google-cloud-dataflow-templates.getlocationtemplate
+        with:
+          gcsPath: rest.gcsPath
+          view: rest.view
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1b3/projects/{projectid}/locations/{location}/templates-launch
+      name: v1b3-projects-projectid-locations-location-templates-launch
+      description: REST surface for v1b3-projects-projectId-locations-location-templates:launch.
+      operations:
+      - method: POST
+        name: launchlocationtemplate
+        description: Google Cloud Dataflow Launch a template job in a specific location
+        call: google-cloud-dataflow-templates.launchlocationtemplate
+        with:
+          gcsPath: rest.gcsPath
+          validateOnly: rest.validateOnly
+          dynamicTemplate.gcsPath: rest.dynamicTemplate.gcsPath
+          dynamicTemplate.stagingLocation: rest.dynamicTemplate.stagingLocation
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1b3/projects/{projectid}/templates
+      name: v1b3-projects-projectid-templates
+      description: REST surface for v1b3-projects-projectId-templates.
+      operations:
+      - method: POST
+        name: createprojectjobfromtemplate
+        description: Google Cloud Dataflow Create a job from a template in a project
+        call: google-cloud-dataflow-templates.createprojectjobfromtemplate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1b3/projects/{projectid}/templates-get
+      name: v1b3-projects-projectid-templates-get
+      description: REST surface for v1b3-projects-projectId-templates:get.
+      operations:
+      - method: GET
+        name: getprojecttemplate
+        description: Google Cloud Dataflow Get template metadata in a project
+        call: google-cloud-dataflow-templates.getprojecttemplate
+        with:
+          gcsPath: rest.gcsPath
+          view: rest.view
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1b3/projects/{projectid}/templates-launch
+      name: v1b3-projects-projectid-templates-launch
+      description: REST surface for v1b3-projects-projectId-templates:launch.
+      operations:
+      - method: POST
+        name: launchprojecttemplate
+        description: Google Cloud Dataflow Launch a template job in a project
+        call: google-cloud-dataflow-templates.launchprojecttemplate
+        with:
+          gcsPath: rest.gcsPath
+          validateOnly: rest.validateOnly
+          dynamicTemplate.gcsPath: rest.dynamicTemplate.gcsPath
+          dynamicTemplate.stagingLocation: rest.dynamicTemplate.stagingLocation
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: google-cloud-dataflow-templates-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Google Cloud Dataflow API — Templates. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: google-cloud-dataflow-create-job
+      description: Google Cloud Dataflow Create a job from a template in a specific location
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-cloud-dataflow-templates.createlocationjobfromtemplate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: google-cloud-dataflow-get-template
+      description: Google Cloud Dataflow Get template metadata in a specific location
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow-templates.getlocationtemplate
+      with:
+        gcsPath: tools.gcsPath
+        view: tools.view
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: google-cloud-dataflow-launch-template
+      description: Google Cloud Dataflow Launch a template job in a specific location
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-cloud-dataflow-templates.launchlocationtemplate
+      with:
+        gcsPath: tools.gcsPath
+        validateOnly: tools.validateOnly
+        dynamicTemplate.gcsPath: tools.dynamicTemplate.gcsPath
+        dynamicTemplate.stagingLocation: tools.dynamicTemplate.stagingLocation
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: google-cloud-dataflow-create-job-2
+      description: Google Cloud Dataflow Create a job from a template in a project
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-cloud-dataflow-templates.createprojectjobfromtemplate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: google-cloud-dataflow-get-template-2
+      description: Google Cloud Dataflow Get template metadata in a project
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow-templates.getprojecttemplate
+      with:
+        gcsPath: tools.gcsPath
+        view: tools.view
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: google-cloud-dataflow-launch-template-2
+      description: Google Cloud Dataflow Launch a template job in a project
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-cloud-dataflow-templates.launchprojecttemplate
+      with:
+        gcsPath: tools.gcsPath
+        validateOnly: tools.validateOnly
+        dynamicTemplate.gcsPath: tools.dynamicTemplate.gcsPath
+        dynamicTemplate.stagingLocation: tools.dynamicTemplate.stagingLocation
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

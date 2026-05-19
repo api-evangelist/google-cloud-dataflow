@@ -1,0 +1,394 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Google Cloud Dataflow API — Jobs
+  description: 'Google Cloud Dataflow API — Jobs. 10 operations. Lead operation: Google Cloud Dataflow List jobs in a project.
+    Self-contained Naftiko capability covering one Google Cloud Dataflow business surface.'
+  tags:
+  - Google Cloud Dataflow
+  - Jobs
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    GOOGLE_CLOUD_DATAFLOW_API_KEY: GOOGLE_CLOUD_DATAFLOW_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: google-cloud-dataflow-jobs
+    baseUri: https://dataflow.googleapis.com
+    description: Google Cloud Dataflow API — Jobs business capability. Self-contained, no shared references.
+    resources:
+    - name: v1b3-projects-projectId-jobs
+      path: /v1b3/projects/{projectId}/jobs
+      operations:
+      - name: listprojectjobs
+        method: GET
+        description: Google Cloud Dataflow List jobs in a project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createprojectjob
+        method: POST
+        description: Google Cloud Dataflow Create a Dataflow job in a project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: replaceJobId
+          in: query
+          type: string
+          description: Deprecated. The ID of the job to replace when updating a pipeline.
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1b3-projects-projectId-jobs-jobId
+      path: /v1b3/projects/{projectId}/jobs/{jobId}
+      operations:
+      - name: getprojectjob
+        method: GET
+        description: Google Cloud Dataflow Get a Dataflow job in a project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateprojectjob
+        method: PUT
+        description: Google Cloud Dataflow Update a Dataflow job in a project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: updateMask
+          in: query
+          type: string
+          description: The list of fields to update relative to the job. If empty, only the requestedState field will be considered.
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1b3-projects-projectId-jobs:aggregated
+      path: /v1b3/projects/{projectId}/jobs:aggregated
+      operations:
+      - name: listaggregatedjobs
+        method: GET
+        description: Google Cloud Dataflow List aggregated jobs across all regions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1b3-projects-projectId-locations-location-jobs
+      path: /v1b3/projects/{projectId}/locations/{location}/jobs
+      operations:
+      - name: listlocationjobs
+        method: GET
+        description: Google Cloud Dataflow List jobs in a specific location
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createlocationjob
+        method: POST
+        description: Google Cloud Dataflow Create a Dataflow job in a specific location
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: replaceJobId
+          in: query
+          type: string
+          description: Deprecated. The ID of the job to replace when updating a pipeline.
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1b3-projects-projectId-locations-location-jobs-jobId
+      path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}
+      operations:
+      - name: getlocationjob
+        method: GET
+        description: Google Cloud Dataflow Get a Dataflow job in a specific location
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatelocationjob
+        method: PUT
+        description: Google Cloud Dataflow Update a Dataflow job in a specific location
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: updateMask
+          in: query
+          type: string
+          description: The list of fields to update relative to the job. If empty, only the requestedState field will be considered.
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1b3-projects-projectId-locations-location-jobs-jobId-executionDetails
+      path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}/executionDetails
+      operations:
+      - name: getlocationjobexecutiondetails
+        method: GET
+        description: Google Cloud Dataflow Get execution details for a Dataflow job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.GOOGLE_CLOUD_DATAFLOW_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: google-cloud-dataflow-jobs-rest
+    port: 8080
+    description: REST adapter for Google Cloud Dataflow API — Jobs. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v1b3/projects/{projectid}/jobs
+      name: v1b3-projects-projectid-jobs
+      description: REST surface for v1b3-projects-projectId-jobs.
+      operations:
+      - method: GET
+        name: listprojectjobs
+        description: Google Cloud Dataflow List jobs in a project
+        call: google-cloud-dataflow-jobs.listprojectjobs
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createprojectjob
+        description: Google Cloud Dataflow Create a Dataflow job in a project
+        call: google-cloud-dataflow-jobs.createprojectjob
+        with:
+          replaceJobId: rest.replaceJobId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1b3/projects/{projectid}/jobs/{jobid}
+      name: v1b3-projects-projectid-jobs-jobid
+      description: REST surface for v1b3-projects-projectId-jobs-jobId.
+      operations:
+      - method: GET
+        name: getprojectjob
+        description: Google Cloud Dataflow Get a Dataflow job in a project
+        call: google-cloud-dataflow-jobs.getprojectjob
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateprojectjob
+        description: Google Cloud Dataflow Update a Dataflow job in a project
+        call: google-cloud-dataflow-jobs.updateprojectjob
+        with:
+          updateMask: rest.updateMask
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1b3/projects/{projectid}/jobs-aggregated
+      name: v1b3-projects-projectid-jobs-aggregated
+      description: REST surface for v1b3-projects-projectId-jobs:aggregated.
+      operations:
+      - method: GET
+        name: listaggregatedjobs
+        description: Google Cloud Dataflow List aggregated jobs across all regions
+        call: google-cloud-dataflow-jobs.listaggregatedjobs
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1b3/projects/{projectid}/locations/{location}/jobs
+      name: v1b3-projects-projectid-locations-location-jobs
+      description: REST surface for v1b3-projects-projectId-locations-location-jobs.
+      operations:
+      - method: GET
+        name: listlocationjobs
+        description: Google Cloud Dataflow List jobs in a specific location
+        call: google-cloud-dataflow-jobs.listlocationjobs
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createlocationjob
+        description: Google Cloud Dataflow Create a Dataflow job in a specific location
+        call: google-cloud-dataflow-jobs.createlocationjob
+        with:
+          replaceJobId: rest.replaceJobId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1b3/projects/{projectid}/locations/{location}/jobs/{jobid}
+      name: v1b3-projects-projectid-locations-location-jobs-jobid
+      description: REST surface for v1b3-projects-projectId-locations-location-jobs-jobId.
+      operations:
+      - method: GET
+        name: getlocationjob
+        description: Google Cloud Dataflow Get a Dataflow job in a specific location
+        call: google-cloud-dataflow-jobs.getlocationjob
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatelocationjob
+        description: Google Cloud Dataflow Update a Dataflow job in a specific location
+        call: google-cloud-dataflow-jobs.updatelocationjob
+        with:
+          updateMask: rest.updateMask
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1b3/projects/{projectid}/locations/{location}/jobs/{jobid}/executiondetails
+      name: v1b3-projects-projectid-locations-location-jobs-jobid-executiondetails
+      description: REST surface for v1b3-projects-projectId-locations-location-jobs-jobId-executionDetails.
+      operations:
+      - method: GET
+        name: getlocationjobexecutiondetails
+        description: Google Cloud Dataflow Get execution details for a Dataflow job
+        call: google-cloud-dataflow-jobs.getlocationjobexecutiondetails
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: google-cloud-dataflow-jobs-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Google Cloud Dataflow API — Jobs. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: google-cloud-dataflow-list-jobs
+      description: Google Cloud Dataflow List jobs in a project
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow-jobs.listprojectjobs
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: google-cloud-dataflow-create-dataflow
+      description: Google Cloud Dataflow Create a Dataflow job in a project
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-cloud-dataflow-jobs.createprojectjob
+      with:
+        replaceJobId: tools.replaceJobId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: google-cloud-dataflow-get-dataflow
+      description: Google Cloud Dataflow Get a Dataflow job in a project
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow-jobs.getprojectjob
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: google-cloud-dataflow-update-dataflow
+      description: Google Cloud Dataflow Update a Dataflow job in a project
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow-jobs.updateprojectjob
+      with:
+        updateMask: tools.updateMask
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: google-cloud-dataflow-list-aggregated
+      description: Google Cloud Dataflow List aggregated jobs across all regions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow-jobs.listaggregatedjobs
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: google-cloud-dataflow-list-jobs-2
+      description: Google Cloud Dataflow List jobs in a specific location
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow-jobs.listlocationjobs
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: google-cloud-dataflow-create-dataflow-2
+      description: Google Cloud Dataflow Create a Dataflow job in a specific location
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-cloud-dataflow-jobs.createlocationjob
+      with:
+        replaceJobId: tools.replaceJobId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: google-cloud-dataflow-get-dataflow-2
+      description: Google Cloud Dataflow Get a Dataflow job in a specific location
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow-jobs.getlocationjob
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: google-cloud-dataflow-update-dataflow-2
+      description: Google Cloud Dataflow Update a Dataflow job in a specific location
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow-jobs.updatelocationjob
+      with:
+        updateMask: tools.updateMask
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: google-cloud-dataflow-get-execution
+      description: Google Cloud Dataflow Get execution details for a Dataflow job
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow-jobs.getlocationjobexecutiondetails
+      outputParameters:
+      - type: object
+        mapping: $.

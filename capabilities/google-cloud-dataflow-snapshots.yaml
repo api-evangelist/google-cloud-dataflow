@@ -1,0 +1,240 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Google Cloud Dataflow API — Snapshots
+  description: 'Google Cloud Dataflow API — Snapshots. 5 operations. Lead operation: Google Cloud Dataflow Snapshot a Dataflow
+    job in a project. Self-contained Naftiko capability covering one Google Cloud Dataflow business surface.'
+  tags:
+  - Google Cloud Dataflow
+  - Snapshots
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    GOOGLE_CLOUD_DATAFLOW_API_KEY: GOOGLE_CLOUD_DATAFLOW_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: google-cloud-dataflow-snapshots
+    baseUri: https://dataflow.googleapis.com
+    description: Google Cloud Dataflow API — Snapshots business capability. Self-contained, no shared references.
+    resources:
+    - name: v1b3-projects-projectId-jobs-jobId}:snapshot
+      path: /v1b3/projects/{projectId}/jobs/{jobId}:snapshot
+      operations:
+      - name: snapshotprojectjob
+        method: POST
+        description: Google Cloud Dataflow Snapshot a Dataflow job in a project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1b3-projects-projectId-locations-location-jobs-jobId}:snapshot
+      path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}:snapshot
+      operations:
+      - name: snapshotlocationjob
+        method: POST
+        description: Google Cloud Dataflow Snapshot a Dataflow job in a specific location
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1b3-projects-projectId-locations-location-snapshots
+      path: /v1b3/projects/{projectId}/locations/{location}/snapshots
+      operations:
+      - name: listlocationsnapshots
+        method: GET
+        description: Google Cloud Dataflow List snapshots in a specific location
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: jobId
+          in: query
+          type: string
+          description: If specified, list snapshots created from this job only.
+    - name: v1b3-projects-projectId-locations-location-snapshots-snapshotId
+      path: /v1b3/projects/{projectId}/locations/{location}/snapshots/{snapshotId}
+      operations:
+      - name: getlocationsnapshot
+        method: GET
+        description: Google Cloud Dataflow Get a snapshot in a specific location
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: snapshotId
+          in: path
+          type: string
+          description: The ID of the snapshot to retrieve.
+          required: true
+      - name: deletelocationsnapshot
+        method: DELETE
+        description: Google Cloud Dataflow Delete a snapshot in a specific location
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: snapshotId
+          in: path
+          type: string
+          description: The ID of the snapshot to delete.
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.GOOGLE_CLOUD_DATAFLOW_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: google-cloud-dataflow-snapshots-rest
+    port: 8080
+    description: REST adapter for Google Cloud Dataflow API — Snapshots. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v1b3/projects/{projectid}/jobs/jobid-snapshot
+      name: v1b3-projects-projectid-jobs-jobid-snapshot
+      description: REST surface for v1b3-projects-projectId-jobs-jobId}:snapshot.
+      operations:
+      - method: POST
+        name: snapshotprojectjob
+        description: Google Cloud Dataflow Snapshot a Dataflow job in a project
+        call: google-cloud-dataflow-snapshots.snapshotprojectjob
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1b3/projects/{projectid}/locations/{location}/jobs/jobid-snapshot
+      name: v1b3-projects-projectid-locations-location-jobs-jobid-snapshot
+      description: REST surface for v1b3-projects-projectId-locations-location-jobs-jobId}:snapshot.
+      operations:
+      - method: POST
+        name: snapshotlocationjob
+        description: Google Cloud Dataflow Snapshot a Dataflow job in a specific location
+        call: google-cloud-dataflow-snapshots.snapshotlocationjob
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1b3/projects/{projectid}/locations/{location}/snapshots
+      name: v1b3-projects-projectid-locations-location-snapshots
+      description: REST surface for v1b3-projects-projectId-locations-location-snapshots.
+      operations:
+      - method: GET
+        name: listlocationsnapshots
+        description: Google Cloud Dataflow List snapshots in a specific location
+        call: google-cloud-dataflow-snapshots.listlocationsnapshots
+        with:
+          jobId: rest.jobId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1b3/projects/{projectid}/locations/{location}/snapshots/{snapshotid}
+      name: v1b3-projects-projectid-locations-location-snapshots-snapshotid
+      description: REST surface for v1b3-projects-projectId-locations-location-snapshots-snapshotId.
+      operations:
+      - method: GET
+        name: getlocationsnapshot
+        description: Google Cloud Dataflow Get a snapshot in a specific location
+        call: google-cloud-dataflow-snapshots.getlocationsnapshot
+        with:
+          snapshotId: rest.snapshotId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletelocationsnapshot
+        description: Google Cloud Dataflow Delete a snapshot in a specific location
+        call: google-cloud-dataflow-snapshots.deletelocationsnapshot
+        with:
+          snapshotId: rest.snapshotId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: google-cloud-dataflow-snapshots-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Google Cloud Dataflow API — Snapshots. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: google-cloud-dataflow-snapshot-dataflow
+      description: Google Cloud Dataflow Snapshot a Dataflow job in a project
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-cloud-dataflow-snapshots.snapshotprojectjob
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: google-cloud-dataflow-snapshot-dataflow-2
+      description: Google Cloud Dataflow Snapshot a Dataflow job in a specific location
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-cloud-dataflow-snapshots.snapshotlocationjob
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: google-cloud-dataflow-list-snapshots
+      description: Google Cloud Dataflow List snapshots in a specific location
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow-snapshots.listlocationsnapshots
+      with:
+        jobId: tools.jobId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: google-cloud-dataflow-get-snapshot
+      description: Google Cloud Dataflow Get a snapshot in a specific location
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow-snapshots.getlocationsnapshot
+      with:
+        snapshotId: tools.snapshotId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: google-cloud-dataflow-delete-snapshot
+      description: Google Cloud Dataflow Delete a snapshot in a specific location
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: google-cloud-dataflow-snapshots.deletelocationsnapshot
+      with:
+        snapshotId: tools.snapshotId
+      outputParameters:
+      - type: object
+        mapping: $.

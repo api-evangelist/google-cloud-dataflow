@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Google Cloud Dataflow API — Stages
+  description: 'Google Cloud Dataflow API — Stages. 1 operations. Lead operation: Google Cloud Dataflow Get stage execution
+    details for a Dataflow job. Self-contained Naftiko capability covering one Google Cloud Dataflow business surface.'
+  tags:
+  - Google Cloud Dataflow
+  - Stages
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    GOOGLE_CLOUD_DATAFLOW_API_KEY: GOOGLE_CLOUD_DATAFLOW_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: google-cloud-dataflow-stages
+    baseUri: https://dataflow.googleapis.com
+    description: Google Cloud Dataflow API — Stages business capability. Self-contained, no shared references.
+    resources:
+    - name: v1b3-projects-projectId-locations-location-jobs-jobId-stages-stageId-executionDe
+      path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}/stages/{stageId}/executionDetails
+      operations:
+      - name: getlocationjobstageexecutiondetails
+        method: GET
+        description: Google Cloud Dataflow Get stage execution details for a Dataflow job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: stageId
+          in: path
+          type: string
+          description: The stage for which to fetch information.
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.GOOGLE_CLOUD_DATAFLOW_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: google-cloud-dataflow-stages-rest
+    port: 8080
+    description: REST adapter for Google Cloud Dataflow API — Stages. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v1b3/projects/{projectid}/locations/{location}/jobs/{jobid}/stages/{stageid}/executiondetails
+      name: v1b3-projects-projectid-locations-location-jobs-jobid-stages-stageid-executionde
+      description: REST surface for v1b3-projects-projectId-locations-location-jobs-jobId-stages-stageId-executionDe.
+      operations:
+      - method: GET
+        name: getlocationjobstageexecutiondetails
+        description: Google Cloud Dataflow Get stage execution details for a Dataflow job
+        call: google-cloud-dataflow-stages.getlocationjobstageexecutiondetails
+        with:
+          stageId: rest.stageId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: google-cloud-dataflow-stages-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Google Cloud Dataflow API — Stages. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: google-cloud-dataflow-get-stage
+      description: Google Cloud Dataflow Get stage execution details for a Dataflow job
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow-stages.getlocationjobstageexecutiondetails
+      with:
+        stageId: tools.stageId
+      outputParameters:
+      - type: object
+        mapping: $.

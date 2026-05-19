@@ -1,0 +1,144 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Google Cloud Dataflow API — Messages
+  description: 'Google Cloud Dataflow API — Messages. 2 operations. Lead operation: Google Cloud Dataflow List messages for
+    a Dataflow job in a project. Self-contained Naftiko capability covering one Google Cloud Dataflow business surface.'
+  tags:
+  - Google Cloud Dataflow
+  - Messages
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    GOOGLE_CLOUD_DATAFLOW_API_KEY: GOOGLE_CLOUD_DATAFLOW_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: google-cloud-dataflow-messages
+    baseUri: https://dataflow.googleapis.com
+    description: Google Cloud Dataflow API — Messages business capability. Self-contained, no shared references.
+    resources:
+    - name: v1b3-projects-projectId-jobs-jobId-messages
+      path: /v1b3/projects/{projectId}/jobs/{jobId}/messages
+      operations:
+      - name: listprojectjobmessages
+        method: GET
+        description: Google Cloud Dataflow List messages for a Dataflow job in a project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: minimumImportance
+          in: query
+          type: string
+          description: Filter to return only messages with at least this importance level.
+        - name: startTime
+          in: query
+          type: string
+          description: Return messages with timestamps greater than or equal to this value.
+        - name: endTime
+          in: query
+          type: string
+          description: Return messages with timestamps less than this value.
+    - name: v1b3-projects-projectId-locations-location-jobs-jobId-messages
+      path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}/messages
+      operations:
+      - name: listlocationjobmessages
+        method: GET
+        description: Google Cloud Dataflow List messages for a Dataflow job in a specific location
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: minimumImportance
+          in: query
+          type: string
+          description: Filter to return only messages with at least this importance level.
+        - name: startTime
+          in: query
+          type: string
+          description: Return messages with timestamps greater than or equal to this value.
+        - name: endTime
+          in: query
+          type: string
+          description: Return messages with timestamps less than this value.
+    authentication:
+      type: bearer
+      token: '{{env.GOOGLE_CLOUD_DATAFLOW_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: google-cloud-dataflow-messages-rest
+    port: 8080
+    description: REST adapter for Google Cloud Dataflow API — Messages. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v1b3/projects/{projectid}/jobs/{jobid}/messages
+      name: v1b3-projects-projectid-jobs-jobid-messages
+      description: REST surface for v1b3-projects-projectId-jobs-jobId-messages.
+      operations:
+      - method: GET
+        name: listprojectjobmessages
+        description: Google Cloud Dataflow List messages for a Dataflow job in a project
+        call: google-cloud-dataflow-messages.listprojectjobmessages
+        with:
+          minimumImportance: rest.minimumImportance
+          startTime: rest.startTime
+          endTime: rest.endTime
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1b3/projects/{projectid}/locations/{location}/jobs/{jobid}/messages
+      name: v1b3-projects-projectid-locations-location-jobs-jobid-messages
+      description: REST surface for v1b3-projects-projectId-locations-location-jobs-jobId-messages.
+      operations:
+      - method: GET
+        name: listlocationjobmessages
+        description: Google Cloud Dataflow List messages for a Dataflow job in a specific location
+        call: google-cloud-dataflow-messages.listlocationjobmessages
+        with:
+          minimumImportance: rest.minimumImportance
+          startTime: rest.startTime
+          endTime: rest.endTime
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: google-cloud-dataflow-messages-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Google Cloud Dataflow API — Messages. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: google-cloud-dataflow-list-messages
+      description: Google Cloud Dataflow List messages for a Dataflow job in a project
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow-messages.listprojectjobmessages
+      with:
+        minimumImportance: tools.minimumImportance
+        startTime: tools.startTime
+        endTime: tools.endTime
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: google-cloud-dataflow-list-messages-2
+      description: Google Cloud Dataflow List messages for a Dataflow job in a specific location
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-cloud-dataflow-messages.listlocationjobmessages
+      with:
+        minimumImportance: tools.minimumImportance
+        startTime: tools.startTime
+        endTime: tools.endTime
+      outputParameters:
+      - type: object
+        mapping: $.
