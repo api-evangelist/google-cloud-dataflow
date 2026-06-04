@@ -1,0 +1,118 @@
+arazzo: 1.0.1
+info:
+  title: Google Cloud Dataflow Diagnose Job
+  summary: Read a job's state, pull its error-level messages, then inspect stage execution details.
+  description: >-
+    Gathers the signals needed to diagnose a problematic Dataflow job. The
+    workflow reads the job to capture its current state, retrieves the job status
+    messages filtered to error importance, then pulls the stage-level execution
+    details so failing stages can be identified. Every step spells out its
+    request inline, including the inline Bearer authorization Google Cloud
+    requires, so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: dataflowApi
+  url: ../openapi/google-cloud-dataflow-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: diagnose-job
+  summary: Read job state, pull error messages, and inspect execution details.
+  description: >-
+    Reads a job's current state, retrieves its error-level status messages, then
+    pulls execution details to surface failing stages.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - projectId
+    - location
+    - jobId
+    properties:
+      accessToken:
+        type: string
+        description: Google Cloud OAuth 2.0 access token used as a Bearer credential.
+      projectId:
+        type: string
+        description: The Google Cloud project id that owns the job.
+      location:
+        type: string
+        description: The regional endpoint that contains the job (e.g. us-central1).
+      jobId:
+        type: string
+        description: The id of the job to diagnose.
+  steps:
+  - stepId: readJob
+    description: >-
+      Read the job to capture its current state as the starting point for
+      diagnosis.
+    operationId: getLocationJob
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: projectId
+      in: path
+      value: $inputs.projectId
+    - name: location
+      in: path
+      value: $inputs.location
+    - name: jobId
+      in: path
+      value: $inputs.jobId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      currentState: $response.body#/currentState
+  - stepId: pullErrorMessages
+    description: >-
+      Retrieve the job status messages filtered to error importance to surface
+      failures reported during execution.
+    operationId: listLocationJobMessages
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: projectId
+      in: path
+      value: $inputs.projectId
+    - name: location
+      in: path
+      value: $inputs.location
+    - name: jobId
+      in: path
+      value: $inputs.jobId
+    - name: minimumImportance
+      in: query
+      value: JOB_MESSAGE_ERROR
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      jobMessages: $response.body#/jobMessages
+      nextPageToken: $response.body#/nextPageToken
+  - stepId: inspectExecutionDetails
+    description: >-
+      Pull the stage-level execution details for the job so failing stages and
+      their progress can be identified.
+    operationId: getLocationJobExecutionDetails
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: projectId
+      in: path
+      value: $inputs.projectId
+    - name: location
+      in: path
+      value: $inputs.location
+    - name: jobId
+      in: path
+      value: $inputs.jobId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      stages: $response.body#/stages
+  outputs:
+    currentState: $steps.readJob.outputs.currentState
+    jobMessages: $steps.pullErrorMessages.outputs.jobMessages
+    stages: $steps.inspectExecutionDetails.outputs.stages

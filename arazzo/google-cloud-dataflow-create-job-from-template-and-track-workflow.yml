@@ -1,0 +1,129 @@
+arazzo: 1.0.1
+info:
+  title: Google Cloud Dataflow Create Job From Template and Track
+  summary: Inspect a classic template's metadata, create a job from it, then confirm the job exists.
+  description: >-
+    Validates and inspects a classic Dataflow template before using it. The
+    workflow reads the template metadata for the supplied Cloud Storage path,
+    creates a new job from that template with the supplied runtime parameters,
+    captures the created job id, and then re-reads the job to confirm it was
+    registered and to capture its current state. Every step spells out its
+    request inline, including the inline Bearer authorization Google Cloud
+    requires, so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: dataflowApi
+  url: ../openapi/google-cloud-dataflow-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: create-job-from-template-and-track
+  summary: Read template metadata, create a job from the template, then confirm it.
+  description: >-
+    Retrieves template metadata, creates a job from the template, and reads the
+    created job back to confirm registration and current state.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - projectId
+    - location
+    - gcsPath
+    - jobName
+    properties:
+      accessToken:
+        type: string
+        description: Google Cloud OAuth 2.0 access token used as a Bearer credential.
+      projectId:
+        type: string
+        description: The Google Cloud project id that owns the job.
+      location:
+        type: string
+        description: The regional endpoint that contains the job (e.g. us-central1).
+      gcsPath:
+        type: string
+        description: Cloud Storage path to the classic template (gs://...).
+      jobName:
+        type: string
+        description: The name to assign to the created job.
+      parameters:
+        type: object
+        description: Map of runtime template parameter name/value pairs.
+  steps:
+  - stepId: getTemplateMetadata
+    description: >-
+      Read the classic template metadata at the supplied Cloud Storage path to
+      confirm the template exists and to inspect its parameters.
+    operationId: getLocationTemplate
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: projectId
+      in: path
+      value: $inputs.projectId
+    - name: location
+      in: path
+      value: $inputs.location
+    - name: gcsPath
+      in: query
+      value: $inputs.gcsPath
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      templateType: $response.body#/templateType
+      metadata: $response.body#/metadata
+  - stepId: createJobFromTemplate
+    description: >-
+      Create a new Dataflow job from the classic template with the supplied job
+      name and runtime parameters.
+    operationId: createLocationJobFromTemplate
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: projectId
+      in: path
+      value: $inputs.projectId
+    - name: location
+      in: path
+      value: $inputs.location
+    requestBody:
+      contentType: application/json
+      payload:
+        jobName: $inputs.jobName
+        gcsPath: $inputs.gcsPath
+        parameters: $inputs.parameters
+        location: $inputs.location
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      jobId: $response.body#/id
+      jobState: $response.body#/currentState
+  - stepId: confirmJob
+    description: >-
+      Read the newly created job back to confirm it was registered and to
+      capture its current state.
+    operationId: getLocationJob
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: projectId
+      in: path
+      value: $inputs.projectId
+    - name: location
+      in: path
+      value: $inputs.location
+    - name: jobId
+      in: path
+      value: $steps.createJobFromTemplate.outputs.jobId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      jobId: $response.body#/id
+      currentState: $response.body#/currentState
+  outputs:
+    templateType: $steps.getTemplateMetadata.outputs.templateType
+    jobId: $steps.confirmJob.outputs.jobId
+    currentState: $steps.confirmJob.outputs.currentState

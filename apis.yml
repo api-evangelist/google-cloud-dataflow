@@ -115,6 +115,39 @@ maintainers:
   email: kin@apievangelist.com
   url: https://apievangelist.com
 common:
+- type: ArazzoWorkflows
+  url: arazzo/
+  workflows:
+  - url: arazzo/google-cloud-dataflow-cancel-running-job-workflow.yml
+    name: Google Cloud Dataflow Cancel Running Job
+    summary: Confirm a job is running, request cancellation, then poll until it is cancelled.
+  - url: arazzo/google-cloud-dataflow-capture-worker-debug-data-workflow.yml
+    name: Google Cloud Dataflow Capture Worker Debug Data
+    summary: Confirm a job, fetch a worker component's debug config, then send a debug capture.
+  - url: arazzo/google-cloud-dataflow-cleanup-job-snapshots-workflow.yml
+    name: Google Cloud Dataflow Cleanup Job Snapshots
+    summary: List snapshots for a job, inspect the oldest one, then delete it.
+  - url: arazzo/google-cloud-dataflow-create-job-from-template-and-track-workflow.yml
+    name: Google Cloud Dataflow Create Job From Template and Track
+    summary: Inspect a classic template's metadata, create a job from it, then confirm the job exists.
+  - url: arazzo/google-cloud-dataflow-diagnose-job-workflow.yml
+    name: Google Cloud Dataflow Diagnose Job
+    summary: Read a job's state, pull its error-level messages, then inspect stage execution details.
+  - url: arazzo/google-cloud-dataflow-drain-running-job-workflow.yml
+    name: Google Cloud Dataflow Drain Running Job
+    summary: Confirm a streaming job is running, request a drain, then poll until it is drained.
+  - url: arazzo/google-cloud-dataflow-launch-classic-template-and-monitor-workflow.yml
+    name: Google Cloud Dataflow Launch Classic Template and Monitor
+    summary: Launch a job from a classic Dataflow template, poll it to completion, then read its metrics.
+  - url: arazzo/google-cloud-dataflow-launch-flex-template-and-monitor-workflow.yml
+    name: Google Cloud Dataflow Launch Flex Template and Monitor
+    summary: Launch a containerized Flex Template job, poll it to completion, then read its metrics.
+  - url: arazzo/google-cloud-dataflow-list-jobs-and-snapshot-workflow.yml
+    name: Google Cloud Dataflow List Jobs and Snapshot
+    summary: List jobs in a region, inspect the first job, then snapshot it.
+  - url: arazzo/google-cloud-dataflow-snapshot-streaming-job-workflow.yml
+    name: Google Cloud Dataflow Snapshot Streaming Job
+    summary: Confirm a streaming job is running, take a snapshot, then read the snapshot back.
 - type: Portal
   url: https://cloud.google.com/dataflow
 - type: Documentation
