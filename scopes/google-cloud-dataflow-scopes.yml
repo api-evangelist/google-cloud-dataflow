@@ -1,0 +1,30 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/google-cloud-dataflow-api-openapi.yml
+schemes:
+- name: oauth2
+  source: openapi/google-cloud-dataflow-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://accounts.google.com/o/oauth2/auth
+    tokenUrl: https://oauth2.googleapis.com/token
+  description: OAuth 2.0 authentication for Google Cloud APIs.
+scopes:
+- scope: https://www.googleapis.com/auth/cloud-platform
+  description: Full access to all Google Cloud resources.
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/google-cloud-dataflow-api-openapi.yml
+- scope: https://www.googleapis.com/auth/compute
+  description: View and manage Google Compute Engine resources.
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/google-cloud-dataflow-api-openapi.yml
+- scope: https://www.googleapis.com/auth/compute.readonly
+  description: View Google Compute Engine resources.
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/google-cloud-dataflow-api-openapi.yml
