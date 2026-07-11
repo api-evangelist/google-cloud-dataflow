@@ -101,6 +101,12 @@ maintainers:
     email: kin@apievangelist.com
     url: https://apievangelist.com
 common:
+  - type: VulnerabilityDisclosure
+    url: security/google-cloud-dataflow-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/google-cloud-dataflow-domain-security.yml
+  - type: Authentication
+    url: authentication/google-cloud-dataflow-authentication.yml
   - type: OAuthScopes
     url: scopes/google-cloud-dataflow-scopes.yml
   - type: PostmanWorkspace
