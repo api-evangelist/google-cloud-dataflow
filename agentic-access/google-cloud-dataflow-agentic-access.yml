@@ -1,0 +1,393 @@
+generated: '2026-07-15'
+method: generated
+source: openapi/google-cloud-dataflow-api-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 29
+  by_action_class:
+    connected: 15
+    acting: 14
+  by_consequence:
+    read: 15
+    write: 13
+    physical: 1
+  human_in_the_loop_required: 0
+operations:
+- path: /v1b3/projects/{projectId}/jobs:aggregated
+  method: get
+  operationId: listAggregatedJobs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1b3/projects/{projectId}/jobs
+  method: get
+  operationId: listProjectJobs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1b3/projects/{projectId}/jobs
+  method: post
+  operationId: createProjectJob
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1b3/projects/{projectId}/jobs/{jobId}
+  method: get
+  operationId: getProjectJob
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1b3/projects/{projectId}/jobs/{jobId}
+  method: put
+  operationId: updateProjectJob
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1b3/projects/{projectId}/jobs/{jobId}:snapshot
+  method: post
+  operationId: snapshotProjectJob
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1b3/projects/{projectId}/jobs/{jobId}/metrics
+  method: get
+  operationId: getProjectJobMetrics
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1b3/projects/{projectId}/jobs/{jobId}/messages
+  method: get
+  operationId: listProjectJobMessages
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1b3/projects/{projectId}/locations/{location}/jobs
+  method: get
+  operationId: listLocationJobs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1b3/projects/{projectId}/locations/{location}/jobs
+  method: post
+  operationId: createLocationJob
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}
+  method: get
+  operationId: getLocationJob
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}
+  method: put
+  operationId: updateLocationJob
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}:snapshot
+  method: post
+  operationId: snapshotLocationJob
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}/metrics
+  method: get
+  operationId: getLocationJobMetrics
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}/messages
+  method: get
+  operationId: listLocationJobMessages
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}/executionDetails
+  method: get
+  operationId: getLocationJobExecutionDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}/stages/{stageId}/executionDetails
+  method: get
+  operationId: getLocationJobStageExecutionDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1b3/projects/{projectId}/locations/{location}/snapshots/{snapshotId}
+  method: get
+  operationId: getLocationSnapshot
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1b3/projects/{projectId}/locations/{location}/snapshots/{snapshotId}
+  method: delete
+  operationId: deleteLocationSnapshot
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1b3/projects/{projectId}/locations/{location}/snapshots
+  method: get
+  operationId: listLocationSnapshots
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}/debug/getConfig
+  method: post
+  operationId: getLocationJobDebugConfig
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}/debug/sendCapture
+  method: post
+  operationId: sendLocationJobDebugCapture
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1b3/projects/{projectId}/locations/{location}/flexTemplates:launch
+  method: post
+  operationId: launchLocationFlexTemplate
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1b3/projects/{projectId}/locations/{location}/templates
+  method: post
+  operationId: createLocationJobFromTemplate
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1b3/projects/{projectId}/locations/{location}/templates:get
+  method: get
+  operationId: getLocationTemplate
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1b3/projects/{projectId}/locations/{location}/templates:launch
+  method: post
+  operationId: launchLocationTemplate
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1b3/projects/{projectId}/templates
+  method: post
+  operationId: createProjectJobFromTemplate
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1b3/projects/{projectId}/templates:get
+  method: get
+  operationId: getProjectTemplate
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1b3/projects/{projectId}/templates:launch
+  method: post
+  operationId: launchProjectTemplate
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
