@@ -1,0 +1,384 @@
+openapi: 3.1.0
+info:
+  title: Google Cloud Dataflow Debug Snapshots API
+  description: Manages Google Cloud Dataflow projects on Google Cloud Platform for creating and managing data processing pipelines, including job submission, monitoring, and resource management for both batch and streaming workloads.
+  version: v1b3
+  termsOfService: https://cloud.google.com/terms
+  contact:
+    name: Google Cloud Support
+    url: https://cloud.google.com/dataflow/docs/support
+  license:
+    name: Creative Commons Attribution 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+servers:
+- url: https://dataflow.googleapis.com
+  description: Google Cloud Dataflow API production endpoint
+security:
+- oauth2: []
+- apiKey: []
+tags:
+- name: Snapshots
+  description: Operations for creating, listing, getting, and deleting job snapshots.
+paths:
+  /v1b3/projects/{projectId}/jobs/{jobId}:snapshot:
+    post:
+      operationId: snapshotProjectJob
+      summary: Google Cloud Dataflow Snapshot a Dataflow job in a project
+      description: Creates a snapshot of a streaming Dataflow job in the specified project. Snapshots capture the state of a streaming pipeline and can be used to start a new job from that state.
+      tags:
+      - Snapshots
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - $ref: '#/components/parameters/jobId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SnapshotJobRequest'
+      responses:
+        '200':
+          description: Successful response containing the created snapshot.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Snapshot'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}:snapshot:
+    post:
+      operationId: snapshotLocationJob
+      summary: Google Cloud Dataflow Snapshot a Dataflow job in a specific location
+      description: Creates a snapshot of a streaming Dataflow job in the specified project and regional location. Snapshots capture the state of a streaming pipeline and can be used to start a new job from that state.
+      tags:
+      - Snapshots
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - $ref: '#/components/parameters/locationPath'
+      - $ref: '#/components/parameters/jobId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SnapshotJobRequest'
+      responses:
+        '200':
+          description: Successful response containing the created snapshot.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Snapshot'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v1b3/projects/{projectId}/locations/{location}/snapshots/{snapshotId}:
+    get:
+      operationId: getLocationSnapshot
+      summary: Google Cloud Dataflow Get a snapshot in a specific location
+      description: Retrieves the details of a specified snapshot in the given project and regional location. Returns the snapshot metadata including state, creation time, and associated job information.
+      tags:
+      - Snapshots
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - $ref: '#/components/parameters/locationPath'
+      - name: snapshotId
+        in: path
+        required: true
+        description: The ID of the snapshot to retrieve.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response containing the snapshot details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Snapshot'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      operationId: deleteLocationSnapshot
+      summary: Google Cloud Dataflow Delete a snapshot in a specific location
+      description: Deletes a specified snapshot in the given project and regional location. This permanently removes the snapshot and its associated data.
+      tags:
+      - Snapshots
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - $ref: '#/components/parameters/locationPath'
+      - name: snapshotId
+        in: path
+        required: true
+        description: The ID of the snapshot to delete.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response indicating the snapshot was deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteSnapshotResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v1b3/projects/{projectId}/locations/{location}/snapshots:
+    get:
+      operationId: listLocationSnapshots
+      summary: Google Cloud Dataflow List snapshots in a specific location
+      description: Lists all available snapshots in the specified project and regional location. Returns snapshot metadata including state, creation time, and associated job information.
+      tags:
+      - Snapshots
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - $ref: '#/components/parameters/locationPath'
+      - name: jobId
+        in: query
+        description: If specified, list snapshots created from this job only.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response containing the list of snapshots.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListSnapshotsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  schemas:
+    SnapshotState:
+      type: string
+      description: The state of a snapshot.
+      enum:
+      - UNKNOWN_SNAPSHOT_STATE
+      - PENDING
+      - RUNNING
+      - READY
+      - FAILED
+      - DELETED
+    DeleteSnapshotResponse:
+      type: object
+      description: Response from deleting a snapshot. This is an empty response body.
+    Status:
+      type: object
+      description: The Status type defines a logical error model, compatible with gRPC and Google API error conventions.
+      properties:
+        code:
+          type: integer
+          format: int32
+          description: The status code, which should be an enum value of google.rpc.Code.
+        message:
+          type: string
+          description: A developer-facing error message, which should be in English.
+        details:
+          type: array
+          description: A list of messages that carry the error details.
+          items:
+            type: object
+            additionalProperties: true
+    Snapshot:
+      type: object
+      description: Represents a snapshot of a streaming Dataflow job. A snapshot captures the state of the pipeline at a point in time and can be used to start a new job from that state.
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the snapshot.
+          readOnly: true
+        projectId:
+          type: string
+          description: The project this snapshot belongs to.
+        sourceJobId:
+          type: string
+          description: The job from which this snapshot was created.
+        creationTime:
+          type: string
+          format: date-time
+          description: The time this snapshot was created.
+          readOnly: true
+        ttl:
+          type: string
+          description: 'The time-to-live duration for the snapshot, after which it will be automatically deleted. Format: a duration string such as 3600s.'
+        state:
+          $ref: '#/components/schemas/SnapshotState'
+        description:
+          type: string
+          description: User-specified description of the snapshot.
+        pubsubMetadata:
+          type: array
+          description: Pub/Sub snapshot metadata associated with this Dataflow snapshot.
+          items:
+            $ref: '#/components/schemas/PubsubSnapshotMetadata'
+        diskSizeBytes:
+          type: string
+          format: int64
+          description: The disk byte size of the snapshot.
+          readOnly: true
+        region:
+          type: string
+          description: The Cloud region where this snapshot resides, such as us-central1.
+    ListSnapshotsResponse:
+      type: object
+      description: Response to a request to list snapshots.
+      properties:
+        snapshots:
+          type: array
+          description: Returned snapshots.
+          items:
+            $ref: '#/components/schemas/Snapshot'
+    PubsubSnapshotMetadata:
+      type: object
+      description: Represents a Pub/Sub snapshot associated with a Dataflow snapshot.
+      properties:
+        topicName:
+          type: string
+          description: The name of the Pub/Sub topic.
+        snapshotName:
+          type: string
+          description: The name of the Pub/Sub snapshot.
+        expireTime:
+          type: string
+          format: date-time
+          description: The expire time of the Pub/Sub snapshot.
+    SnapshotJobRequest:
+      type: object
+      description: Request to create a snapshot of a streaming Dataflow job.
+      properties:
+        ttl:
+          type: string
+          description: 'The TTL (time-to-live) for the snapshot. After this duration, the snapshot will be automatically deleted. Format: a duration such as 3600s.'
+        location:
+          type: string
+          description: The location of the job.
+        snapshotSources:
+          type: boolean
+          description: If true, also performs snapshots of the sources used by this job.
+        description:
+          type: string
+          description: User-specified description of the snapshot.
+  responses:
+    NotFound:
+      description: The requested resource was not found. Verify the project ID, job ID, or other resource identifiers.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    TooManyRequests:
+      description: The request was rate-limited. Retry the request after a brief delay using exponential backoff.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    Forbidden:
+      description: The caller does not have sufficient permissions to perform this operation. Verify IAM roles and permissions.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    Unauthorized:
+      description: Authentication credentials were missing or invalid. Provide valid OAuth 2.0 credentials or API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    InternalServerError:
+      description: An internal server error occurred. Retry the request using exponential backoff.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    BadRequest:
+      description: The request was invalid or malformed. Check the request parameters and body for errors.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+  parameters:
+    locationPath:
+      name: location
+      in: path
+      required: true
+      description: The regional endpoint where the job resides, such as us-central1 or europe-west1.
+      schema:
+        type: string
+    projectId:
+      name: projectId
+      in: path
+      required: true
+      description: The ID of the Google Cloud project that owns the job.
+      schema:
+        type: string
+    jobId:
+      name: jobId
+      in: path
+      required: true
+      description: The unique identifier of the Dataflow job.
+      schema:
+        type: string
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication for Google Cloud APIs.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            https://www.googleapis.com/auth/cloud-platform: Full access to all Google Cloud resources.
+            https://www.googleapis.com/auth/compute: View and manage Google Compute Engine resources.
+            https://www.googleapis.com/auth/compute.readonly: View Google Compute Engine resources.
+    apiKey:
+      type: apiKey
+      name: key
+      in: query
+      description: API key for identifying the calling project.
+externalDocs:
+  description: Google Cloud Dataflow REST API Reference
+  url: https://cloud.google.com/dataflow/docs/reference/rest

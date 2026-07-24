@@ -1,0 +1,1382 @@
+openapi: 3.1.0
+info:
+  title: Google Cloud Dataflow Debug Jobs API
+  description: Manages Google Cloud Dataflow projects on Google Cloud Platform for creating and managing data processing pipelines, including job submission, monitoring, and resource management for both batch and streaming workloads.
+  version: v1b3
+  termsOfService: https://cloud.google.com/terms
+  contact:
+    name: Google Cloud Support
+    url: https://cloud.google.com/dataflow/docs/support
+  license:
+    name: Creative Commons Attribution 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+servers:
+- url: https://dataflow.googleapis.com
+  description: Google Cloud Dataflow API production endpoint
+security:
+- oauth2: []
+- apiKey: []
+tags:
+- name: Jobs
+  description: Operations for creating, managing, and monitoring Dataflow jobs.
+paths:
+  /v1b3/projects/{projectId}/jobs:aggregated:
+    get:
+      operationId: listAggregatedJobs
+      summary: Google Cloud Dataflow List aggregated jobs across all regions
+      description: Lists all Dataflow jobs associated with the specified project across all regions. Returns a paginated list of jobs including their current state, type, and metadata.
+      tags:
+      - Jobs
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - $ref: '#/components/parameters/pageToken'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/jobView'
+      - $ref: '#/components/parameters/jobFilter'
+      - $ref: '#/components/parameters/jobName'
+      responses:
+        '200':
+          description: Successful response containing the list of jobs.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListJobsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v1b3/projects/{projectId}/jobs:
+    get:
+      operationId: listProjectJobs
+      summary: Google Cloud Dataflow List jobs in a project
+      description: Lists all Dataflow jobs associated with the specified project. Returns a paginated list that can be filtered by state and name. Use the location- specific endpoint for regional job listing.
+      tags:
+      - Jobs
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - $ref: '#/components/parameters/pageToken'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/jobView'
+      - $ref: '#/components/parameters/jobFilter'
+      - $ref: '#/components/parameters/jobName'
+      - $ref: '#/components/parameters/location'
+      responses:
+        '200':
+          description: Successful response containing the list of jobs.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListJobsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      operationId: createProjectJob
+      summary: Google Cloud Dataflow Create a Dataflow job in a project
+      description: Creates a new Dataflow job in the specified project. The job definition includes the pipeline configuration, environment settings, and execution parameters for batch or streaming workloads.
+      tags:
+      - Jobs
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - $ref: '#/components/parameters/jobView'
+      - name: replaceJobId
+        in: query
+        description: Deprecated. The ID of the job to replace when updating a pipeline.
+        schema:
+          type: string
+      - $ref: '#/components/parameters/location'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Job'
+      responses:
+        '200':
+          description: Successful response containing the created job.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v1b3/projects/{projectId}/jobs/{jobId}:
+    get:
+      operationId: getProjectJob
+      summary: Google Cloud Dataflow Get a Dataflow job in a project
+      description: Retrieves the state of a specified Dataflow job in the given project. Returns the full job resource including current state, pipeline description, environment, and metadata.
+      tags:
+      - Jobs
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - $ref: '#/components/parameters/jobId'
+      - $ref: '#/components/parameters/jobView'
+      - $ref: '#/components/parameters/location'
+      responses:
+        '200':
+          description: Successful response containing the job details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    put:
+      operationId: updateProjectJob
+      summary: Google Cloud Dataflow Update a Dataflow job in a project
+      description: Updates the state of an existing Dataflow job in the specified project. This is primarily used to change the requested state of a job, such as cancelling or draining a running job.
+      tags:
+      - Jobs
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - $ref: '#/components/parameters/jobId'
+      - $ref: '#/components/parameters/location'
+      - name: updateMask
+        in: query
+        description: The list of fields to update relative to the job. If empty, only the requestedState field will be considered.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Job'
+      responses:
+        '200':
+          description: Successful response containing the updated job.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v1b3/projects/{projectId}/locations/{location}/jobs:
+    get:
+      operationId: listLocationJobs
+      summary: Google Cloud Dataflow List jobs in a specific location
+      description: Lists all Dataflow jobs associated with the specified project in the given regional location. Returns a paginated list that can be filtered by state and name.
+      tags:
+      - Jobs
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - $ref: '#/components/parameters/locationPath'
+      - $ref: '#/components/parameters/pageToken'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/jobView'
+      - $ref: '#/components/parameters/jobFilter'
+      - $ref: '#/components/parameters/jobName'
+      responses:
+        '200':
+          description: Successful response containing the list of jobs.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListJobsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      operationId: createLocationJob
+      summary: Google Cloud Dataflow Create a Dataflow job in a specific location
+      description: Creates a new Dataflow job in the specified project and regional location. The job definition includes the pipeline configuration, environment settings, and execution parameters.
+      tags:
+      - Jobs
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - $ref: '#/components/parameters/locationPath'
+      - $ref: '#/components/parameters/jobView'
+      - name: replaceJobId
+        in: query
+        description: Deprecated. The ID of the job to replace when updating a pipeline.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Job'
+      responses:
+        '200':
+          description: Successful response containing the created job.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}:
+    get:
+      operationId: getLocationJob
+      summary: Google Cloud Dataflow Get a Dataflow job in a specific location
+      description: Retrieves the state of a specified Dataflow job in the given project and regional location. Returns the full job resource including current state, pipeline description, environment, and metadata.
+      tags:
+      - Jobs
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - $ref: '#/components/parameters/locationPath'
+      - $ref: '#/components/parameters/jobId'
+      - $ref: '#/components/parameters/jobView'
+      responses:
+        '200':
+          description: Successful response containing the job details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    put:
+      operationId: updateLocationJob
+      summary: Google Cloud Dataflow Update a Dataflow job in a specific location
+      description: Updates the state of an existing Dataflow job in the specified project and regional location. This is primarily used to change the requested state of a job, such as cancelling or draining a running job.
+      tags:
+      - Jobs
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - $ref: '#/components/parameters/locationPath'
+      - $ref: '#/components/parameters/jobId'
+      - name: updateMask
+        in: query
+        description: The list of fields to update relative to the job. If empty, only the requestedState field will be considered.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Job'
+      responses:
+        '200':
+          description: Successful response containing the updated job.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}/executionDetails:
+    get:
+      operationId: getLocationJobExecutionDetails
+      summary: Google Cloud Dataflow Get execution details for a Dataflow job
+      description: Retrieves detailed execution status information for a specified Dataflow job in the given project and regional location. Returns information about the stages of the pipeline and their execution status.
+      tags:
+      - Jobs
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - $ref: '#/components/parameters/locationPath'
+      - $ref: '#/components/parameters/jobId'
+      - $ref: '#/components/parameters/pageToken'
+      - $ref: '#/components/parameters/pageSize'
+      responses:
+        '200':
+          description: Successful response containing the job execution details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobExecutionDetails'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  responses:
+    Forbidden:
+      description: The caller does not have sufficient permissions to perform this operation. Verify IAM roles and permissions.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    Unauthorized:
+      description: Authentication credentials were missing or invalid. Provide valid OAuth 2.0 credentials or API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    InternalServerError:
+      description: An internal server error occurred. Retry the request using exponential backoff.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    NotFound:
+      description: The requested resource was not found. Verify the project ID, job ID, or other resource identifiers.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    TooManyRequests:
+      description: The request was rate-limited. Retry the request after a brief delay using exponential backoff.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    Conflict:
+      description: The request conflicts with the current state of the resource, such as attempting to create a job with a name that already exists.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    BadRequest:
+      description: The request was invalid or malformed. Check the request parameters and body for errors.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+  schemas:
+    Step:
+      type: object
+      description: Defines a particular step within a Dataflow job pipeline, corresponding to a transform in the pipeline graph.
+      properties:
+        kind:
+          type: string
+          description: The type of transform this step represents, such as ParallelRead, ParallelDo, or GroupByKey.
+        name:
+          type: string
+          description: The unique name of this step within the job.
+        properties:
+          type: object
+          description: Named properties associated with the step, containing the step configuration.
+          additionalProperties: true
+    ComponentSource:
+      type: object
+      description: An identification of a collection produced or consumed by a component transform.
+      properties:
+        userName:
+          type: string
+          description: Human-readable name for this source.
+        name:
+          type: string
+          description: Dataflow service generated name for this source.
+        originalTransformOrCollection:
+          type: string
+          description: User name for the original user transform or collection this source corresponds to.
+    JobMetadata:
+      type: object
+      description: Metadata available primarily for filtering jobs. Represents information about the external data sources and sinks used by the job.
+      properties:
+        sdkVersion:
+          $ref: '#/components/schemas/SdkVersion'
+        spannerDetails:
+          type: array
+          description: Identification of Cloud Spanner sources used by this job.
+          items:
+            $ref: '#/components/schemas/SpannerIODetails'
+        bigqueryDetails:
+          type: array
+          description: Identification of BigQuery sources used by this job.
+          items:
+            $ref: '#/components/schemas/BigQueryIODetails'
+        bigTableDetails:
+          type: array
+          description: Identification of Cloud Bigtable sources used by this job.
+          items:
+            $ref: '#/components/schemas/BigTableIODetails'
+        pubsubDetails:
+          type: array
+          description: Identification of Pub/Sub sources used by this job.
+          items:
+            $ref: '#/components/schemas/PubSubIODetails'
+        fileDetails:
+          type: array
+          description: Identification of file-based sources used by this job.
+          items:
+            $ref: '#/components/schemas/FileIODetails'
+        datastoreDetails:
+          type: array
+          description: Identification of Datastore sources used by this job.
+          items:
+            $ref: '#/components/schemas/DatastoreIODetails'
+        userDisplayProperties:
+          type: object
+          description: User-supplied properties for display in the Dataflow monitoring UI.
+          additionalProperties:
+            type: string
+    StageSource:
+      type: object
+      description: Describes a stream of data that flows in or out of a stage.
+      properties:
+        userName:
+          type: string
+          description: Human-readable name for this source.
+        name:
+          type: string
+          description: Dataflow service generated name for this source.
+        originalTransformOrCollection:
+          type: string
+          description: User name for the original user transform or collection this source corresponds to.
+        sizeBytes:
+          type: string
+          format: int64
+          description: Size of the source in bytes, if known.
+    SdkHarnessContainerImage:
+      type: object
+      description: Defines an SDK harness container image used by workers to execute pipeline code.
+      properties:
+        containerImage:
+          type: string
+          description: The Docker container image URI.
+        useSingleCorePerContainer:
+          type: boolean
+          description: Whether to use a single CPU core per container.
+        environmentId:
+          type: string
+          description: The environment ID that this container image is associated with in the pipeline.
+        capabilities:
+          type: array
+          description: The capabilities of this SDK harness container.
+          items:
+            type: string
+    BigQueryIODetails:
+      type: object
+      description: Metadata for a BigQuery connector used by the job.
+      properties:
+        table:
+          type: string
+          description: Table accessed in the connection.
+        dataset:
+          type: string
+          description: Dataset accessed in the connection.
+        projectId:
+          type: string
+          description: Project accessed in the connection.
+        query:
+          type: string
+          description: Query used to access data in the connection.
+    ListJobsResponse:
+      type: object
+      description: Response to a request to list Dataflow jobs. This may be a partial response, requiring pagination to retrieve all jobs.
+      properties:
+        jobs:
+          type: array
+          description: A subset of the requested job information.
+          items:
+            $ref: '#/components/schemas/Job'
+        nextPageToken:
+          type: string
+          description: Set if there may be more results than have been returned. Provide this value as the pageToken in a subsequent request to retrieve additional results.
+        failedLocation:
+          type: array
+          description: Zero or more regional endpoints that failed to respond to the list request.
+          items:
+            $ref: '#/components/schemas/FailedLocation'
+    DatastoreIODetails:
+      type: object
+      description: Metadata for a Datastore connector used by the job.
+      properties:
+        namespace:
+          type: string
+          description: Namespace used in the connection.
+        projectId:
+          type: string
+          description: ProjectId accessed in the connection.
+    ComponentTransform:
+      type: object
+      description: An identification of a transform within a stage.
+      properties:
+        userName:
+          type: string
+          description: Human-readable name for this transform.
+        name:
+          type: string
+          description: Dataflow service generated name for this transform.
+        originalTransform:
+          type: string
+          description: User name for the original user transform this component corresponds to.
+    ProgressTimeseries:
+      type: object
+      description: Information about the progress of some component of job execution.
+      properties:
+        currentProgress:
+          type: number
+          format: double
+          description: The current progress of the component, in the range [0.0, 1.0].
+        dataPoints:
+          type: array
+          description: History of progress measurements.
+          items:
+            $ref: '#/components/schemas/Point'
+    SpannerIODetails:
+      type: object
+      description: Metadata for a Cloud Spanner connector used by the job.
+      properties:
+        projectId:
+          type: string
+          description: ProjectId accessed in the connection.
+        instanceId:
+          type: string
+          description: InstanceId accessed in the connection.
+        databaseId:
+          type: string
+          description: DatabaseId accessed in the connection.
+    DisplayData:
+      type: object
+      description: Data provided with a pipeline or transform to provide descriptive information.
+      properties:
+        key:
+          type: string
+          description: The key identifying the display data.
+        namespace:
+          type: string
+          description: The namespace for the key, usually a class name.
+        strValue:
+          type: string
+          description: Contains value if the data is of string type.
+        int64Value:
+          type: string
+          format: int64
+          description: Contains value if the data is of int64 type.
+        floatValue:
+          type: number
+          format: float
+          description: Contains value if the data is of float type.
+        javaClassValue:
+          type: string
+          description: Contains value if the data is of java class type.
+        timestampValue:
+          type: string
+          format: date-time
+          description: Contains value if the data is of timestamp type.
+        durationValue:
+          type: string
+          description: Contains value if the data is of duration type.
+        boolValue:
+          type: boolean
+          description: Contains value if the data is of bool type.
+        shortStrValue:
+          type: string
+          description: A possible additional shorter value to display.
+        url:
+          type: string
+          description: An optional full URL.
+        label:
+          type: string
+          description: An optional label to display with the value.
+    StageSummary:
+      type: object
+      description: Information about a particular execution stage of a job.
+      properties:
+        stageId:
+          type: string
+          description: ID of this stage.
+        state:
+          $ref: '#/components/schemas/ExecutionState'
+        startTime:
+          type: string
+          format: date-time
+          description: Start time of this stage.
+        endTime:
+          type: string
+          format: date-time
+          description: End time of this stage. Not set if the stage is still running.
+        progress:
+          $ref: '#/components/schemas/ProgressTimeseries'
+        metrics:
+          type: array
+          description: Metrics for this stage.
+          items:
+            $ref: '#/components/schemas/MetricUpdate'
+        stragglerSummary:
+          $ref: '#/components/schemas/StragglerSummary'
+    MetricStructuredName:
+      type: object
+      description: Identifies a metric, using both the key and the context in which it appears.
+      properties:
+        origin:
+          type: string
+          description: Origin (namespace) of metric name. May be blank for user-defined metrics. Typical values are dataflow/v1b3 and user.
+        name:
+          type: string
+          description: Worker-defined metric name.
+        context:
+          type: object
+          description: Zero or more labeled fields that identify the part of the job this metric is associated with.
+          additionalProperties:
+            type: string
+    Status:
+      type: object
+      description: The Status type defines a logical error model, compatible with gRPC and Google API error conventions.
+      properties:
+        code:
+          type: integer
+          format: int32
+          description: The status code, which should be an enum value of google.rpc.Code.
+        message:
+          type: string
+          description: A developer-facing error message, which should be in English.
+        details:
+          type: array
+          description: A list of messages that carry the error details.
+          items:
+            type: object
+            additionalProperties: true
+    Job:
+      type: object
+      description: Defines a Dataflow job representing a pipeline execution. A job encapsulates the pipeline configuration, environment, execution state, and metadata for batch or streaming workloads.
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the job. This is set by the server and is immutable once assigned.
+          readOnly: true
+        projectId:
+          type: string
+          description: The ID of the Google Cloud project that owns this job.
+        name:
+          type: string
+          description: The user-assigned name of the job. Job names do not need to be unique, but duplicate names within the same project may cause confusion.
+        type:
+          $ref: '#/components/schemas/JobType'
+        currentState:
+          $ref: '#/components/schemas/JobState'
+        currentStateTime:
+          type: string
+          format: date-time
+          description: The timestamp of the most recent state transition.
+          readOnly: true
+        requestedState:
+          $ref: '#/components/schemas/JobState'
+        createTime:
+          type: string
+          format: date-time
+          description: The timestamp when the job was initially created.
+          readOnly: true
+        startTime:
+          type: string
+          format: date-time
+          description: The timestamp when the job began executing.
+          readOnly: true
+        environment:
+          $ref: '#/components/schemas/Environment'
+        steps:
+          type: array
+          description: The pipeline processing steps that define the job. Each step corresponds to a transform in the pipeline graph.
+          items:
+            $ref: '#/components/schemas/Step'
+        stepsLocation:
+          type: string
+          description: The Cloud Storage location where the step information is stored for the job.
+        stageStates:
+          type: array
+          description: The per-stage execution state information for the job.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/ExecutionStageState'
+        pipelineDescription:
+          $ref: '#/components/schemas/PipelineDescription'
+        labels:
+          type: object
+          description: User-defined labels for the job. Labels are key-value pairs where both the key and value are strings.
+          additionalProperties:
+            type: string
+        location:
+          type: string
+          description: The regional endpoint where this job runs, such as us-central1 or europe-west1.
+        createdFromSnapshotId:
+          type: string
+          description: If this job was created from a snapshot, the ID of that snapshot.
+          readOnly: true
+        replacedByJobId:
+          type: string
+          description: If this job has been replaced by another job as part of a pipeline update, the ID of the replacement job.
+          readOnly: true
+        replaceJobId:
+          type: string
+          description: If this job is replacing another job, the ID of the job being replaced.
+        clientRequestId:
+          type: string
+          description: A unique client-generated idempotency key for preventing duplicate job creation.
+        tempFiles:
+          type: array
+          description: A set of files stored on Cloud Storage that are used by this job for temporary storage.
+          items:
+            type: string
+        jobMetadata:
+          $ref: '#/components/schemas/JobMetadata'
+        runtimeUpdatableParams:
+          $ref: '#/components/schemas/RuntimeUpdatableParams'
+        serviceResources:
+          $ref: '#/components/schemas/ServiceResources'
+        satisfiesPzi:
+          type: boolean
+          description: Reserved for future use. This field is set by the server.
+          readOnly: true
+        satisfiesPzs:
+          type: boolean
+          description: Reserved for future use. This field is set by the server.
+          readOnly: true
+    RuntimeUpdatableParams:
+      type: object
+      description: Additional job parameters that can be updated during execution without stopping the job.
+      properties:
+        maxNumWorkers:
+          type: integer
+          format: int32
+          description: The maximum number of workers for autoscaling.
+        minNumWorkers:
+          type: integer
+          format: int32
+          description: The minimum number of workers for autoscaling.
+        workerUtilizationHint:
+          type: number
+          format: double
+          description: Target worker utilization between 0.1 and 0.9, used by the autoscaler to determine when to scale.
+    TransformSummary:
+      type: object
+      description: Description of a transform executed as part of a Dataflow job.
+      properties:
+        kind:
+          type: string
+          description: The type of transform.
+          enum:
+          - UNKNOWN_KIND
+          - PAR_DO_KIND
+          - GROUP_BY_KEY_KIND
+          - FLATTEN_KIND
+          - READ_KIND
+          - WRITE_KIND
+          - CONSTANT_KIND
+          - SINGLETON_KIND
+          - SHUFFLE_KIND
+        id:
+          type: string
+          description: SDK-generated unique identifier of the transform.
+        name:
+          type: string
+          description: User-provided name of the transform.
+        displayData:
+          type: array
+          description: Transform-specific display data.
+          items:
+            $ref: '#/components/schemas/DisplayData'
+        outputCollectionName:
+          type: array
+          description: User names for the output collections of this transform.
+          items:
+            type: string
+        inputCollectionName:
+          type: array
+          description: User names for the input collections of this transform.
+          items:
+            type: string
+    JobType:
+      type: string
+      description: The type of Dataflow job, indicating batch or streaming execution.
+      enum:
+      - JOB_TYPE_UNKNOWN
+      - JOB_TYPE_BATCH
+      - JOB_TYPE_STREAMING
+    PubSubIODetails:
+      type: object
+      description: Metadata for a Pub/Sub connector used by the job.
+      properties:
+        topic:
+          type: string
+          description: Topic accessed in the connection.
+        subscription:
+          type: string
+          description: Subscription used in the connection.
+    SdkVersion:
+      type: object
+      description: The version of the SDK used to run the job.
+      properties:
+        version:
+          type: string
+          description: The version of the SDK used to run the job.
+        versionDisplayName:
+          type: string
+          description: A readable string describing the version of the SDK.
+        sdkSupportStatus:
+          type: string
+          description: The support status for this SDK version.
+          enum:
+          - UNKNOWN
+          - SUPPORTED
+          - STALE
+          - DEPRECATED
+          - UNSUPPORTED
+    BigTableIODetails:
+      type: object
+      description: Metadata for a Cloud Bigtable connector used by the job.
+      properties:
+        projectId:
+          type: string
+          description: ProjectId accessed in the connection.
+        instanceId:
+          type: string
+          description: InstanceId accessed in the connection.
+        tableId:
+          type: string
+          description: TableId accessed in the connection.
+    PipelineDescription:
+      type: object
+      description: A descriptive representation of a pipeline, providing structural information about the stages and transforms in the pipeline graph.
+      properties:
+        originalPipelineTransform:
+          type: array
+          description: Description of each transform in the pipeline as provided by the user.
+          items:
+            $ref: '#/components/schemas/TransformSummary'
+        executionPipelineStage:
+          type: array
+          description: Description of each stage of execution after the pipeline has been optimized by the service.
+          items:
+            $ref: '#/components/schemas/ExecutionStageSummary'
+        displayData:
+          type: array
+          description: Pipeline level display data.
+          items:
+            $ref: '#/components/schemas/DisplayData'
+    StragglerSummary:
+      type: object
+      description: Summarizes straggler information within a stage.
+      properties:
+        totalStragglerCount:
+          type: string
+          format: int64
+          description: The total count of stragglers.
+        stragglerDelineation:
+          type: array
+          description: The straggler delineation, per straggler cause.
+          items:
+            $ref: '#/components/schemas/StragglerDelineation'
+    FailedLocation:
+      type: object
+      description: Indicates which regional endpoint failed to respond.
+      properties:
+        name:
+          type: string
+          description: The name of the failed location, typically a regional endpoint such as us-central1.
+    StragglerDelineation:
+      type: object
+      description: Information useful for straggler identification and debugging.
+      properties:
+        stragglerCause:
+          type: string
+          description: The straggler cause.
+          enum:
+          - STRAGGLER_CAUSE_UNKNOWN
+          - STRAGGLER_CAUSE_KEY
+        stragglerCount:
+          type: string
+          format: int64
+          description: The number of stragglers of this type.
+    AutoscalingSettings:
+      type: object
+      description: Settings for autoscaling the number of worker instances in a pool.
+      properties:
+        algorithm:
+          type: string
+          description: The autoscaling algorithm to use.
+          enum:
+          - AUTOSCALING_ALGORITHM_UNKNOWN
+          - AUTOSCALING_ALGORITHM_NONE
+          - AUTOSCALING_ALGORITHM_BASIC
+        maxNumWorkers:
+          type: integer
+          format: int32
+          description: The maximum number of workers to scale up to.
+    WorkerPool:
+      type: object
+      description: Describes a pool of workers that execute pipeline transforms. Each pool specifies the machine type, disk configuration, networking, and autoscaling behavior.
+      properties:
+        kind:
+          type: string
+          description: The kind of worker pool, either harness for pipeline execution or shuffle for shuffle operations.
+        numWorkers:
+          type: integer
+          format: int32
+          description: The initial number of worker instances in the pool.
+        machineType:
+          type: string
+          description: The Compute Engine machine type for worker instances, such as n1-standard-4 or e2-standard-2.
+        diskSizeGb:
+          type: integer
+          format: int32
+          description: The size in GB of the root disk for each worker instance.
+        diskType:
+          type: string
+          description: The type of root disk for each worker instance, such as pd-standard, pd-ssd, or pd-balanced.
+        zone:
+          type: string
+          description: The Compute Engine zone where worker instances should be created.
+        network:
+          type: string
+          description: The name or full URL of the VPC network for worker instances.
+        subnetwork:
+          type: string
+          description: The full URL of the VPC subnetwork for worker instances.
+        metadata:
+          type: object
+          description: Metadata key-value pairs to set on the worker Compute Engine instances.
+          additionalProperties:
+            type: string
+        packages:
+          type: array
+          description: Packages to install on each worker instance, in addition to the default packages.
+          items:
+            $ref: '#/components/schemas/Package'
+        defaultPackageSet:
+          type: string
+          description: The default package set to install on the worker instances.
+          enum:
+          - DEFAULT_PACKAGE_SET_UNKNOWN
+          - DEFAULT_PACKAGE_SET_NONE
+          - DEFAULT_PACKAGE_SET_JAVA
+          - DEFAULT_PACKAGE_SET_PYTHON
+        autoscalingSettings:
+          $ref: '#/components/schemas/AutoscalingSettings'
+        ipConfiguration:
+          type: string
+          description: Configuration for the network IP address assignment for workers.
+          enum:
+          - WORKER_IP_UNSPECIFIED
+          - WORKER_IP_PUBLIC
+          - WORKER_IP_PRIVATE
+        sdkHarnessContainerImages:
+          type: array
+          description: Set of SDK harness container images for the worker pool, defining which containers to use for executing the pipeline.
+          items:
+            $ref: '#/components/schemas/SdkHarnessContainerImage'
+        teardownPolicy:
+          type: string
+          description: The policy that determines when worker instances are torn down.
+          enum:
+          - TEARDOWN_POLICY_UNKNOWN
+          - TEARDOWN_ALWAYS
+          - TEARDOWN_ON_SUCCESS
+          - TEARDOWN_NEVER
+        workerHarnessContainerImage:
+          type: string
+          description: The Docker container image to use for the worker harness.
+    FileIODetails:
+      type: object
+      description: Metadata for a file connector used by the job.
+      properties:
+        filePattern:
+          type: string
+          description: File pattern used in the connection.
+    ServiceResources:
+      type: object
+      description: Resources allocated by the Dataflow service for the job.
+      properties:
+        zones:
+          type: array
+          description: The Cloud zones from which resources are allocated for this job.
+          items:
+            type: string
+    ExecutionState:
+      type: string
+      description: The state of a stage execution.
+      enum:
+      - EXECUTION_STATE_UNKNOWN
+      - EXECUTION_STATE_NOT_STARTED
+      - EXECUTION_STATE_RUNNING
+      - EXECUTION_STATE_SUCCEEDED
+      - EXECUTION_STATE_FAILED
+      - EXECUTION_STATE_CANCELLED
+    MetricUpdate:
+      type: object
+      description: Describes the state of a metric at a particular point in time.
+      properties:
+        name:
+          $ref: '#/components/schemas/MetricStructuredName'
+        kind:
+          type: string
+          description: Metric aggregation kind. The possible values are Sum, Max, Min, Mean, Set, And, Or, Distribution, LatestValue.
+        cumulative:
+          type: boolean
+          description: True if this metric is reported as the total cumulative aggregate value accumulated since the worker started working on this WorkItem.
+        scalar:
+          description: Worker-computed aggregate value for aggregation kinds Sum, Max, Min.
+        meanSum:
+          description: Worker-computed aggregate value for the Mean aggregation kind.
+        meanCount:
+          description: Worker-computed aggregate value for the Mean aggregation kind.
+        set:
+          description: Worker-computed aggregate value for the Set aggregation kind.
+        distribution:
+          description: A struct value describing properties of a distribution of numeric values.
+        gauge:
+          description: A struct value describing properties of a gauge metric.
+        internal:
+          description: Worker-computed aggregate value for internal use by the service.
+        updateTime:
+          type: string
+          format: date-time
+          description: Timestamp associated with the metric value.
+    Environment:
+      type: object
+      description: Describes the environment in which a Dataflow job runs, including worker pool configuration, networking, and runtime settings.
+      properties:
+        tempStoragePrefix:
+          type: string
+          description: The prefix of the Cloud Storage path for temporary storage used during job execution.
+        clusterManagerApiService:
+          type: string
+          description: The type of cluster manager API to use for managing workers.
+        experiments:
+          type: array
+          description: A list of experiment flags passed to the SDK and Dataflow service for enabling experimental features.
+          items:
+            type: string
+        serviceOptions:
+          type: array
+          description: A list of service-level feature flags for the Dataflow service.
+          items:
+            type: string
+        serviceKmsKeyName:
+          type: string
+          description: 'The Cloud KMS key used for encrypting data at rest. Format: projects/{project}/locations/{location}/keyRings/{keyRing}/cryptoKeys/{key}.'
+        workerPools:
+          type: array
+          description: The worker pool configuration for the job. Each pool defines the machine type, disk, network, and autoscaling settings.
+          items:
+            $ref: '#/components/schemas/WorkerPool'
+        userAgent:
+          type: object
+          description: A structure describing the SDK and its version used by the job.
+          additionalProperties: true
+        version:
+          type: object
+          description: A structure describing which version of the Dataflow service the job requires.
+          additionalProperties: true
+        dataset:
+          type: string
+          description: 'The BigQuery dataset for workflow logging tables. Format: bigquery.googleapis.com/projects/{project}/datasets/{dataset}.'
+        sdkPipelineOptions:
+          type: object
+          description: The Cloud Dataflow SDK pipeline options specified by the user, passed through to the SDK without modification.
+          additionalProperties: true
+        serviceAccountEmail:
+          type: string
+          description: The email address of the service account to run the workers as.
+        flexResourceSchedulingGoal:
+          type: string
+          description: Which Flexible Resource Scheduling mode to run in for Flex RS jobs.
+          enum:
+          - FLEXRS_UNSPECIFIED
+          - FLEXRS_SPEED_OPTIMIZED
+          - FLEXRS_COST_OPTIMIZED
+        workerRegion:
+          type: string
+          description: The Compute Engine region where workers should be created. Overrides the default location.
+        workerZone:
+          type: string
+          description: The specific Compute Engine zone where workers should be created.
+        shuffleMode:
+          type: string
+          description: The shuffle mode for the job, set by the service.
+          readOnly: true
+          enum:
+          - SHUFFLE_MODE_UNSPECIFIED
+          - VM_BASED
+          - SERVICE_BASED
+        debugOptions:
+          $ref: '#/components/schemas/DebugOptions'
+        streamingMode:
+          type: string
+          description: The streaming mode for the job, specifying the message processing guarantee.
+          enum:
+          - STREAMING_MODE_UNSPECIFIED
+          - STREAMING_MODE_EXACTLY_ONCE
+          - STREAMING_MODE_AT_LEAST_ONCE
+    Point:
+      type: object
+      description: A point in the timeseries.
+      properties:
+        time:
+          type: string
+          format: date-time
+          description: The timestamp of this data point.
+        value:
+          type: number
+          format: double
+          description: The value at this data point.
+    JobState:
+      type: string
+      description: The current or requested state of a Dataflow job. States represent the lifecycle of a job from creation through completion or cancellation.
+      enum:
+      - JOB_STATE_UNKNOWN
+      - JOB_STATE_STOPPED
+      - JOB_STATE_RUNNING
+      - JOB_STATE_DONE
+      - JOB_STATE_FAILED
+      - JOB_STATE_CANCELLED
+      - JOB_STATE_UPDATED
+      - JOB_STATE_DRAINING
+      - JOB_STATE_DRAINED
+      - JOB_STATE_PENDING
+      - JOB_STATE_CANCELLING
+      - JOB_STATE_QUEUED
+      - JOB_STATE_RESOURCE_CLEANING_UP
+    JobExecutionDetails:
+      type: object
+      description: Information about the execution of a job, including per-stage execution details.
+      properties:
+        stages:
+          type: array
+          description: The stages of the job execution.
+          items:
+            $ref: '#/components/schemas/StageSummary'
+        nextPageToken:
+          type: string
+          description: If present, this response is incomplete. Retrieve the next page of results by passing this value as the pageToken.
+    ExecutionStageSummary:
+      type: object
+      description: Description of a stage of execution after pipeline optimization.
+      properties:
+        name:
+          type: string
+          description: Dataflow service generated name for this stage.
+        id:
+          type: string
+          description: Dataflow service generated unique ID for this stage.
+        kind:
+          type: string
+          description: The type of execution stage.
+          enum:
+          - UNKNOWN_KIND
+          - PAR_DO_KIND
+          - GROUP_BY_KEY_KIND
+          - FLATTEN_KIND
+          - READ_KIND
+          - WRITE_KIND
+          - CONSTANT_KIND
+          - SINGLETON_KIND
+          - SHUFFLE_KIND
+        inputSource:
+          type: array
+          description: Input sources for this stage.
+          items:
+            $ref: '#/components/schemas/StageSource'
+        outputSource:
+          type: array
+          description: Output sources for this stage.
+          items:
+            $ref: '#/components/schemas/StageSource'
+        componentTransform:
+          type: array
+          description: Transforms that comprise this execution stage.
+          items:
+            $ref: '#/components/schemas/ComponentTransform'
+        componentSource:
+          type: array
+          description: Collections produced and consumed by component transforms.
+          items:
+            $ref: '#/components/schemas/ComponentSource'
+        prerequisiteStage:
+          type: array
+          description: Other stages that must complete before this stage can run.
+          items:
+            type: string
+    ExecutionStageState:
+      type: object
+      description: Describes the state of a particular execution stage within a Dataflow job.
+      properties:
+        executionStageName:
+          type: string
+          description: The name of the execution stage.
+        executionStageState:
+          $ref: '#/components/schemas/JobState'
+        currentStateTime:
+          type: string
+          format: date-time
+          description: The time at which the stage entered its current state.
+    Package:
+      type: object
+      description: Describes a package to be installed on worker instances.
+      properties:
+        name:
+          type: string
+          description: The name of the package.
+        location:
+          type: string
+          description: The Cloud Storage location of the package.
+    DebugOptions:
+      type: object
+      description: Describes debugging options for a Dataflow job.
+      properties:
+        enableHotKeyLogging:
+          type: boolean
+          description: When true, enables logging of hot key detections during job execution.
+  parameters:
+    pageToken:
+      name: pageToken
+      in: query
+      description: A token identifying the page of results to return. Set this to the nextPageToken value returned by a previous list request.
+      schema:
+        type: string
+    pageSize:
+      name: pageSize
+      in: query
+      description: The maximum number of results to return per page. If unspecified, the server will determine the number of results to return.
+      schema:
+        type: integer
+        format: int32
+    location:
+      name: location
+      in: query
+      description: The regional endpoint for the request, such as us-central1 or europe-west1.
+      schema:
+        type: string
+    jobFilter:
+      name: filter
+      in: query
+      description: The kind of filter to use for listing jobs.
+      schema:
+        type: string
+        enum:
+        - UNKNOWN
+        - ALL
+        - TERMINATED
+        - ACTIVE
+    projectId:
+      name: projectId
+      in: path
+      required: true
+      description: The ID of the Google Cloud project that owns the job.
+      schema:
+        type: string
+    locationPath:
+      name: location
+      in: path
+      required: true
+      description: The regional endpoint where the job resides, such as us-central1 or europe-west1.
+      schema:
+        type: string
+    jobName:
+      name: name
+      in: query
+      description: Optional. The job name to filter results.
+      schema:
+        type: string
+    jobId:
+      name: jobId
+      in: path
+      required: true
+      description: The unique identifier of the Dataflow job.
+      schema:
+        type: string
+    jobView:
+      name: view
+      in: query
+      description: The level of detail to return for each job. Defaults to JOB_VIEW_SUMMARY.
+      schema:
+        type: string
+        enum:
+        - JOB_VIEW_UNKNOWN
+        - JOB_VIEW_SUMMARY
+        - JOB_VIEW_ALL
+        - JOB_VIEW_DESCRIPTION
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication for Google Cloud APIs.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            https://www.googleapis.com/auth/cloud-platform: Full access to all Google Cloud resources.
+            https://www.googleapis.com/auth/compute: View and manage Google Compute Engine resources.
+            https://www.googleapis.com/auth/compute.readonly: View Google Compute Engine resources.
+    apiKey:
+      type: apiKey
+      name: key
+      in: query
+      description: API key for identifying the calling project.
+externalDocs:
+  description: Google Cloud Dataflow REST API Reference
+  url: https://cloud.google.com/dataflow/docs/reference/rest

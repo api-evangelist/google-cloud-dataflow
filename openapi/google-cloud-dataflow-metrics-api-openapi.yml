@@ -1,0 +1,256 @@
+openapi: 3.1.0
+info:
+  title: Google Cloud Dataflow Debug Metrics API
+  description: Manages Google Cloud Dataflow projects on Google Cloud Platform for creating and managing data processing pipelines, including job submission, monitoring, and resource management for both batch and streaming workloads.
+  version: v1b3
+  termsOfService: https://cloud.google.com/terms
+  contact:
+    name: Google Cloud Support
+    url: https://cloud.google.com/dataflow/docs/support
+  license:
+    name: Creative Commons Attribution 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+servers:
+- url: https://dataflow.googleapis.com
+  description: Google Cloud Dataflow API production endpoint
+security:
+- oauth2: []
+- apiKey: []
+tags:
+- name: Metrics
+  description: Operations for obtaining job and pipeline execution metrics.
+paths:
+  /v1b3/projects/{projectId}/jobs/{jobId}/metrics:
+    get:
+      operationId: getProjectJobMetrics
+      summary: Google Cloud Dataflow Get metrics for a Dataflow job in a project
+      description: Retrieves the execution metrics for a specified Dataflow job in the given project. Returns metric updates including counters, distributions, and other pipeline performance indicators.
+      tags:
+      - Metrics
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - $ref: '#/components/parameters/jobId'
+      - name: startTime
+        in: query
+        description: Return only metric data that has changed since this time. Default is to return all information about all metrics for the job.
+        schema:
+          type: string
+          format: date-time
+      - $ref: '#/components/parameters/location'
+      responses:
+        '200':
+          description: Successful response containing the job metrics.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobMetrics'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v1b3/projects/{projectId}/locations/{location}/jobs/{jobId}/metrics:
+    get:
+      operationId: getLocationJobMetrics
+      summary: Google Cloud Dataflow Get metrics for a Dataflow job in a specific location
+      description: Retrieves the execution metrics for a specified Dataflow job in the given project and regional location. Returns metric updates including counters, distributions, and other pipeline performance indicators.
+      tags:
+      - Metrics
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      - $ref: '#/components/parameters/locationPath'
+      - $ref: '#/components/parameters/jobId'
+      - name: startTime
+        in: query
+        description: Return only metric data that has changed since this time. Default is to return all information about all metrics for the job.
+        schema:
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: Successful response containing the job metrics.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobMetrics'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  parameters:
+    locationPath:
+      name: location
+      in: path
+      required: true
+      description: The regional endpoint where the job resides, such as us-central1 or europe-west1.
+      schema:
+        type: string
+    projectId:
+      name: projectId
+      in: path
+      required: true
+      description: The ID of the Google Cloud project that owns the job.
+      schema:
+        type: string
+    location:
+      name: location
+      in: query
+      description: The regional endpoint for the request, such as us-central1 or europe-west1.
+      schema:
+        type: string
+    jobId:
+      name: jobId
+      in: path
+      required: true
+      description: The unique identifier of the Dataflow job.
+      schema:
+        type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found. Verify the project ID, job ID, or other resource identifiers.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    TooManyRequests:
+      description: The request was rate-limited. Retry the request after a brief delay using exponential backoff.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    Forbidden:
+      description: The caller does not have sufficient permissions to perform this operation. Verify IAM roles and permissions.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    Unauthorized:
+      description: Authentication credentials were missing or invalid. Provide valid OAuth 2.0 credentials or API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    InternalServerError:
+      description: An internal server error occurred. Retry the request using exponential backoff.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    BadRequest:
+      description: The request was invalid or malformed. Check the request parameters and body for errors.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+  schemas:
+    MetricStructuredName:
+      type: object
+      description: Identifies a metric, using both the key and the context in which it appears.
+      properties:
+        origin:
+          type: string
+          description: Origin (namespace) of metric name. May be blank for user-defined metrics. Typical values are dataflow/v1b3 and user.
+        name:
+          type: string
+          description: Worker-defined metric name.
+        context:
+          type: object
+          description: Zero or more labeled fields that identify the part of the job this metric is associated with.
+          additionalProperties:
+            type: string
+    Status:
+      type: object
+      description: The Status type defines a logical error model, compatible with gRPC and Google API error conventions.
+      properties:
+        code:
+          type: integer
+          format: int32
+          description: The status code, which should be an enum value of google.rpc.Code.
+        message:
+          type: string
+          description: A developer-facing error message, which should be in English.
+        details:
+          type: array
+          description: A list of messages that carry the error details.
+          items:
+            type: object
+            additionalProperties: true
+    MetricUpdate:
+      type: object
+      description: Describes the state of a metric at a particular point in time.
+      properties:
+        name:
+          $ref: '#/components/schemas/MetricStructuredName'
+        kind:
+          type: string
+          description: Metric aggregation kind. The possible values are Sum, Max, Min, Mean, Set, And, Or, Distribution, LatestValue.
+        cumulative:
+          type: boolean
+          description: True if this metric is reported as the total cumulative aggregate value accumulated since the worker started working on this WorkItem.
+        scalar:
+          description: Worker-computed aggregate value for aggregation kinds Sum, Max, Min.
+        meanSum:
+          description: Worker-computed aggregate value for the Mean aggregation kind.
+        meanCount:
+          description: Worker-computed aggregate value for the Mean aggregation kind.
+        set:
+          description: Worker-computed aggregate value for the Set aggregation kind.
+        distribution:
+          description: A struct value describing properties of a distribution of numeric values.
+        gauge:
+          description: A struct value describing properties of a gauge metric.
+        internal:
+          description: Worker-computed aggregate value for internal use by the service.
+        updateTime:
+          type: string
+          format: date-time
+          description: Timestamp associated with the metric value.
+    JobMetrics:
+      type: object
+      description: JobMetrics contains metrics and their values for a Dataflow job, including counters, distributions, and other execution metrics.
+      properties:
+        metricTime:
+          type: string
+          format: date-time
+          description: Timestamp as of which metric values are current.
+        metrics:
+          type: array
+          description: All metrics for this job.
+          items:
+            $ref: '#/components/schemas/MetricUpdate'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication for Google Cloud APIs.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            https://www.googleapis.com/auth/cloud-platform: Full access to all Google Cloud resources.
+            https://www.googleapis.com/auth/compute: View and manage Google Compute Engine resources.
+            https://www.googleapis.com/auth/compute.readonly: View Google Compute Engine resources.
+    apiKey:
+      type: apiKey
+      name: key
+      in: query
+      description: API key for identifying the calling project.
+externalDocs:
+  description: Google Cloud Dataflow REST API Reference
+  url: https://cloud.google.com/dataflow/docs/reference/rest
