@@ -1,0 +1,28 @@
+{
+  "provider": "google-cloud-dataflow",
+  "sources": [
+    "google-cloud-dataflow-debug-api-openapi.yml",
+    "google-cloud-dataflow-flex-templates-api-openapi.yml",
+    "google-cloud-dataflow-jobs-api-openapi.yml",
+    "google-cloud-dataflow-messages-api-openapi.yml",
+    "google-cloud-dataflow-metrics-api-openapi.yml",
+    "google-cloud-dataflow-snapshots-api-openapi.yml",
+    "google-cloud-dataflow-stages-api-openapi.yml",
+    "google-cloud-dataflow-templates-api-openapi.yml"
+  ],
+  "outputs": [
+    "google-cloud-dataflow-debug-api-openapi.yml",
+    "google-cloud-dataflow-flex-templates-api-openapi.yml",
+    "google-cloud-dataflow-jobs-api-openapi.yml",
+    "google-cloud-dataflow-messages-api-openapi.yml",
+    "google-cloud-dataflow-metrics-api-openapi.yml",
+    "google-cloud-dataflow-snapshots-api-openapi.yml",
+    "google-cloud-dataflow-stages-api-openapi.yml",
+    "google-cloud-dataflow-templates-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
