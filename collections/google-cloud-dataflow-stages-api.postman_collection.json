@@ -1,0 +1,769 @@
+{
+  "item": [
+    {
+      "id": "c23c5893-48e3-456a-836f-4e15c460c084",
+      "name": "Stages",
+      "description": {
+        "content": "Operations for retrieving stage-level execution details.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "eb755968-dcfa-4e7d-9011-1bbe6f71a8be",
+          "name": "Google Cloud Dataflow Get stage execution details for a Dataflow job",
+          "request": {
+            "name": "Google Cloud Dataflow Get stage execution details for a Dataflow job",
+            "description": {
+              "content": "Retrieves detailed execution status information for a specific stage of a Dataflow job in the given project and regional location. Returns worker-level progress and straggler information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1b3",
+                "projects",
+                ":projectId",
+                "locations",
+                ":location",
+                "jobs",
+                ":jobId",
+                "stages",
+                ":stageId",
+                "executionDetails"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "pageToken",
+                  "value": "<string>",
+                  "description": "A token identifying the page of results to return. Set this to the nextPageToken value returned by a previous list request."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "<integer>",
+                  "description": "The maximum number of results to return per page. If unspecified, the server will determine the number of results to return."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) The ID of the Google Cloud project that owns the job."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "location",
+                  "description": "(Required) The regional endpoint where the job resides, such as us-central1 or europe-west1."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobId",
+                  "description": "(Required) The unique identifier of the Dataflow job."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "stageId",
+                  "description": "(Required) The stage for which to fetch information."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e648a728-c267-4570-9eab-1431a70aa88f",
+              "name": "Successful response containing the stage execution details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1b3",
+                    "projects",
+                    ":projectId",
+                    "locations",
+                    ":location",
+                    "jobs",
+                    ":jobId",
+                    "stages",
+                    ":stageId",
+                    "executionDetails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) The ID of the Google Cloud project that owns the job."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) The regional endpoint where the job resides, such as us-central1 or europe-west1."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the Dataflow job."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stageId",
+                      "description": "(Required) The stage for which to fetch information."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"workers\": [\n    {\n      \"workerName\": \"string\",\n      \"workItems\": [\n        {\n          \"taskId\": \"string\",\n          \"attemptId\": \"string\",\n          \"startTime\": \"2024-01-25T04:42:55.314Z\",\n          \"endTime\": \"1951-07-12T03:42:56.641Z\",\n          \"state\": \"EXECUTION_STATE_FAILED\",\n          \"progress\": {\n            \"currentProgress\": 7534.916994192321,\n            \"dataPoints\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"metrics\": [\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"kind\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"cumulative\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"scalar\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"meanSum\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"meanCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"set\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"distribution\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"gauge\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"internal\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"updateTime\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"kind\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"cumulative\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"scalar\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"meanSum\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"meanCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"set\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"distribution\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"gauge\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"internal\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"updateTime\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"stragglerInfo\": {\n            \"causes\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        },\n        {\n          \"taskId\": \"string\",\n          \"attemptId\": \"string\",\n          \"startTime\": \"2023-01-10T18:29:51.122Z\",\n          \"endTime\": \"1976-04-06T09:56:43.886Z\",\n          \"state\": \"EXECUTION_STATE_UNKNOWN\",\n          \"progress\": {\n            \"currentProgress\": 7849.971178532248,\n            \"dataPoints\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"metrics\": [\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"kind\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"cumulative\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"scalar\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"meanSum\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"meanCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"set\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"distribution\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"gauge\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"internal\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"updateTime\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"kind\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"cumulative\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"scalar\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"meanSum\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"meanCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"set\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"distribution\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"gauge\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"internal\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"updateTime\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"stragglerInfo\": {\n            \"causes\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"workerName\": \"string\",\n      \"workItems\": [\n        {\n          \"taskId\": \"string\",\n          \"attemptId\": \"string\",\n          \"startTime\": \"1995-11-12T15:08:08.334Z\",\n          \"endTime\": \"1983-05-17T18:24:57.023Z\",\n          \"state\": \"EXECUTION_STATE_NOT_STARTED\",\n          \"progress\": {\n            \"currentProgress\": 1056.9601401125383,\n            \"dataPoints\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"metrics\": [\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"kind\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"cumulative\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"scalar\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"meanSum\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"meanCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"set\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"distribution\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"gauge\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"internal\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"updateTime\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"kind\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"cumulative\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"scalar\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"meanSum\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"meanCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"set\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"distribution\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"gauge\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"internal\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"updateTime\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"stragglerInfo\": {\n            \"causes\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_2\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        },\n        {\n          \"taskId\": \"string\",\n          \"attemptId\": \"string\",\n          \"startTime\": \"1991-03-04T15:09:50.152Z\",\n          \"endTime\": \"1984-04-11T07:23:42.920Z\",\n          \"state\": \"EXECUTION_STATE_SUCCEEDED\",\n          \"progress\": {\n            \"currentProgress\": 3018.902978864286,\n            \"dataPoints\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"metrics\": [\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"kind\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"cumulative\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"scalar\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"meanSum\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"meanCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"set\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"distribution\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"gauge\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"internal\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"updateTime\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"kind\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"cumulative\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"scalar\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"meanSum\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"meanCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"set\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"distribution\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"gauge\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"internal\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"updateTime\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"stragglerInfo\": {\n            \"causes\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        }\n      ]\n    }\n  ],\n  \"nextPageToken\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "16366be3-c9c7-463b-a246-ea8361e226b9",
+              "name": "The request was invalid or malformed. Check the request parameters and body for errors.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1b3",
+                    "projects",
+                    ":projectId",
+                    "locations",
+                    ":location",
+                    "jobs",
+                    ":jobId",
+                    "stages",
+                    ":stageId",
+                    "executionDetails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) The ID of the Google Cloud project that owns the job."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) The regional endpoint where the job resides, such as us-central1 or europe-west1."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the Dataflow job."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stageId",
+                      "description": "(Required) The stage for which to fetch information."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4086,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"key_0\": \"string\"\n    },\n    {\n      \"key_0\": 5259.485367026927,\n      \"key_1\": false,\n      \"key_2\": true,\n      \"key_3\": 772.075649643874\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6ee5014b-0de8-4902-ba62-58bd0993fadb",
+              "name": "Authentication credentials were missing or invalid. Provide valid OAuth 2.0 credentials or API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1b3",
+                    "projects",
+                    ":projectId",
+                    "locations",
+                    ":location",
+                    "jobs",
+                    ":jobId",
+                    "stages",
+                    ":stageId",
+                    "executionDetails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) The ID of the Google Cloud project that owns the job."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) The regional endpoint where the job resides, such as us-central1 or europe-west1."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the Dataflow job."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stageId",
+                      "description": "(Required) The stage for which to fetch information."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4086,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"key_0\": \"string\"\n    },\n    {\n      \"key_0\": 5259.485367026927,\n      \"key_1\": false,\n      \"key_2\": true,\n      \"key_3\": 772.075649643874\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b2d94bfe-2890-4868-865b-208045cf976c",
+              "name": "The caller does not have sufficient permissions to perform this operation. Verify IAM roles and permissions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1b3",
+                    "projects",
+                    ":projectId",
+                    "locations",
+                    ":location",
+                    "jobs",
+                    ":jobId",
+                    "stages",
+                    ":stageId",
+                    "executionDetails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) The ID of the Google Cloud project that owns the job."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) The regional endpoint where the job resides, such as us-central1 or europe-west1."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the Dataflow job."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stageId",
+                      "description": "(Required) The stage for which to fetch information."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4086,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"key_0\": \"string\"\n    },\n    {\n      \"key_0\": 5259.485367026927,\n      \"key_1\": false,\n      \"key_2\": true,\n      \"key_3\": 772.075649643874\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e0801339-cd63-4bb6-b21f-5bedf34a3a53",
+              "name": "The requested resource was not found. Verify the project ID, job ID, or other resource identifiers.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1b3",
+                    "projects",
+                    ":projectId",
+                    "locations",
+                    ":location",
+                    "jobs",
+                    ":jobId",
+                    "stages",
+                    ":stageId",
+                    "executionDetails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) The ID of the Google Cloud project that owns the job."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) The regional endpoint where the job resides, such as us-central1 or europe-west1."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the Dataflow job."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stageId",
+                      "description": "(Required) The stage for which to fetch information."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4086,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"key_0\": \"string\"\n    },\n    {\n      \"key_0\": 5259.485367026927,\n      \"key_1\": false,\n      \"key_2\": true,\n      \"key_3\": 772.075649643874\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "99007bb1-9515-4306-b607-c8e2084eb178",
+              "name": "The request was rate-limited. Retry the request after a brief delay using exponential backoff.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1b3",
+                    "projects",
+                    ":projectId",
+                    "locations",
+                    ":location",
+                    "jobs",
+                    ":jobId",
+                    "stages",
+                    ":stageId",
+                    "executionDetails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) The ID of the Google Cloud project that owns the job."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) The regional endpoint where the job resides, such as us-central1 or europe-west1."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the Dataflow job."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stageId",
+                      "description": "(Required) The stage for which to fetch information."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4086,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"key_0\": \"string\"\n    },\n    {\n      \"key_0\": 5259.485367026927,\n      \"key_1\": false,\n      \"key_2\": true,\n      \"key_3\": 772.075649643874\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "61edb82c-5ab1-4d0e-a493-cfd966ca5162",
+              "name": "An internal server error occurred. Retry the request using exponential backoff.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1b3",
+                    "projects",
+                    ":projectId",
+                    "locations",
+                    ":location",
+                    "jobs",
+                    ":jobId",
+                    "stages",
+                    ":stageId",
+                    "executionDetails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) The ID of the Google Cloud project that owns the job."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) The regional endpoint where the job resides, such as us-central1 or europe-west1."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the Dataflow job."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stageId",
+                      "description": "(Required) The stage for which to fetch information."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4086,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"key_0\": \"string\"\n    },\n    {\n      \"key_0\": 5259.485367026927,\n      \"key_1\": false,\n      \"key_2\": true,\n      \"key_3\": 772.075649643874\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://dataflow.googleapis.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/compute https://www.googleapis.com/auth/compute.readonly"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://oauth2.googleapis.com/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://accounts.google.com/o/oauth2/auth"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "fd3f144a-b514-42e8-83be-ac92bcde20e0",
+    "name": "Google Cloud Dataflow Debug Stages API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Manages Google Cloud Dataflow projects on Google Cloud Platform for creating and managing data processing pipelines, including job submission, monitoring, and resource management for both batch and streaming workloads.\n\nContact Support:\n Name: Google Cloud Support",
+      "type": "text/plain"
+    }
+  }
+}

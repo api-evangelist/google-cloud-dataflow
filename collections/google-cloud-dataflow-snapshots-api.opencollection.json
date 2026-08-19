@@ -1,0 +1,187 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Google Cloud Dataflow Debug Snapshots API",
+    "version": "v1b3"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+      "accessTokenUrl": "https://oauth2.googleapis.com/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Snapshots",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Google Cloud Dataflow Snapshot a Dataflow job in a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dataflow.googleapis.com/v1b3/projects/:projectId/jobs/:jobId:snapshot",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Google Cloud project that owns the job."
+              },
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Dataflow job."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a snapshot of a streaming Dataflow job in the specified project. Snapshots capture the state of a streaming pipeline and can be used to start a new job from that state."
+        },
+        {
+          "info": {
+            "name": "Google Cloud Dataflow Snapshot a Dataflow job in a specific location",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dataflow.googleapis.com/v1b3/projects/:projectId/locations/:location/jobs/:jobId:snapshot",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Google Cloud project that owns the job."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "path",
+                "description": "The regional endpoint where the job resides, such as us-central1 or europe-west1."
+              },
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Dataflow job."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a snapshot of a streaming Dataflow job in the specified project and regional location. Snapshots capture the state of a streaming pipeline and can be used to start a new job from that state."
+        },
+        {
+          "info": {
+            "name": "Google Cloud Dataflow Get a snapshot in a specific location",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dataflow.googleapis.com/v1b3/projects/:projectId/locations/:location/snapshots/:snapshotId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Google Cloud project that owns the job."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "path",
+                "description": "The regional endpoint where the job resides, such as us-central1 or europe-west1."
+              },
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the snapshot to retrieve."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specified snapshot in the given project and regional location. Returns the snapshot metadata including state, creation time, and associated job information."
+        },
+        {
+          "info": {
+            "name": "Google Cloud Dataflow Delete a snapshot in a specific location",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://dataflow.googleapis.com/v1b3/projects/:projectId/locations/:location/snapshots/:snapshotId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Google Cloud project that owns the job."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "path",
+                "description": "The regional endpoint where the job resides, such as us-central1 or europe-west1."
+              },
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the snapshot to delete."
+              }
+            ]
+          },
+          "docs": "Deletes a specified snapshot in the given project and regional location. This permanently removes the snapshot and its associated data."
+        },
+        {
+          "info": {
+            "name": "Google Cloud Dataflow List snapshots in a specific location",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dataflow.googleapis.com/v1b3/projects/:projectId/locations/:location/snapshots",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Google Cloud project that owns the job."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "path",
+                "description": "The regional endpoint where the job resides, such as us-central1 or europe-west1."
+              },
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "query",
+                "description": "If specified, list snapshots created from this job only."
+              }
+            ]
+          },
+          "docs": "Lists all available snapshots in the specified project and regional location. Returns snapshot metadata including state, creation time, and associated job information."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

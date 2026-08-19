@@ -1,0 +1,1343 @@
+{
+  "item": [
+    {
+      "id": "d927177b-2a5e-49e1-b08b-3d193b44ccfa",
+      "name": "Debug",
+      "description": {
+        "content": "Operations for retrieving debug configuration and submitting debug captures.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "96d5ad21-aa9c-4694-9bb5-f4283a1737d6",
+          "name": "Google Cloud Dataflow Get debug configuration for a job component",
+          "request": {
+            "name": "Google Cloud Dataflow Get debug configuration for a job component",
+            "description": {
+              "content": "Retrieves the debug configuration for a specific component of a Dataflow job in the given project and regional location. Used internally by Dataflow workers for debugging purposes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1b3",
+                "projects",
+                ":projectId",
+                "locations",
+                ":location",
+                "jobs",
+                ":jobId",
+                "debug",
+                "getConfig"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) The ID of the Google Cloud project that owns the job."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "location",
+                  "description": "(Required) The regional endpoint where the job resides, such as us-central1 or europe-west1."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobId",
+                  "description": "(Required) The unique identifier of the Dataflow job."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"workerId\": \"<string>\",\n  \"componentId\": \"<string>\",\n  \"location\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7202304c-608e-4b6e-83cf-f1582f6bca51",
+              "name": "Successful response containing the debug configuration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1b3",
+                    "projects",
+                    ":projectId",
+                    "locations",
+                    ":location",
+                    "jobs",
+                    ":jobId",
+                    "debug",
+                    "getConfig"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) The ID of the Google Cloud project that owns the job."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) The regional endpoint where the job resides, such as us-central1 or europe-west1."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the Dataflow job."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workerId\": \"<string>\",\n  \"componentId\": \"<string>\",\n  \"location\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"config\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "edb5dc54-4156-4e4b-8ac7-59a7f2365493",
+              "name": "The request was invalid or malformed. Check the request parameters and body for errors.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1b3",
+                    "projects",
+                    ":projectId",
+                    "locations",
+                    ":location",
+                    "jobs",
+                    ":jobId",
+                    "debug",
+                    "getConfig"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) The ID of the Google Cloud project that owns the job."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) The regional endpoint where the job resides, such as us-central1 or europe-west1."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the Dataflow job."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workerId\": \"<string>\",\n  \"componentId\": \"<string>\",\n  \"location\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5161,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"key_0\": true,\n      \"key_1\": \"string\",\n      \"key_2\": 5262\n    },\n    {\n      \"key_0\": 6014,\n      \"key_1\": true,\n      \"key_2\": 3108.698320968585\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f3aa0546-8dfa-4602-bc84-791d5439d2fb",
+              "name": "Authentication credentials were missing or invalid. Provide valid OAuth 2.0 credentials or API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1b3",
+                    "projects",
+                    ":projectId",
+                    "locations",
+                    ":location",
+                    "jobs",
+                    ":jobId",
+                    "debug",
+                    "getConfig"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) The ID of the Google Cloud project that owns the job."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) The regional endpoint where the job resides, such as us-central1 or europe-west1."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the Dataflow job."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workerId\": \"<string>\",\n  \"componentId\": \"<string>\",\n  \"location\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5161,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"key_0\": true,\n      \"key_1\": \"string\",\n      \"key_2\": 5262\n    },\n    {\n      \"key_0\": 6014,\n      \"key_1\": true,\n      \"key_2\": 3108.698320968585\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ffdf1e3b-0969-4eb7-bd34-8b1bda3c25da",
+              "name": "The caller does not have sufficient permissions to perform this operation. Verify IAM roles and permissions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1b3",
+                    "projects",
+                    ":projectId",
+                    "locations",
+                    ":location",
+                    "jobs",
+                    ":jobId",
+                    "debug",
+                    "getConfig"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) The ID of the Google Cloud project that owns the job."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) The regional endpoint where the job resides, such as us-central1 or europe-west1."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the Dataflow job."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workerId\": \"<string>\",\n  \"componentId\": \"<string>\",\n  \"location\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5161,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"key_0\": true,\n      \"key_1\": \"string\",\n      \"key_2\": 5262\n    },\n    {\n      \"key_0\": 6014,\n      \"key_1\": true,\n      \"key_2\": 3108.698320968585\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0f40d427-88bb-4057-b586-9d7b61c1f73e",
+              "name": "The requested resource was not found. Verify the project ID, job ID, or other resource identifiers.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1b3",
+                    "projects",
+                    ":projectId",
+                    "locations",
+                    ":location",
+                    "jobs",
+                    ":jobId",
+                    "debug",
+                    "getConfig"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) The ID of the Google Cloud project that owns the job."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) The regional endpoint where the job resides, such as us-central1 or europe-west1."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the Dataflow job."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workerId\": \"<string>\",\n  \"componentId\": \"<string>\",\n  \"location\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5161,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"key_0\": true,\n      \"key_1\": \"string\",\n      \"key_2\": 5262\n    },\n    {\n      \"key_0\": 6014,\n      \"key_1\": true,\n      \"key_2\": 3108.698320968585\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "862d7c1c-43f2-42c5-98c5-10aa743507e8",
+              "name": "The request was rate-limited. Retry the request after a brief delay using exponential backoff.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1b3",
+                    "projects",
+                    ":projectId",
+                    "locations",
+                    ":location",
+                    "jobs",
+                    ":jobId",
+                    "debug",
+                    "getConfig"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) The ID of the Google Cloud project that owns the job."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) The regional endpoint where the job resides, such as us-central1 or europe-west1."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the Dataflow job."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workerId\": \"<string>\",\n  \"componentId\": \"<string>\",\n  \"location\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5161,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"key_0\": true,\n      \"key_1\": \"string\",\n      \"key_2\": 5262\n    },\n    {\n      \"key_0\": 6014,\n      \"key_1\": true,\n      \"key_2\": 3108.698320968585\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c877e80-1741-4dd0-8593-d627ce55f5b7",
+              "name": "An internal server error occurred. Retry the request using exponential backoff.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1b3",
+                    "projects",
+                    ":projectId",
+                    "locations",
+                    ":location",
+                    "jobs",
+                    ":jobId",
+                    "debug",
+                    "getConfig"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) The ID of the Google Cloud project that owns the job."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) The regional endpoint where the job resides, such as us-central1 or europe-west1."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the Dataflow job."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workerId\": \"<string>\",\n  \"componentId\": \"<string>\",\n  \"location\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5161,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"key_0\": true,\n      \"key_1\": \"string\",\n      \"key_2\": 5262\n    },\n    {\n      \"key_0\": 6014,\n      \"key_1\": true,\n      \"key_2\": 3108.698320968585\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6e1b5cb5-97dd-45b7-9195-ee5dd22ac842",
+          "name": "Google Cloud Dataflow Send debug capture data for a job component",
+          "request": {
+            "name": "Google Cloud Dataflow Send debug capture data for a job component",
+            "description": {
+              "content": "Submits encoded debug information for a specific component of a Dataflow job in the given project and regional location. Used internally by Dataflow workers for submitting debug data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1b3",
+                "projects",
+                ":projectId",
+                "locations",
+                ":location",
+                "jobs",
+                ":jobId",
+                "debug",
+                "sendCapture"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) The ID of the Google Cloud project that owns the job."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "location",
+                  "description": "(Required) The regional endpoint where the job resides, such as us-central1 or europe-west1."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobId",
+                  "description": "(Required) The unique identifier of the Dataflow job."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"workerId\": \"<string>\",\n  \"componentId\": \"<string>\",\n  \"data\": \"<string>\",\n  \"dataFormat\": \"<string>\",\n  \"location\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "83f1de5d-b4dc-4040-bd4a-786d8face581",
+              "name": "Successful response confirming receipt of debug data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1b3",
+                    "projects",
+                    ":projectId",
+                    "locations",
+                    ":location",
+                    "jobs",
+                    ":jobId",
+                    "debug",
+                    "sendCapture"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) The ID of the Google Cloud project that owns the job."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) The regional endpoint where the job resides, such as us-central1 or europe-west1."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the Dataflow job."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workerId\": \"<string>\",\n  \"componentId\": \"<string>\",\n  \"data\": \"<string>\",\n  \"dataFormat\": \"<string>\",\n  \"location\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "532e2a18-60e5-4b36-afcc-1ba9212c1ca0",
+              "name": "The request was invalid or malformed. Check the request parameters and body for errors.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1b3",
+                    "projects",
+                    ":projectId",
+                    "locations",
+                    ":location",
+                    "jobs",
+                    ":jobId",
+                    "debug",
+                    "sendCapture"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) The ID of the Google Cloud project that owns the job."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) The regional endpoint where the job resides, such as us-central1 or europe-west1."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the Dataflow job."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workerId\": \"<string>\",\n  \"componentId\": \"<string>\",\n  \"data\": \"<string>\",\n  \"dataFormat\": \"<string>\",\n  \"location\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3497,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"key_0\": true,\n      \"key_1\": 2720.757735095457,\n      \"key_2\": 2061\n    },\n    {\n      \"key_0\": \"string\",\n      \"key_1\": 9138\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e65d2517-e7cd-457d-be8f-6df49cb6a788",
+              "name": "Authentication credentials were missing or invalid. Provide valid OAuth 2.0 credentials or API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1b3",
+                    "projects",
+                    ":projectId",
+                    "locations",
+                    ":location",
+                    "jobs",
+                    ":jobId",
+                    "debug",
+                    "sendCapture"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) The ID of the Google Cloud project that owns the job."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) The regional endpoint where the job resides, such as us-central1 or europe-west1."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the Dataflow job."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workerId\": \"<string>\",\n  \"componentId\": \"<string>\",\n  \"data\": \"<string>\",\n  \"dataFormat\": \"<string>\",\n  \"location\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3497,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"key_0\": true,\n      \"key_1\": 2720.757735095457,\n      \"key_2\": 2061\n    },\n    {\n      \"key_0\": \"string\",\n      \"key_1\": 9138\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b8c57950-d922-493b-835d-0dbb7f088136",
+              "name": "The caller does not have sufficient permissions to perform this operation. Verify IAM roles and permissions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1b3",
+                    "projects",
+                    ":projectId",
+                    "locations",
+                    ":location",
+                    "jobs",
+                    ":jobId",
+                    "debug",
+                    "sendCapture"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) The ID of the Google Cloud project that owns the job."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) The regional endpoint where the job resides, such as us-central1 or europe-west1."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the Dataflow job."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workerId\": \"<string>\",\n  \"componentId\": \"<string>\",\n  \"data\": \"<string>\",\n  \"dataFormat\": \"<string>\",\n  \"location\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3497,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"key_0\": true,\n      \"key_1\": 2720.757735095457,\n      \"key_2\": 2061\n    },\n    {\n      \"key_0\": \"string\",\n      \"key_1\": 9138\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "abfd2125-9eb5-43d5-8176-bcc63e19b2a1",
+              "name": "The requested resource was not found. Verify the project ID, job ID, or other resource identifiers.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1b3",
+                    "projects",
+                    ":projectId",
+                    "locations",
+                    ":location",
+                    "jobs",
+                    ":jobId",
+                    "debug",
+                    "sendCapture"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) The ID of the Google Cloud project that owns the job."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) The regional endpoint where the job resides, such as us-central1 or europe-west1."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the Dataflow job."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workerId\": \"<string>\",\n  \"componentId\": \"<string>\",\n  \"data\": \"<string>\",\n  \"dataFormat\": \"<string>\",\n  \"location\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3497,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"key_0\": true,\n      \"key_1\": 2720.757735095457,\n      \"key_2\": 2061\n    },\n    {\n      \"key_0\": \"string\",\n      \"key_1\": 9138\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "51b8db98-a7c3-46da-8308-1c29ca6d28d5",
+              "name": "The request was rate-limited. Retry the request after a brief delay using exponential backoff.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1b3",
+                    "projects",
+                    ":projectId",
+                    "locations",
+                    ":location",
+                    "jobs",
+                    ":jobId",
+                    "debug",
+                    "sendCapture"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) The ID of the Google Cloud project that owns the job."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) The regional endpoint where the job resides, such as us-central1 or europe-west1."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the Dataflow job."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workerId\": \"<string>\",\n  \"componentId\": \"<string>\",\n  \"data\": \"<string>\",\n  \"dataFormat\": \"<string>\",\n  \"location\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3497,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"key_0\": true,\n      \"key_1\": 2720.757735095457,\n      \"key_2\": 2061\n    },\n    {\n      \"key_0\": \"string\",\n      \"key_1\": 9138\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f6246eab-d323-4dc9-85fe-90dd29a6bfbf",
+              "name": "An internal server error occurred. Retry the request using exponential backoff.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1b3",
+                    "projects",
+                    ":projectId",
+                    "locations",
+                    ":location",
+                    "jobs",
+                    ":jobId",
+                    "debug",
+                    "sendCapture"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) The ID of the Google Cloud project that owns the job."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) The regional endpoint where the job resides, such as us-central1 or europe-west1."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the Dataflow job."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workerId\": \"<string>\",\n  \"componentId\": \"<string>\",\n  \"data\": \"<string>\",\n  \"dataFormat\": \"<string>\",\n  \"location\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3497,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"key_0\": true,\n      \"key_1\": 2720.757735095457,\n      \"key_2\": 2061\n    },\n    {\n      \"key_0\": \"string\",\n      \"key_1\": 9138\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://dataflow.googleapis.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/compute https://www.googleapis.com/auth/compute.readonly"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://oauth2.googleapis.com/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://accounts.google.com/o/oauth2/auth"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5d59b9ff-6b47-45ae-a9e1-b57e6a66946e",
+    "name": "Google Cloud Dataflow Debug API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Manages Google Cloud Dataflow projects on Google Cloud Platform for creating and managing data processing pipelines, including job submission, monitoring, and resource management for both batch and streaming workloads.\n\nContact Support:\n Name: Google Cloud Support",
+      "type": "text/plain"
+    }
+  }
+}

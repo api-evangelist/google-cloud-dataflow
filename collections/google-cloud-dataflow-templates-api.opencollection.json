@@ -1,0 +1,262 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Google Cloud Dataflow Debug Templates API",
+    "version": "v1b3"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+      "accessTokenUrl": "https://oauth2.googleapis.com/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Google Cloud Dataflow Create a job from a template in a specific location",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dataflow.googleapis.com/v1b3/projects/:projectId/locations/:location/templates",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Google Cloud project that owns the job."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "path",
+                "description": "The regional endpoint where the job resides, such as us-central1 or europe-west1."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Dataflow job from a classic template in the specified project and regional location. The template defines the pipeline structure and the request provides runtime parameters."
+        },
+        {
+          "info": {
+            "name": "Google Cloud Dataflow Get template metadata in a specific location",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dataflow.googleapis.com/v1b3/projects/:projectId/locations/:location/templates:get",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Google Cloud project that owns the job."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "path",
+                "description": "The regional endpoint where the job resides, such as us-central1 or europe-west1."
+              },
+              {
+                "name": "gcsPath",
+                "value": "",
+                "type": "query",
+                "description": "Required. A Cloud Storage path to the template from which to create the job. Must be a valid Cloud Storage URL beginning with gs://."
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "The view to retrieve. Defaults to METADATA_ONLY."
+              }
+            ]
+          },
+          "docs": "Retrieves the metadata for a Dataflow template in the specified project and regional location. Returns template information including name, description, parameters, and streaming capability."
+        },
+        {
+          "info": {
+            "name": "Google Cloud Dataflow Launch a template job in a specific location",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dataflow.googleapis.com/v1b3/projects/:projectId/locations/:location/templates:launch",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Google Cloud project that owns the job."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "path",
+                "description": "The regional endpoint where the job resides, such as us-central1 or europe-west1."
+              },
+              {
+                "name": "gcsPath",
+                "value": "",
+                "type": "query",
+                "description": "A Cloud Storage path to the template from which to create the job. Must be a valid Cloud Storage URL beginning with gs://."
+              },
+              {
+                "name": "validateOnly",
+                "value": "",
+                "type": "query",
+                "description": "If true, the request is validated but not actually executed. Defaults to false."
+              },
+              {
+                "name": "dynamicTemplate.gcsPath",
+                "value": "",
+                "type": "query",
+                "description": "Path to the dynamic template spec file on Cloud Storage."
+              },
+              {
+                "name": "dynamicTemplate.stagingLocation",
+                "value": "",
+                "type": "query",
+                "description": "Cloud Storage path for staging dependencies."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Launches a Dataflow job from a classic template in the specified project and regional location. Validates the template parameters and creates a new job with the provided configuration."
+        },
+        {
+          "info": {
+            "name": "Google Cloud Dataflow Create a job from a template in a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dataflow.googleapis.com/v1b3/projects/:projectId/templates",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Google Cloud project that owns the job."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Dataflow job from a classic template in the specified project. The template defines the pipeline structure and the request provides runtime parameters."
+        },
+        {
+          "info": {
+            "name": "Google Cloud Dataflow Get template metadata in a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dataflow.googleapis.com/v1b3/projects/:projectId/templates:get",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Google Cloud project that owns the job."
+              },
+              {
+                "name": "gcsPath",
+                "value": "",
+                "type": "query",
+                "description": "Required. A Cloud Storage path to the template from which to create the job. Must be a valid Cloud Storage URL beginning with gs://."
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "The view to retrieve. Defaults to METADATA_ONLY."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "query",
+                "description": "The regional endpoint for the request, such as us-central1 or europe-west1."
+              }
+            ]
+          },
+          "docs": "Retrieves the metadata for a Dataflow template in the specified project. Returns template information including name, description, parameters, and streaming capability."
+        },
+        {
+          "info": {
+            "name": "Google Cloud Dataflow Launch a template job in a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dataflow.googleapis.com/v1b3/projects/:projectId/templates:launch",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Google Cloud project that owns the job."
+              },
+              {
+                "name": "gcsPath",
+                "value": "",
+                "type": "query",
+                "description": "A Cloud Storage path to the template from which to create the job. Must be a valid Cloud Storage URL beginning with gs://."
+              },
+              {
+                "name": "validateOnly",
+                "value": "",
+                "type": "query",
+                "description": "If true, the request is validated but not actually executed. Defaults to false."
+              },
+              {
+                "name": "dynamicTemplate.gcsPath",
+                "value": "",
+                "type": "query",
+                "description": "Path to the dynamic template spec file on Cloud Storage."
+              },
+              {
+                "name": "dynamicTemplate.stagingLocation",
+                "value": "",
+                "type": "query",
+                "description": "Cloud Storage path for staging dependencies."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "query",
+                "description": "The regional endpoint for the request, such as us-central1 or europe-west1."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Launches a Dataflow job from a classic template in the specified project. Validates the template parameters and creates a new job with the provided configuration."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

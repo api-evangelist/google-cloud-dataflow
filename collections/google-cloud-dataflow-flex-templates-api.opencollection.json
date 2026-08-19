@@ -1,0 +1,59 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Google Cloud Dataflow Debug Flex Templates API",
+    "version": "v1b3"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+      "accessTokenUrl": "https://oauth2.googleapis.com/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Flex Templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Google Cloud Dataflow Launch a Flex Template job in a specific location",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dataflow.googleapis.com/v1b3/projects/:projectId/locations/:location/flexTemplates:launch",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Google Cloud project that owns the job."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "path",
+                "description": "The regional endpoint where the job resides, such as us-central1 or europe-west1."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Launches a Dataflow job from a Flex Template in the specified project and regional location. Flex Templates package the pipeline code in a Docker container and support dynamic pipeline configuration at launch time."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,79 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Google Cloud Dataflow Debug Stages API",
+    "version": "v1b3"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+      "accessTokenUrl": "https://oauth2.googleapis.com/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Stages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Google Cloud Dataflow Get stage execution details for a Dataflow job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dataflow.googleapis.com/v1b3/projects/:projectId/locations/:location/jobs/:jobId/stages/:stageId/executionDetails",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Google Cloud project that owns the job."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "path",
+                "description": "The regional endpoint where the job resides, such as us-central1 or europe-west1."
+              },
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Dataflow job."
+              },
+              {
+                "name": "stageId",
+                "value": "",
+                "type": "path",
+                "description": "The stage for which to fetch information."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "A token identifying the page of results to return. Set this to the nextPageToken value returned by a previous list request."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return per page. If unspecified, the server will determine the number of results to return."
+              }
+            ]
+          },
+          "docs": "Retrieves detailed execution status information for a specific stage of a Dataflow job in the given project and regional location. Returns worker-level progress and straggler information."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,470 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Google Cloud Dataflow Debug Jobs API",
+    "version": "v1b3"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+      "accessTokenUrl": "https://oauth2.googleapis.com/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Google Cloud Dataflow List aggregated jobs across all regions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dataflow.googleapis.com/v1b3/projects/:projectId/jobs:aggregated",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Google Cloud project that owns the job."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "A token identifying the page of results to return. Set this to the nextPageToken value returned by a previous list request."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return per page. If unspecified, the server will determine the number of results to return."
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "The level of detail to return for each job. Defaults to JOB_VIEW_SUMMARY."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "The kind of filter to use for listing jobs."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Optional. The job name to filter results."
+              }
+            ]
+          },
+          "docs": "Lists all Dataflow jobs associated with the specified project across all regions. Returns a paginated list of jobs including their current state, type, and metadata."
+        },
+        {
+          "info": {
+            "name": "Google Cloud Dataflow List jobs in a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dataflow.googleapis.com/v1b3/projects/:projectId/jobs",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Google Cloud project that owns the job."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "A token identifying the page of results to return. Set this to the nextPageToken value returned by a previous list request."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return per page. If unspecified, the server will determine the number of results to return."
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "The level of detail to return for each job. Defaults to JOB_VIEW_SUMMARY."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "The kind of filter to use for listing jobs."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Optional. The job name to filter results."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "query",
+                "description": "The regional endpoint for the request, such as us-central1 or europe-west1."
+              }
+            ]
+          },
+          "docs": "Lists all Dataflow jobs associated with the specified project. Returns a paginated list that can be filtered by state and name. Use the location- specific endpoint for regional job listing."
+        },
+        {
+          "info": {
+            "name": "Google Cloud Dataflow Create a Dataflow job in a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dataflow.googleapis.com/v1b3/projects/:projectId/jobs",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Google Cloud project that owns the job."
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "The level of detail to return for each job. Defaults to JOB_VIEW_SUMMARY."
+              },
+              {
+                "name": "replaceJobId",
+                "value": "",
+                "type": "query",
+                "description": "Deprecated. The ID of the job to replace when updating a pipeline."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "query",
+                "description": "The regional endpoint for the request, such as us-central1 or europe-west1."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Dataflow job in the specified project. The job definition includes the pipeline configuration, environment settings, and execution parameters for batch or streaming workloads."
+        },
+        {
+          "info": {
+            "name": "Google Cloud Dataflow Get a Dataflow job in a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dataflow.googleapis.com/v1b3/projects/:projectId/jobs/:jobId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Google Cloud project that owns the job."
+              },
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Dataflow job."
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "The level of detail to return for each job. Defaults to JOB_VIEW_SUMMARY."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "query",
+                "description": "The regional endpoint for the request, such as us-central1 or europe-west1."
+              }
+            ]
+          },
+          "docs": "Retrieves the state of a specified Dataflow job in the given project. Returns the full job resource including current state, pipeline description, environment, and metadata."
+        },
+        {
+          "info": {
+            "name": "Google Cloud Dataflow Update a Dataflow job in a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://dataflow.googleapis.com/v1b3/projects/:projectId/jobs/:jobId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Google Cloud project that owns the job."
+              },
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Dataflow job."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "query",
+                "description": "The regional endpoint for the request, such as us-central1 or europe-west1."
+              },
+              {
+                "name": "updateMask",
+                "value": "",
+                "type": "query",
+                "description": "The list of fields to update relative to the job. If empty, only the requestedState field will be considered."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the state of an existing Dataflow job in the specified project. This is primarily used to change the requested state of a job, such as cancelling or draining a running job."
+        },
+        {
+          "info": {
+            "name": "Google Cloud Dataflow List jobs in a specific location",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dataflow.googleapis.com/v1b3/projects/:projectId/locations/:location/jobs",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Google Cloud project that owns the job."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "path",
+                "description": "The regional endpoint where the job resides, such as us-central1 or europe-west1."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "A token identifying the page of results to return. Set this to the nextPageToken value returned by a previous list request."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return per page. If unspecified, the server will determine the number of results to return."
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "The level of detail to return for each job. Defaults to JOB_VIEW_SUMMARY."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "The kind of filter to use for listing jobs."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Optional. The job name to filter results."
+              }
+            ]
+          },
+          "docs": "Lists all Dataflow jobs associated with the specified project in the given regional location. Returns a paginated list that can be filtered by state and name."
+        },
+        {
+          "info": {
+            "name": "Google Cloud Dataflow Create a Dataflow job in a specific location",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dataflow.googleapis.com/v1b3/projects/:projectId/locations/:location/jobs",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Google Cloud project that owns the job."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "path",
+                "description": "The regional endpoint where the job resides, such as us-central1 or europe-west1."
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "The level of detail to return for each job. Defaults to JOB_VIEW_SUMMARY."
+              },
+              {
+                "name": "replaceJobId",
+                "value": "",
+                "type": "query",
+                "description": "Deprecated. The ID of the job to replace when updating a pipeline."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Dataflow job in the specified project and regional location. The job definition includes the pipeline configuration, environment settings, and execution parameters."
+        },
+        {
+          "info": {
+            "name": "Google Cloud Dataflow Get a Dataflow job in a specific location",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dataflow.googleapis.com/v1b3/projects/:projectId/locations/:location/jobs/:jobId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Google Cloud project that owns the job."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "path",
+                "description": "The regional endpoint where the job resides, such as us-central1 or europe-west1."
+              },
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Dataflow job."
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "The level of detail to return for each job. Defaults to JOB_VIEW_SUMMARY."
+              }
+            ]
+          },
+          "docs": "Retrieves the state of a specified Dataflow job in the given project and regional location. Returns the full job resource including current state, pipeline description, environment, and metadata."
+        },
+        {
+          "info": {
+            "name": "Google Cloud Dataflow Update a Dataflow job in a specific location",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://dataflow.googleapis.com/v1b3/projects/:projectId/locations/:location/jobs/:jobId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Google Cloud project that owns the job."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "path",
+                "description": "The regional endpoint where the job resides, such as us-central1 or europe-west1."
+              },
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Dataflow job."
+              },
+              {
+                "name": "updateMask",
+                "value": "",
+                "type": "query",
+                "description": "The list of fields to update relative to the job. If empty, only the requestedState field will be considered."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the state of an existing Dataflow job in the specified project and regional location. This is primarily used to change the requested state of a job, such as cancelling or draining a running job."
+        },
+        {
+          "info": {
+            "name": "Google Cloud Dataflow Get execution details for a Dataflow job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dataflow.googleapis.com/v1b3/projects/:projectId/locations/:location/jobs/:jobId/executionDetails",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Google Cloud project that owns the job."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "path",
+                "description": "The regional endpoint where the job resides, such as us-central1 or europe-west1."
+              },
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Dataflow job."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "A token identifying the page of results to return. Set this to the nextPageToken value returned by a previous list request."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return per page. If unspecified, the server will determine the number of results to return."
+              }
+            ]
+          },
+          "docs": "Retrieves detailed execution status information for a specified Dataflow job in the given project and regional location. Returns information about the stages of the pipeline and their execution status."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

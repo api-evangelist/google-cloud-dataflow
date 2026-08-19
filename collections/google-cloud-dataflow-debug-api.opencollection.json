@@ -1,0 +1,100 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Google Cloud Dataflow Debug API",
+    "version": "v1b3"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+      "accessTokenUrl": "https://oauth2.googleapis.com/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Debug",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Google Cloud Dataflow Get debug configuration for a job component",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dataflow.googleapis.com/v1b3/projects/:projectId/locations/:location/jobs/:jobId/debug/getConfig",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Google Cloud project that owns the job."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "path",
+                "description": "The regional endpoint where the job resides, such as us-central1 or europe-west1."
+              },
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Dataflow job."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves the debug configuration for a specific component of a Dataflow job in the given project and regional location. Used internally by Dataflow workers for debugging purposes."
+        },
+        {
+          "info": {
+            "name": "Google Cloud Dataflow Send debug capture data for a job component",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dataflow.googleapis.com/v1b3/projects/:projectId/locations/:location/jobs/:jobId/debug/sendCapture",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Google Cloud project that owns the job."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "path",
+                "description": "The regional endpoint where the job resides, such as us-central1 or europe-west1."
+              },
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Dataflow job."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits encoded debug information for a specific component of a Dataflow job in the given project and regional location. Used internally by Dataflow workers for submitting debug data."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

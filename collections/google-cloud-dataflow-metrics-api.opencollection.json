@@ -1,0 +1,104 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Google Cloud Dataflow Debug Metrics API",
+    "version": "v1b3"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+      "accessTokenUrl": "https://oauth2.googleapis.com/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Metrics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Google Cloud Dataflow Get metrics for a Dataflow job in a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dataflow.googleapis.com/v1b3/projects/:projectId/jobs/:jobId/metrics",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Google Cloud project that owns the job."
+              },
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Dataflow job."
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Return only metric data that has changed since this time. Default is to return all information about all metrics for the job."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "query",
+                "description": "The regional endpoint for the request, such as us-central1 or europe-west1."
+              }
+            ]
+          },
+          "docs": "Retrieves the execution metrics for a specified Dataflow job in the given project. Returns metric updates including counters, distributions, and other pipeline performance indicators."
+        },
+        {
+          "info": {
+            "name": "Google Cloud Dataflow Get metrics for a Dataflow job in a specific location",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dataflow.googleapis.com/v1b3/projects/:projectId/locations/:location/jobs/:jobId/metrics",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Google Cloud project that owns the job."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "path",
+                "description": "The regional endpoint where the job resides, such as us-central1 or europe-west1."
+              },
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Dataflow job."
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Return only metric data that has changed since this time. Default is to return all information about all metrics for the job."
+              }
+            ]
+          },
+          "docs": "Retrieves the execution metrics for a specified Dataflow job in the given project and regional location. Returns metric updates including counters, distributions, and other pipeline performance indicators."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

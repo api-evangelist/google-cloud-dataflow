@@ -1,0 +1,152 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Google Cloud Dataflow Debug Messages API",
+    "version": "v1b3"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+      "accessTokenUrl": "https://oauth2.googleapis.com/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Messages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Google Cloud Dataflow List messages for a Dataflow job in a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dataflow.googleapis.com/v1b3/projects/:projectId/jobs/:jobId/messages",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Google Cloud project that owns the job."
+              },
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Dataflow job."
+              },
+              {
+                "name": "minimumImportance",
+                "value": "",
+                "type": "query",
+                "description": "Filter to return only messages with at least this importance level."
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Return messages with timestamps greater than or equal to this value."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Return messages with timestamps less than this value."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "A token identifying the page of results to return. Set this to the nextPageToken value returned by a previous list request."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return per page. If unspecified, the server will determine the number of results to return."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "query",
+                "description": "The regional endpoint for the request, such as us-central1 or europe-west1."
+              }
+            ]
+          },
+          "docs": "Retrieves the status messages for a specified Dataflow job in the given project. Messages include informational updates, warnings, and errors generated during job execution."
+        },
+        {
+          "info": {
+            "name": "Google Cloud Dataflow List messages for a Dataflow job in a specific location",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dataflow.googleapis.com/v1b3/projects/:projectId/locations/:location/jobs/:jobId/messages",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Google Cloud project that owns the job."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "path",
+                "description": "The regional endpoint where the job resides, such as us-central1 or europe-west1."
+              },
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Dataflow job."
+              },
+              {
+                "name": "minimumImportance",
+                "value": "",
+                "type": "query",
+                "description": "Filter to return only messages with at least this importance level."
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Return messages with timestamps greater than or equal to this value."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Return messages with timestamps less than this value."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "A token identifying the page of results to return. Set this to the nextPageToken value returned by a previous list request."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return per page. If unspecified, the server will determine the number of results to return."
+              }
+            ]
+          },
+          "docs": "Retrieves the status messages for a specified Dataflow job in the given project and regional location. Messages include informational updates, warnings, and errors generated during job execution."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
