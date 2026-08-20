@@ -180,6 +180,8 @@ apis:
   humanURL: https://cloud.google.com/dataflow/docs
   baseURL: https://dataflow.googleapis.com
   tags:
+  - Job
+  tags_raw:
   - Jobs
   properties:
   - type: OpenAPI
@@ -252,6 +254,8 @@ apis:
   humanURL: https://cloud.google.com/dataflow/docs
   baseURL: https://dataflow.googleapis.com
   tags:
+  - Message
+  tags_raw:
   - Messages
   properties:
   - type: OpenAPI
