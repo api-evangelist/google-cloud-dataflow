@@ -12,8 +12,11 @@ info:
     OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: dataflowApi
-  url: ../openapi/google-cloud-dataflow-api-openapi.yml
+- name: jobsApi
+  url: ../openapi/google-cloud-dataflow-jobs-api-openapi.yml
+  type: openapi
+- name: messagesApi
+  url: ../openapi/google-cloud-dataflow-messages-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: diagnose-job

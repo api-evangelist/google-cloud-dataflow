@@ -12,8 +12,8 @@ info:
     read and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: dataflowApi
-  url: ../openapi/google-cloud-dataflow-api-openapi.yml
+- name: jobsApi
+  url: ../openapi/google-cloud-dataflow-jobs-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: drain-running-job

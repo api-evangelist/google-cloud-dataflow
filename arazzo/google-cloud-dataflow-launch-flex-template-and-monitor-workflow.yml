@@ -12,8 +12,14 @@ info:
     executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: dataflowApi
-  url: ../openapi/google-cloud-dataflow-api-openapi.yml
+- name: flexTemplatesApi
+  url: ../openapi/google-cloud-dataflow-flex-templates-api-openapi.yml
+  type: openapi
+- name: jobsApi
+  url: ../openapi/google-cloud-dataflow-jobs-api-openapi.yml
+  type: openapi
+- name: metricsApi
+  url: ../openapi/google-cloud-dataflow-metrics-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: launch-flex-template-and-monitor
