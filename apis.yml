@@ -64,7 +64,7 @@ apis:
     url: https://cloud.google.com/dataflow/pricing
   - type: Authentication
     url: https://cloud.google.com/dataflow/docs/concepts/access-control
-  - type: Samples
+  - type: Examples
     url: https://cloud.google.com/dataflow/docs/samples
   - type: Support
     url: https://cloud.google.com/dataflow/docs/support
@@ -136,7 +136,7 @@ apis:
     url: https://cloud.google.com/dataflow/pricing
   - type: Authentication
     url: https://cloud.google.com/dataflow/docs/concepts/access-control
-  - type: Samples
+  - type: Examples
     url: https://cloud.google.com/dataflow/docs/samples
   - type: Support
     url: https://cloud.google.com/dataflow/docs/support
@@ -210,7 +210,7 @@ apis:
     url: https://cloud.google.com/dataflow/pricing
   - type: Authentication
     url: https://cloud.google.com/dataflow/docs/concepts/access-control
-  - type: Samples
+  - type: Examples
     url: https://cloud.google.com/dataflow/docs/samples
   - type: Support
     url: https://cloud.google.com/dataflow/docs/support
@@ -284,7 +284,7 @@ apis:
     url: https://cloud.google.com/dataflow/pricing
   - type: Authentication
     url: https://cloud.google.com/dataflow/docs/concepts/access-control
-  - type: Samples
+  - type: Examples
     url: https://cloud.google.com/dataflow/docs/samples
   - type: Support
     url: https://cloud.google.com/dataflow/docs/support
@@ -356,7 +356,7 @@ apis:
     url: https://cloud.google.com/dataflow/pricing
   - type: Authentication
     url: https://cloud.google.com/dataflow/docs/concepts/access-control
-  - type: Samples
+  - type: Examples
     url: https://cloud.google.com/dataflow/docs/samples
   - type: Support
     url: https://cloud.google.com/dataflow/docs/support
@@ -428,7 +428,7 @@ apis:
     url: https://cloud.google.com/dataflow/pricing
   - type: Authentication
     url: https://cloud.google.com/dataflow/docs/concepts/access-control
-  - type: Samples
+  - type: Examples
     url: https://cloud.google.com/dataflow/docs/samples
   - type: Support
     url: https://cloud.google.com/dataflow/docs/support
@@ -500,7 +500,7 @@ apis:
     url: https://cloud.google.com/dataflow/pricing
   - type: Authentication
     url: https://cloud.google.com/dataflow/docs/concepts/access-control
-  - type: Samples
+  - type: Examples
     url: https://cloud.google.com/dataflow/docs/samples
   - type: Support
     url: https://cloud.google.com/dataflow/docs/support
@@ -572,7 +572,7 @@ apis:
     url: https://cloud.google.com/dataflow/pricing
   - type: Authentication
     url: https://cloud.google.com/dataflow/docs/concepts/access-control
-  - type: Samples
+  - type: Examples
     url: https://cloud.google.com/dataflow/docs/samples
   - type: Support
     url: https://cloud.google.com/dataflow/docs/support
