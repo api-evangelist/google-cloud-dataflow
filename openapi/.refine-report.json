@@ -1,14 +1,7 @@
 {
   "provider": "google-cloud-dataflow",
   "sources": [
-    "google-cloud-dataflow-debug-api-openapi.yml",
-    "google-cloud-dataflow-flex-templates-api-openapi.yml",
-    "google-cloud-dataflow-jobs-api-openapi.yml",
-    "google-cloud-dataflow-messages-api-openapi.yml",
-    "google-cloud-dataflow-metrics-api-openapi.yml",
-    "google-cloud-dataflow-snapshots-api-openapi.yml",
-    "google-cloud-dataflow-stages-api-openapi.yml",
-    "google-cloud-dataflow-templates-api-openapi.yml"
+    "_original/google-cloud-dataflow-api-openapi.yml"
   ],
   "outputs": [
     "google-cloud-dataflow-debug-api-openapi.yml",
@@ -23,6 +16,19 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "google-cloud-dataflow-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "google-cloud-dataflow-debug-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "google-cloud-dataflow-flex-templates-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "google-cloud-dataflow-jobs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "google-cloud-dataflow-messages-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "google-cloud-dataflow-metrics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "google-cloud-dataflow-snapshots-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "google-cloud-dataflow-stages-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "google-cloud-dataflow-templates-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

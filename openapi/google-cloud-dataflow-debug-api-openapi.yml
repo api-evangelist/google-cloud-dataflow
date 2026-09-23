@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Google Cloud Dataflow Debug API
   description: Manages Google Cloud Dataflow projects on Google Cloud Platform for creating and managing data processing pipelines, including job submission, monitoring, and resource management for both batch and streaming workloads.
@@ -93,29 +93,19 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 components:
-  parameters:
-    locationPath:
-      name: location
-      in: path
-      required: true
-      description: The regional endpoint where the job resides, such as us-central1 or europe-west1.
-      schema:
-        type: string
-    projectId:
-      name: projectId
-      in: path
-      required: true
-      description: The ID of the Google Cloud project that owns the job.
-      schema:
-        type: string
-    jobId:
-      name: jobId
-      in: path
-      required: true
-      description: The unique identifier of the Dataflow job.
-      schema:
-        type: string
   responses:
+    BadRequest:
+      description: The request was invalid or malformed. Check the request parameters and body for errors.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    InternalServerError:
+      description: An internal server error occurred. Retry the request using exponential backoff.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
     NotFound:
       description: The requested resource was not found. Verify the project ID, job ID, or other resource identifiers.
       content:
@@ -140,42 +130,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Status'
-    InternalServerError:
-      description: An internal server error occurred. Retry the request using exponential backoff.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    BadRequest:
-      description: The request was invalid or malformed. Check the request parameters and body for errors.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
   schemas:
-    SendDebugCaptureResponse:
-      type: object
-      description: Response to a send debug capture request. This is an empty response body.
-    GetDebugConfigRequest:
-      type: object
-      description: Request to get the debug configuration for a specific component of a Dataflow job.
-      properties:
-        workerId:
-          type: string
-          description: The internal VM hostname of the worker.
-        componentId:
-          type: string
-          description: The internal component identifier.
-        location:
-          type: string
-          description: The regional endpoint for the request.
-    GetDebugConfigResponse:
-      type: object
-      description: Response to a request for debug configuration.
-      properties:
-        config:
-          type: string
-          description: The encoded debug configuration for the requested component.
     Status:
       type: object
       description: The Status type defines a logical error model, compatible with gRPC and Google API error conventions.
@@ -193,6 +148,29 @@ components:
           items:
             type: object
             additionalProperties: true
+    GetDebugConfigResponse:
+      type: object
+      description: Response to a request for debug configuration.
+      properties:
+        config:
+          type: string
+          description: The encoded debug configuration for the requested component.
+    GetDebugConfigRequest:
+      type: object
+      description: Request to get the debug configuration for a specific component of a Dataflow job.
+      properties:
+        workerId:
+          type: string
+          description: The internal VM hostname of the worker.
+        componentId:
+          type: string
+          description: The internal component identifier.
+        location:
+          type: string
+          description: The regional endpoint for the request.
+    SendDebugCaptureResponse:
+      type: object
+      description: Response to a send debug capture request. This is an empty response body.
     SendDebugCaptureRequest:
       type: object
       description: Request to send debug capture data for a specific component of a Dataflow job.
@@ -218,6 +196,28 @@ components:
         location:
           type: string
           description: The regional endpoint for the request.
+  parameters:
+    projectId:
+      name: projectId
+      in: path
+      required: true
+      description: The ID of the Google Cloud project that owns the job.
+      schema:
+        type: string
+    locationPath:
+      name: location
+      in: path
+      required: true
+      description: The regional endpoint where the job resides, such as us-central1 or europe-west1.
+      schema:
+        type: string
+    jobId:
+      name: jobId
+      in: path
+      required: true
+      description: The unique identifier of the Dataflow job.
+      schema:
+        type: string
   securitySchemes:
     oauth2:
       type: oauth2
