@@ -372,245 +372,46 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 components:
-  parameters:
-    jobFilter:
-      name: filter
-      in: query
-      description: The kind of filter to use for listing jobs.
-      schema:
-        type: string
-        enum:
-        - UNKNOWN
-        - ALL
-        - TERMINATED
-        - ACTIVE
-    locationPath:
-      name: location
-      in: path
-      required: true
-      description: The regional endpoint where the job resides, such as us-central1 or europe-west1.
-      schema:
-        type: string
-    location:
-      name: location
-      in: query
-      description: The regional endpoint for the request, such as us-central1 or europe-west1.
-      schema:
-        type: string
-    jobId:
-      name: jobId
-      in: path
-      required: true
-      description: The unique identifier of the Dataflow job.
-      schema:
-        type: string
-    pageToken:
-      name: pageToken
-      in: query
-      description: A token identifying the page of results to return. Set this to the nextPageToken value returned by a previous list request.
-      schema:
-        type: string
-    jobView:
-      name: view
-      in: query
-      description: The level of detail to return for each job. Defaults to JOB_VIEW_SUMMARY.
-      schema:
-        type: string
-        enum:
-        - JOB_VIEW_UNKNOWN
-        - JOB_VIEW_SUMMARY
-        - JOB_VIEW_ALL
-        - JOB_VIEW_DESCRIPTION
-    projectId:
-      name: projectId
-      in: path
-      required: true
-      description: The ID of the Google Cloud project that owns the job.
-      schema:
-        type: string
-    jobName:
-      name: name
-      in: query
-      description: Optional. The job name to filter results.
-      schema:
-        type: string
-    pageSize:
-      name: pageSize
-      in: query
-      description: The maximum number of results to return per page. If unspecified, the server will determine the number of results to return.
-      schema:
-        type: integer
-        format: int32
   schemas:
-    ProgressTimeseries:
+    SpannerIODetails:
       type: object
-      description: Information about the progress of some component of job execution.
+      description: Metadata for a Cloud Spanner connector used by the job.
       properties:
-        currentProgress:
-          type: number
-          format: double
-          description: The current progress of the component, in the range [0.0, 1.0].
-        dataPoints:
-          type: array
-          description: History of progress measurements.
-          items:
-            $ref: '#/components/schemas/Point'
-    PipelineDescription:
+        projectId:
+          type: string
+          description: ProjectId accessed in the connection.
+        instanceId:
+          type: string
+          description: InstanceId accessed in the connection.
+        databaseId:
+          type: string
+          description: DatabaseId accessed in the connection.
+    StageSummary:
       type: object
-      description: A descriptive representation of a pipeline, providing structural information about the stages and transforms in the pipeline graph.
+      description: Information about a particular execution stage of a job.
       properties:
-        originalPipelineTransform:
-          type: array
-          description: Description of each transform in the pipeline as provided by the user.
-          items:
-            $ref: '#/components/schemas/TransformSummary'
-        executionPipelineStage:
-          type: array
-          description: Description of each stage of execution after the pipeline has been optimized by the service.
-          items:
-            $ref: '#/components/schemas/ExecutionStageSummary'
-        displayData:
-          type: array
-          description: Pipeline level display data.
-          items:
-            $ref: '#/components/schemas/DisplayData'
-    SdkVersion:
-      type: object
-      description: The version of the SDK used to run the job.
-      properties:
-        version:
+        stageId:
           type: string
-          description: The version of the SDK used to run the job.
-        versionDisplayName:
-          type: string
-          description: A readable string describing the version of the SDK.
-        sdkSupportStatus:
-          type: string
-          description: The support status for this SDK version.
-          enum:
-          - UNKNOWN
-          - SUPPORTED
-          - STALE
-          - DEPRECATED
-          - UNSUPPORTED
-    FileIODetails:
-      type: object
-      description: Metadata for a file connector used by the job.
-      properties:
-        filePattern:
-          type: string
-          description: File pattern used in the connection.
-    MetricUpdate:
-      type: object
-      description: Describes the state of a metric at a particular point in time.
-      properties:
-        name:
-          $ref: '#/components/schemas/MetricStructuredName'
-        kind:
-          type: string
-          description: Metric aggregation kind. The possible values are Sum, Max, Min, Mean, Set, And, Or, Distribution, LatestValue.
-        cumulative:
-          type: boolean
-          description: True if this metric is reported as the total cumulative aggregate value accumulated since the worker started working on this WorkItem.
-        scalar:
-          description: Worker-computed aggregate value for aggregation kinds Sum, Max, Min.
-        meanSum:
-          description: Worker-computed aggregate value for the Mean aggregation kind.
-        meanCount:
-          description: Worker-computed aggregate value for the Mean aggregation kind.
-        set:
-          description: Worker-computed aggregate value for the Set aggregation kind.
-        distribution:
-          description: A struct value describing properties of a distribution of numeric values.
-        gauge:
-          description: A struct value describing properties of a gauge metric.
-        internal:
-          description: Worker-computed aggregate value for internal use by the service.
-        updateTime:
+          description: ID of this stage.
+        state:
+          $ref: '#/components/schemas/ExecutionState'
+        startTime:
           type: string
           format: date-time
-          description: Timestamp associated with the metric value.
-    RuntimeUpdatableParams:
-      type: object
-      description: Additional job parameters that can be updated during execution without stopping the job.
-      properties:
-        maxNumWorkers:
-          type: integer
-          format: int32
-          description: The maximum number of workers for autoscaling.
-        minNumWorkers:
-          type: integer
-          format: int32
-          description: The minimum number of workers for autoscaling.
-        workerUtilizationHint:
-          type: number
-          format: double
-          description: Target worker utilization between 0.1 and 0.9, used by the autoscaler to determine when to scale.
-    JobState:
-      type: string
-      description: The current or requested state of a Dataflow job. States represent the lifecycle of a job from creation through completion or cancellation.
-      enum:
-      - JOB_STATE_UNKNOWN
-      - JOB_STATE_STOPPED
-      - JOB_STATE_RUNNING
-      - JOB_STATE_DONE
-      - JOB_STATE_FAILED
-      - JOB_STATE_CANCELLED
-      - JOB_STATE_UPDATED
-      - JOB_STATE_DRAINING
-      - JOB_STATE_DRAINED
-      - JOB_STATE_PENDING
-      - JOB_STATE_CANCELLING
-      - JOB_STATE_QUEUED
-      - JOB_STATE_RESOURCE_CLEANING_UP
-    FailedLocation:
-      type: object
-      description: Indicates which regional endpoint failed to respond.
-      properties:
-        name:
+          description: Start time of this stage.
+        endTime:
           type: string
-          description: The name of the failed location, typically a regional endpoint such as us-central1.
-    JobMetadata:
-      type: object
-      description: Metadata available primarily for filtering jobs. Represents information about the external data sources and sinks used by the job.
-      properties:
-        sdkVersion:
-          $ref: '#/components/schemas/SdkVersion'
-        spannerDetails:
+          format: date-time
+          description: End time of this stage. Not set if the stage is still running.
+        progress:
+          $ref: '#/components/schemas/ProgressTimeseries'
+        metrics:
           type: array
-          description: Identification of Cloud Spanner sources used by this job.
+          description: Metrics for this stage.
           items:
-            $ref: '#/components/schemas/SpannerIODetails'
-        bigqueryDetails:
-          type: array
-          description: Identification of BigQuery sources used by this job.
-          items:
-            $ref: '#/components/schemas/BigQueryIODetails'
-        bigTableDetails:
-          type: array
-          description: Identification of Cloud Bigtable sources used by this job.
-          items:
-            $ref: '#/components/schemas/BigTableIODetails'
-        pubsubDetails:
-          type: array
-          description: Identification of Pub/Sub sources used by this job.
-          items:
-            $ref: '#/components/schemas/PubSubIODetails'
-        fileDetails:
-          type: array
-          description: Identification of file-based sources used by this job.
-          items:
-            $ref: '#/components/schemas/FileIODetails'
-        datastoreDetails:
-          type: array
-          description: Identification of Datastore sources used by this job.
-          items:
-            $ref: '#/components/schemas/DatastoreIODetails'
-        userDisplayProperties:
-          type: object
-          description: User-supplied properties for display in the Dataflow monitoring UI.
-          additionalProperties:
-            type: string
+            $ref: '#/components/schemas/MetricUpdate'
+        stragglerSummary:
+          $ref: '#/components/schemas/StragglerSummary'
     Job:
       type: object
       description: Defines a Dataflow job representing a pipeline execution. A job encapsulates the pipeline configuration, environment, execution state, and metadata for batch or streaming workloads.
@@ -705,6 +506,103 @@ components:
           type: boolean
           description: Reserved for future use. This field is set by the server.
           readOnly: true
+    RuntimeUpdatableParams:
+      type: object
+      description: Additional job parameters that can be updated during execution without stopping the job.
+      properties:
+        maxNumWorkers:
+          type: integer
+          format: int32
+          description: The maximum number of workers for autoscaling.
+        minNumWorkers:
+          type: integer
+          format: int32
+          description: The minimum number of workers for autoscaling.
+        workerUtilizationHint:
+          type: number
+          format: double
+          description: Target worker utilization between 0.1 and 0.9, used by the autoscaler to determine when to scale.
+    SdkHarnessContainerImage:
+      type: object
+      description: Defines an SDK harness container image used by workers to execute pipeline code.
+      properties:
+        containerImage:
+          type: string
+          description: The Docker container image URI.
+        useSingleCorePerContainer:
+          type: boolean
+          description: Whether to use a single CPU core per container.
+        environmentId:
+          type: string
+          description: The environment ID that this container image is associated with in the pipeline.
+        capabilities:
+          type: array
+          description: The capabilities of this SDK harness container.
+          items:
+            type: string
+    MetricUpdate:
+      type: object
+      description: Describes the state of a metric at a particular point in time.
+      properties:
+        name:
+          $ref: '#/components/schemas/MetricStructuredName'
+        kind:
+          type: string
+          description: Metric aggregation kind. The possible values are Sum, Max, Min, Mean, Set, And, Or, Distribution, LatestValue.
+        cumulative:
+          type: boolean
+          description: True if this metric is reported as the total cumulative aggregate value accumulated since the worker started working on this WorkItem.
+        scalar:
+          description: Worker-computed aggregate value for aggregation kinds Sum, Max, Min.
+        meanSum:
+          description: Worker-computed aggregate value for the Mean aggregation kind.
+        meanCount:
+          description: Worker-computed aggregate value for the Mean aggregation kind.
+        set:
+          description: Worker-computed aggregate value for the Set aggregation kind.
+        distribution:
+          description: A struct value describing properties of a distribution of numeric values.
+        gauge:
+          description: A struct value describing properties of a gauge metric.
+        internal:
+          description: Worker-computed aggregate value for internal use by the service.
+        updateTime:
+          type: string
+          format: date-time
+          description: Timestamp associated with the metric value.
+    Step:
+      type: object
+      description: Defines a particular step within a Dataflow job pipeline, corresponding to a transform in the pipeline graph.
+      properties:
+        kind:
+          type: string
+          description: The type of transform this step represents, such as ParallelRead, ParallelDo, or GroupByKey.
+        name:
+          type: string
+          description: The unique name of this step within the job.
+        properties:
+          type: object
+          description: Named properties associated with the step, containing the step configuration.
+          additionalProperties: true
+    SdkVersion:
+      type: object
+      description: The version of the SDK used to run the job.
+      properties:
+        version:
+          type: string
+          description: The version of the SDK used to run the job.
+        versionDisplayName:
+          type: string
+          description: A readable string describing the version of the SDK.
+        sdkSupportStatus:
+          type: string
+          description: The support status for this SDK version.
+          enum:
+          - UNKNOWN
+          - SUPPORTED
+          - STALE
+          - DEPRECATED
+          - UNSUPPORTED
     Point:
       type: object
       description: A point in the timeseries.
@@ -717,16 +615,84 @@ components:
           type: number
           format: double
           description: The value at this data point.
-    Package:
+    BigTableIODetails:
       type: object
-      description: Describes a package to be installed on worker instances.
+      description: Metadata for a Cloud Bigtable connector used by the job.
       properties:
-        name:
+        projectId:
           type: string
-          description: The name of the package.
-        location:
+          description: ProjectId accessed in the connection.
+        instanceId:
           type: string
-          description: The Cloud Storage location of the package.
+          description: InstanceId accessed in the connection.
+        tableId:
+          type: string
+          description: TableId accessed in the connection.
+    StragglerDelineation:
+      type: object
+      description: Information useful for straggler identification and debugging.
+      properties:
+        stragglerCause:
+          type: string
+          description: The straggler cause.
+          enum:
+          - STRAGGLER_CAUSE_UNKNOWN
+          - STRAGGLER_CAUSE_KEY
+        stragglerCount:
+          type: string
+          format: int64
+          description: The number of stragglers of this type.
+    JobState:
+      type: string
+      description: The current or requested state of a Dataflow job. States represent the lifecycle of a job from creation through completion or cancellation.
+      enum:
+      - JOB_STATE_UNKNOWN
+      - JOB_STATE_STOPPED
+      - JOB_STATE_RUNNING
+      - JOB_STATE_DONE
+      - JOB_STATE_FAILED
+      - JOB_STATE_CANCELLED
+      - JOB_STATE_UPDATED
+      - JOB_STATE_DRAINING
+      - JOB_STATE_DRAINED
+      - JOB_STATE_PENDING
+      - JOB_STATE_CANCELLING
+      - JOB_STATE_QUEUED
+      - JOB_STATE_RESOURCE_CLEANING_UP
+    FileIODetails:
+      type: object
+      description: Metadata for a file connector used by the job.
+      properties:
+        filePattern:
+          type: string
+          description: File pattern used in the connection.
+    Status:
+      type: object
+      description: The Status type defines a logical error model, compatible with gRPC and Google API error conventions.
+      properties:
+        code:
+          type: integer
+          format: int32
+          description: The status code, which should be an enum value of google.rpc.Code.
+        message:
+          type: string
+          description: A developer-facing error message, which should be in English.
+        details:
+          type: array
+          description: A list of messages that carry the error details.
+          items:
+            type: object
+            additionalProperties: true
+    DatastoreIODetails:
+      type: object
+      description: Metadata for a Datastore connector used by the job.
+      properties:
+        namespace:
+          type: string
+          description: Namespace used in the connection.
+        projectId:
+          type: string
+          description: ProjectId accessed in the connection.
     ExecutionStageSummary:
       type: object
       description: Description of a stage of execution after pipeline optimization.
@@ -775,310 +741,23 @@ components:
           description: Other stages that must complete before this stage can run.
           items:
             type: string
-    PubSubIODetails:
+    ListJobsResponse:
       type: object
-      description: Metadata for a Pub/Sub connector used by the job.
+      description: Response to a request to list Dataflow jobs. This may be a partial response, requiring pagination to retrieve all jobs.
       properties:
-        topic:
-          type: string
-          description: Topic accessed in the connection.
-        subscription:
-          type: string
-          description: Subscription used in the connection.
-    BigTableIODetails:
-      type: object
-      description: Metadata for a Cloud Bigtable connector used by the job.
-      properties:
-        projectId:
-          type: string
-          description: ProjectId accessed in the connection.
-        instanceId:
-          type: string
-          description: InstanceId accessed in the connection.
-        tableId:
-          type: string
-          description: TableId accessed in the connection.
-    AutoscalingSettings:
-      type: object
-      description: Settings for autoscaling the number of worker instances in a pool.
-      properties:
-        algorithm:
-          type: string
-          description: The autoscaling algorithm to use.
-          enum:
-          - AUTOSCALING_ALGORITHM_UNKNOWN
-          - AUTOSCALING_ALGORITHM_NONE
-          - AUTOSCALING_ALGORITHM_BASIC
-        maxNumWorkers:
-          type: integer
-          format: int32
-          description: The maximum number of workers to scale up to.
-    ExecutionState:
-      type: string
-      description: The state of a stage execution.
-      enum:
-      - EXECUTION_STATE_UNKNOWN
-      - EXECUTION_STATE_NOT_STARTED
-      - EXECUTION_STATE_RUNNING
-      - EXECUTION_STATE_SUCCEEDED
-      - EXECUTION_STATE_FAILED
-      - EXECUTION_STATE_CANCELLED
-    MetricStructuredName:
-      type: object
-      description: Identifies a metric, using both the key and the context in which it appears.
-      properties:
-        origin:
-          type: string
-          description: Origin (namespace) of metric name. May be blank for user-defined metrics. Typical values are dataflow/v1b3 and user.
-        name:
-          type: string
-          description: Worker-defined metric name.
-        context:
-          type: object
-          description: Zero or more labeled fields that identify the part of the job this metric is associated with.
-          additionalProperties:
-            type: string
-    Status:
-      type: object
-      description: The Status type defines a logical error model, compatible with gRPC and Google API error conventions.
-      properties:
-        code:
-          type: integer
-          format: int32
-          description: The status code, which should be an enum value of google.rpc.Code.
-        message:
-          type: string
-          description: A developer-facing error message, which should be in English.
-        details:
+        jobs:
           type: array
-          description: A list of messages that carry the error details.
+          description: A subset of the requested job information.
           items:
-            type: object
-            additionalProperties: true
-    ComponentSource:
-      type: object
-      description: An identification of a collection produced or consumed by a component transform.
-      properties:
-        userName:
+            $ref: '#/components/schemas/Job'
+        nextPageToken:
           type: string
-          description: Human-readable name for this source.
-        name:
-          type: string
-          description: Dataflow service generated name for this source.
-        originalTransformOrCollection:
-          type: string
-          description: User name for the original user transform or collection this source corresponds to.
-    ExecutionStageState:
-      type: object
-      description: Describes the state of a particular execution stage within a Dataflow job.
-      properties:
-        executionStageName:
-          type: string
-          description: The name of the execution stage.
-        executionStageState:
-          $ref: '#/components/schemas/JobState'
-        currentStateTime:
-          type: string
-          format: date-time
-          description: The time at which the stage entered its current state.
-    DatastoreIODetails:
-      type: object
-      description: Metadata for a Datastore connector used by the job.
-      properties:
-        namespace:
-          type: string
-          description: Namespace used in the connection.
-        projectId:
-          type: string
-          description: ProjectId accessed in the connection.
-    StragglerDelineation:
-      type: object
-      description: Information useful for straggler identification and debugging.
-      properties:
-        stragglerCause:
-          type: string
-          description: The straggler cause.
-          enum:
-          - STRAGGLER_CAUSE_UNKNOWN
-          - STRAGGLER_CAUSE_KEY
-        stragglerCount:
-          type: string
-          format: int64
-          description: The number of stragglers of this type.
-    BigQueryIODetails:
-      type: object
-      description: Metadata for a BigQuery connector used by the job.
-      properties:
-        table:
-          type: string
-          description: Table accessed in the connection.
-        dataset:
-          type: string
-          description: Dataset accessed in the connection.
-        projectId:
-          type: string
-          description: Project accessed in the connection.
-        query:
-          type: string
-          description: Query used to access data in the connection.
-    DisplayData:
-      type: object
-      description: Data provided with a pipeline or transform to provide descriptive information.
-      properties:
-        key:
-          type: string
-          description: The key identifying the display data.
-        namespace:
-          type: string
-          description: The namespace for the key, usually a class name.
-        strValue:
-          type: string
-          description: Contains value if the data is of string type.
-        int64Value:
-          type: string
-          format: int64
-          description: Contains value if the data is of int64 type.
-        floatValue:
-          type: number
-          format: float
-          description: Contains value if the data is of float type.
-        javaClassValue:
-          type: string
-          description: Contains value if the data is of java class type.
-        timestampValue:
-          type: string
-          format: date-time
-          description: Contains value if the data is of timestamp type.
-        durationValue:
-          type: string
-          description: Contains value if the data is of duration type.
-        boolValue:
-          type: boolean
-          description: Contains value if the data is of bool type.
-        shortStrValue:
-          type: string
-          description: A possible additional shorter value to display.
-        url:
-          type: string
-          description: An optional full URL.
-        label:
-          type: string
-          description: An optional label to display with the value.
-    WorkerPool:
-      type: object
-      description: Describes a pool of workers that execute pipeline transforms. Each pool specifies the machine type, disk configuration, networking, and autoscaling behavior.
-      properties:
-        kind:
-          type: string
-          description: The kind of worker pool, either harness for pipeline execution or shuffle for shuffle operations.
-        numWorkers:
-          type: integer
-          format: int32
-          description: The initial number of worker instances in the pool.
-        machineType:
-          type: string
-          description: The Compute Engine machine type for worker instances, such as n1-standard-4 or e2-standard-2.
-        diskSizeGb:
-          type: integer
-          format: int32
-          description: The size in GB of the root disk for each worker instance.
-        diskType:
-          type: string
-          description: The type of root disk for each worker instance, such as pd-standard, pd-ssd, or pd-balanced.
-        zone:
-          type: string
-          description: The Compute Engine zone where worker instances should be created.
-        network:
-          type: string
-          description: The name or full URL of the VPC network for worker instances.
-        subnetwork:
-          type: string
-          description: The full URL of the VPC subnetwork for worker instances.
-        metadata:
-          type: object
-          description: Metadata key-value pairs to set on the worker Compute Engine instances.
-          additionalProperties:
-            type: string
-        packages:
+          description: Set if there may be more results than have been returned. Provide this value as the pageToken in a subsequent request to retrieve additional results.
+        failedLocation:
           type: array
-          description: Packages to install on each worker instance, in addition to the default packages.
+          description: Zero or more regional endpoints that failed to respond to the list request.
           items:
-            $ref: '#/components/schemas/Package'
-        defaultPackageSet:
-          type: string
-          description: The default package set to install on the worker instances.
-          enum:
-          - DEFAULT_PACKAGE_SET_UNKNOWN
-          - DEFAULT_PACKAGE_SET_NONE
-          - DEFAULT_PACKAGE_SET_JAVA
-          - DEFAULT_PACKAGE_SET_PYTHON
-        autoscalingSettings:
-          $ref: '#/components/schemas/AutoscalingSettings'
-        ipConfiguration:
-          type: string
-          description: Configuration for the network IP address assignment for workers.
-          enum:
-          - WORKER_IP_UNSPECIFIED
-          - WORKER_IP_PUBLIC
-          - WORKER_IP_PRIVATE
-        sdkHarnessContainerImages:
-          type: array
-          description: Set of SDK harness container images for the worker pool, defining which containers to use for executing the pipeline.
-          items:
-            $ref: '#/components/schemas/SdkHarnessContainerImage'
-        teardownPolicy:
-          type: string
-          description: The policy that determines when worker instances are torn down.
-          enum:
-          - TEARDOWN_POLICY_UNKNOWN
-          - TEARDOWN_ALWAYS
-          - TEARDOWN_ON_SUCCESS
-          - TEARDOWN_NEVER
-        workerHarnessContainerImage:
-          type: string
-          description: The Docker container image to use for the worker harness.
-    JobType:
-      type: string
-      description: The type of Dataflow job, indicating batch or streaming execution.
-      enum:
-      - JOB_TYPE_UNKNOWN
-      - JOB_TYPE_BATCH
-      - JOB_TYPE_STREAMING
-    ServiceResources:
-      type: object
-      description: Resources allocated by the Dataflow service for the job.
-      properties:
-        zones:
-          type: array
-          description: The Cloud zones from which resources are allocated for this job.
-          items:
-            type: string
-    StageSummary:
-      type: object
-      description: Information about a particular execution stage of a job.
-      properties:
-        stageId:
-          type: string
-          description: ID of this stage.
-        state:
-          $ref: '#/components/schemas/ExecutionState'
-        startTime:
-          type: string
-          format: date-time
-          description: Start time of this stage.
-        endTime:
-          type: string
-          format: date-time
-          description: End time of this stage. Not set if the stage is still running.
-        progress:
-          $ref: '#/components/schemas/ProgressTimeseries'
-        metrics:
-          type: array
-          description: Metrics for this stage.
-          items:
-            $ref: '#/components/schemas/MetricUpdate'
-        stragglerSummary:
-          $ref: '#/components/schemas/StragglerSummary'
+            $ref: '#/components/schemas/FailedLocation'
     TransformSummary:
       type: object
       description: Description of a transform executed as part of a Dataflow job.
@@ -1117,104 +796,82 @@ components:
           description: User names for the input collections of this transform.
           items:
             type: string
-    StageSource:
+    ServiceResources:
       type: object
-      description: Describes a stream of data that flows in or out of a stage.
+      description: Resources allocated by the Dataflow service for the job.
       properties:
-        userName:
-          type: string
-          description: Human-readable name for this source.
-        name:
-          type: string
-          description: Dataflow service generated name for this source.
-        originalTransformOrCollection:
-          type: string
-          description: User name for the original user transform or collection this source corresponds to.
-        sizeBytes:
-          type: string
-          format: int64
-          description: Size of the source in bytes, if known.
-    DebugOptions:
-      type: object
-      description: Describes debugging options for a Dataflow job.
-      properties:
-        enableHotKeyLogging:
-          type: boolean
-          description: When true, enables logging of hot key detections during job execution.
-    JobExecutionDetails:
-      type: object
-      description: Information about the execution of a job, including per-stage execution details.
-      properties:
-        stages:
+        zones:
           type: array
-          description: The stages of the job execution.
-          items:
-            $ref: '#/components/schemas/StageSummary'
-        nextPageToken:
-          type: string
-          description: If present, this response is incomplete. Retrieve the next page of results by passing this value as the pageToken.
-    SpannerIODetails:
-      type: object
-      description: Metadata for a Cloud Spanner connector used by the job.
-      properties:
-        projectId:
-          type: string
-          description: ProjectId accessed in the connection.
-        instanceId:
-          type: string
-          description: InstanceId accessed in the connection.
-        databaseId:
-          type: string
-          description: DatabaseId accessed in the connection.
-    SdkHarnessContainerImage:
-      type: object
-      description: Defines an SDK harness container image used by workers to execute pipeline code.
-      properties:
-        containerImage:
-          type: string
-          description: The Docker container image URI.
-        useSingleCorePerContainer:
-          type: boolean
-          description: Whether to use a single CPU core per container.
-        environmentId:
-          type: string
-          description: The environment ID that this container image is associated with in the pipeline.
-        capabilities:
-          type: array
-          description: The capabilities of this SDK harness container.
+          description: The Cloud zones from which resources are allocated for this job.
           items:
             type: string
-    ListJobsResponse:
+    BigQueryIODetails:
       type: object
-      description: Response to a request to list Dataflow jobs. This may be a partial response, requiring pagination to retrieve all jobs.
+      description: Metadata for a BigQuery connector used by the job.
       properties:
-        jobs:
-          type: array
-          description: A subset of the requested job information.
-          items:
-            $ref: '#/components/schemas/Job'
-        nextPageToken:
+        table:
           type: string
-          description: Set if there may be more results than have been returned. Provide this value as the pageToken in a subsequent request to retrieve additional results.
-        failedLocation:
-          type: array
-          description: Zero or more regional endpoints that failed to respond to the list request.
-          items:
-            $ref: '#/components/schemas/FailedLocation'
-    Step:
+          description: Table accessed in the connection.
+        dataset:
+          type: string
+          description: Dataset accessed in the connection.
+        projectId:
+          type: string
+          description: Project accessed in the connection.
+        query:
+          type: string
+          description: Query used to access data in the connection.
+    Package:
       type: object
-      description: Defines a particular step within a Dataflow job pipeline, corresponding to a transform in the pipeline graph.
+      description: Describes a package to be installed on worker instances.
       properties:
-        kind:
-          type: string
-          description: The type of transform this step represents, such as ParallelRead, ParallelDo, or GroupByKey.
         name:
           type: string
-          description: The unique name of this step within the job.
-        properties:
+          description: The name of the package.
+        location:
+          type: string
+          description: The Cloud Storage location of the package.
+    JobMetadata:
+      type: object
+      description: Metadata available primarily for filtering jobs. Represents information about the external data sources and sinks used by the job.
+      properties:
+        sdkVersion:
+          $ref: '#/components/schemas/SdkVersion'
+        spannerDetails:
+          type: array
+          description: Identification of Cloud Spanner sources used by this job.
+          items:
+            $ref: '#/components/schemas/SpannerIODetails'
+        bigqueryDetails:
+          type: array
+          description: Identification of BigQuery sources used by this job.
+          items:
+            $ref: '#/components/schemas/BigQueryIODetails'
+        bigTableDetails:
+          type: array
+          description: Identification of Cloud Bigtable sources used by this job.
+          items:
+            $ref: '#/components/schemas/BigTableIODetails'
+        pubsubDetails:
+          type: array
+          description: Identification of Pub/Sub sources used by this job.
+          items:
+            $ref: '#/components/schemas/PubSubIODetails'
+        fileDetails:
+          type: array
+          description: Identification of file-based sources used by this job.
+          items:
+            $ref: '#/components/schemas/FileIODetails'
+        datastoreDetails:
+          type: array
+          description: Identification of Datastore sources used by this job.
+          items:
+            $ref: '#/components/schemas/DatastoreIODetails'
+        userDisplayProperties:
           type: object
-          description: Named properties associated with the step, containing the step configuration.
-          additionalProperties: true
+          description: User-supplied properties for display in the Dataflow monitoring UI.
+          additionalProperties:
+            type: string
     Environment:
       type: object
       description: Describes the environment in which a Dataflow job runs, including worker pool configuration, networking, and runtime settings.
@@ -1291,19 +948,6 @@ components:
           - STREAMING_MODE_UNSPECIFIED
           - STREAMING_MODE_EXACTLY_ONCE
           - STREAMING_MODE_AT_LEAST_ONCE
-    ComponentTransform:
-      type: object
-      description: An identification of a transform within a stage.
-      properties:
-        userName:
-          type: string
-          description: Human-readable name for this transform.
-        name:
-          type: string
-          description: Dataflow service generated name for this transform.
-        originalTransform:
-          type: string
-          description: User name for the original user transform this component corresponds to.
     StragglerSummary:
       type: object
       description: Summarizes straggler information within a stage.
@@ -1317,15 +961,365 @@ components:
           description: The straggler delineation, per straggler cause.
           items:
             $ref: '#/components/schemas/StragglerDelineation'
+    JobType:
+      type: string
+      description: The type of Dataflow job, indicating batch or streaming execution.
+      enum:
+      - JOB_TYPE_UNKNOWN
+      - JOB_TYPE_BATCH
+      - JOB_TYPE_STREAMING
+    DebugOptions:
+      type: object
+      description: Describes debugging options for a Dataflow job.
+      properties:
+        enableHotKeyLogging:
+          type: boolean
+          description: When true, enables logging of hot key detections during job execution.
+    DisplayData:
+      type: object
+      description: Data provided with a pipeline or transform to provide descriptive information.
+      properties:
+        key:
+          type: string
+          description: The key identifying the display data.
+        namespace:
+          type: string
+          description: The namespace for the key, usually a class name.
+        strValue:
+          type: string
+          description: Contains value if the data is of string type.
+        int64Value:
+          type: string
+          format: int64
+          description: Contains value if the data is of int64 type.
+        floatValue:
+          type: number
+          format: float
+          description: Contains value if the data is of float type.
+        javaClassValue:
+          type: string
+          description: Contains value if the data is of java class type.
+        timestampValue:
+          type: string
+          format: date-time
+          description: Contains value if the data is of timestamp type.
+        durationValue:
+          type: string
+          description: Contains value if the data is of duration type.
+        boolValue:
+          type: boolean
+          description: Contains value if the data is of bool type.
+        shortStrValue:
+          type: string
+          description: A possible additional shorter value to display.
+        url:
+          type: string
+          description: An optional full URL.
+        label:
+          type: string
+          description: An optional label to display with the value.
+    StageSource:
+      type: object
+      description: Describes a stream of data that flows in or out of a stage.
+      properties:
+        userName:
+          type: string
+          description: Human-readable name for this source.
+        name:
+          type: string
+          description: Dataflow service generated name for this source.
+        originalTransformOrCollection:
+          type: string
+          description: User name for the original user transform or collection this source corresponds to.
+        sizeBytes:
+          type: string
+          format: int64
+          description: Size of the source in bytes, if known.
+    ExecutionState:
+      type: string
+      description: The state of a stage execution.
+      enum:
+      - EXECUTION_STATE_UNKNOWN
+      - EXECUTION_STATE_NOT_STARTED
+      - EXECUTION_STATE_RUNNING
+      - EXECUTION_STATE_SUCCEEDED
+      - EXECUTION_STATE_FAILED
+      - EXECUTION_STATE_CANCELLED
+    MetricStructuredName:
+      type: object
+      description: Identifies a metric, using both the key and the context in which it appears.
+      properties:
+        origin:
+          type: string
+          description: Origin (namespace) of metric name. May be blank for user-defined metrics. Typical values are dataflow/v1b3 and user.
+        name:
+          type: string
+          description: Worker-defined metric name.
+        context:
+          type: object
+          description: Zero or more labeled fields that identify the part of the job this metric is associated with.
+          additionalProperties:
+            type: string
+    PipelineDescription:
+      type: object
+      description: A descriptive representation of a pipeline, providing structural information about the stages and transforms in the pipeline graph.
+      properties:
+        originalPipelineTransform:
+          type: array
+          description: Description of each transform in the pipeline as provided by the user.
+          items:
+            $ref: '#/components/schemas/TransformSummary'
+        executionPipelineStage:
+          type: array
+          description: Description of each stage of execution after the pipeline has been optimized by the service.
+          items:
+            $ref: '#/components/schemas/ExecutionStageSummary'
+        displayData:
+          type: array
+          description: Pipeline level display data.
+          items:
+            $ref: '#/components/schemas/DisplayData'
+    ProgressTimeseries:
+      type: object
+      description: Information about the progress of some component of job execution.
+      properties:
+        currentProgress:
+          type: number
+          format: double
+          description: The current progress of the component, in the range [0.0, 1.0].
+        dataPoints:
+          type: array
+          description: History of progress measurements.
+          items:
+            $ref: '#/components/schemas/Point'
+    PubSubIODetails:
+      type: object
+      description: Metadata for a Pub/Sub connector used by the job.
+      properties:
+        topic:
+          type: string
+          description: Topic accessed in the connection.
+        subscription:
+          type: string
+          description: Subscription used in the connection.
+    JobExecutionDetails:
+      type: object
+      description: Information about the execution of a job, including per-stage execution details.
+      properties:
+        stages:
+          type: array
+          description: The stages of the job execution.
+          items:
+            $ref: '#/components/schemas/StageSummary'
+        nextPageToken:
+          type: string
+          description: If present, this response is incomplete. Retrieve the next page of results by passing this value as the pageToken.
+    ComponentSource:
+      type: object
+      description: An identification of a collection produced or consumed by a component transform.
+      properties:
+        userName:
+          type: string
+          description: Human-readable name for this source.
+        name:
+          type: string
+          description: Dataflow service generated name for this source.
+        originalTransformOrCollection:
+          type: string
+          description: User name for the original user transform or collection this source corresponds to.
+    FailedLocation:
+      type: object
+      description: Indicates which regional endpoint failed to respond.
+      properties:
+        name:
+          type: string
+          description: The name of the failed location, typically a regional endpoint such as us-central1.
+    AutoscalingSettings:
+      type: object
+      description: Settings for autoscaling the number of worker instances in a pool.
+      properties:
+        algorithm:
+          type: string
+          description: The autoscaling algorithm to use.
+          enum:
+          - AUTOSCALING_ALGORITHM_UNKNOWN
+          - AUTOSCALING_ALGORITHM_NONE
+          - AUTOSCALING_ALGORITHM_BASIC
+        maxNumWorkers:
+          type: integer
+          format: int32
+          description: The maximum number of workers to scale up to.
+    WorkerPool:
+      type: object
+      description: Describes a pool of workers that execute pipeline transforms. Each pool specifies the machine type, disk configuration, networking, and autoscaling behavior.
+      properties:
+        kind:
+          type: string
+          description: The kind of worker pool, either harness for pipeline execution or shuffle for shuffle operations.
+        numWorkers:
+          type: integer
+          format: int32
+          description: The initial number of worker instances in the pool.
+        machineType:
+          type: string
+          description: The Compute Engine machine type for worker instances, such as n1-standard-4 or e2-standard-2.
+        diskSizeGb:
+          type: integer
+          format: int32
+          description: The size in GB of the root disk for each worker instance.
+        diskType:
+          type: string
+          description: The type of root disk for each worker instance, such as pd-standard, pd-ssd, or pd-balanced.
+        zone:
+          type: string
+          description: The Compute Engine zone where worker instances should be created.
+        network:
+          type: string
+          description: The name or full URL of the VPC network for worker instances.
+        subnetwork:
+          type: string
+          description: The full URL of the VPC subnetwork for worker instances.
+        metadata:
+          type: object
+          description: Metadata key-value pairs to set on the worker Compute Engine instances.
+          additionalProperties:
+            type: string
+        packages:
+          type: array
+          description: Packages to install on each worker instance, in addition to the default packages.
+          items:
+            $ref: '#/components/schemas/Package'
+        defaultPackageSet:
+          type: string
+          description: The default package set to install on the worker instances.
+          enum:
+          - DEFAULT_PACKAGE_SET_UNKNOWN
+          - DEFAULT_PACKAGE_SET_NONE
+          - DEFAULT_PACKAGE_SET_JAVA
+          - DEFAULT_PACKAGE_SET_PYTHON
+        autoscalingSettings:
+          $ref: '#/components/schemas/AutoscalingSettings'
+        ipConfiguration:
+          type: string
+          description: Configuration for the network IP address assignment for workers.
+          enum:
+          - WORKER_IP_UNSPECIFIED
+          - WORKER_IP_PUBLIC
+          - WORKER_IP_PRIVATE
+        sdkHarnessContainerImages:
+          type: array
+          description: Set of SDK harness container images for the worker pool, defining which containers to use for executing the pipeline.
+          items:
+            $ref: '#/components/schemas/SdkHarnessContainerImage'
+        teardownPolicy:
+          type: string
+          description: The policy that determines when worker instances are torn down.
+          enum:
+          - TEARDOWN_POLICY_UNKNOWN
+          - TEARDOWN_ALWAYS
+          - TEARDOWN_ON_SUCCESS
+          - TEARDOWN_NEVER
+        workerHarnessContainerImage:
+          type: string
+          description: The Docker container image to use for the worker harness.
+    ComponentTransform:
+      type: object
+      description: An identification of a transform within a stage.
+      properties:
+        userName:
+          type: string
+          description: Human-readable name for this transform.
+        name:
+          type: string
+          description: Dataflow service generated name for this transform.
+        originalTransform:
+          type: string
+          description: User name for the original user transform this component corresponds to.
+    ExecutionStageState:
+      type: object
+      description: Describes the state of a particular execution stage within a Dataflow job.
+      properties:
+        executionStageName:
+          type: string
+          description: The name of the execution stage.
+        executionStageState:
+          $ref: '#/components/schemas/JobState'
+        currentStateTime:
+          type: string
+          format: date-time
+          description: The time at which the stage entered its current state.
+  parameters:
+    pageToken:
+      name: pageToken
+      in: query
+      description: A token identifying the page of results to return. Set this to the nextPageToken value returned by a previous list request.
+      schema:
+        type: string
+    jobFilter:
+      name: filter
+      in: query
+      description: The kind of filter to use for listing jobs.
+      schema:
+        type: string
+        enum:
+        - UNKNOWN
+        - ALL
+        - TERMINATED
+        - ACTIVE
+    locationPath:
+      name: location
+      in: path
+      required: true
+      description: The regional endpoint where the job resides, such as us-central1 or europe-west1.
+      schema:
+        type: string
+    projectId:
+      name: projectId
+      in: path
+      required: true
+      description: The ID of the Google Cloud project that owns the job.
+      schema:
+        type: string
+    pageSize:
+      name: pageSize
+      in: query
+      description: The maximum number of results to return per page. If unspecified, the server will determine the number of results to return.
+      schema:
+        type: integer
+        format: int32
+    jobName:
+      name: name
+      in: query
+      description: Optional. The job name to filter results.
+      schema:
+        type: string
+    jobId:
+      name: jobId
+      in: path
+      required: true
+      description: The unique identifier of the Dataflow job.
+      schema:
+        type: string
+    jobView:
+      name: view
+      in: query
+      description: The level of detail to return for each job. Defaults to JOB_VIEW_SUMMARY.
+      schema:
+        type: string
+        enum:
+        - JOB_VIEW_UNKNOWN
+        - JOB_VIEW_SUMMARY
+        - JOB_VIEW_ALL
+        - JOB_VIEW_DESCRIPTION
+    location:
+      name: location
+      in: query
+      description: The regional endpoint for the request, such as us-central1 or europe-west1.
+      schema:
+        type: string
   responses:
-    Unauthorized:
-      description: Authentication credentials were missing or invalid. Provide valid OAuth 2.0 credentials or API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    Forbidden:
-      description: The caller does not have sufficient permissions to perform this operation. Verify IAM roles and permissions.
+    NotFound:
+      description: The requested resource was not found. Verify the project ID, job ID, or other resource identifiers.
       content:
         application/json:
           schema:
@@ -1336,26 +1330,32 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Status'
+    Conflict:
+      description: The request conflicts with the current state of the resource, such as attempting to create a job with a name that already exists.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    Forbidden:
+      description: The caller does not have sufficient permissions to perform this operation. Verify IAM roles and permissions.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
     InternalServerError:
       description: An internal server error occurred. Retry the request using exponential backoff.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Status'
-    NotFound:
-      description: The requested resource was not found. Verify the project ID, job ID, or other resource identifiers.
+    Unauthorized:
+      description: Authentication credentials were missing or invalid. Provide valid OAuth 2.0 credentials or API key.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Status'
     TooManyRequests:
       description: The request was rate-limited. Retry the request after a brief delay using exponential backoff.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    Conflict:
-      description: The request conflicts with the current state of the resource, such as attempting to create a job with a name that already exists.
       content:
         application/json:
           schema:

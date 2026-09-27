@@ -93,44 +93,42 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 components:
-  responses:
-    BadRequest:
-      description: The request was invalid or malformed. Check the request parameters and body for errors.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    InternalServerError:
-      description: An internal server error occurred. Retry the request using exponential backoff.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    NotFound:
-      description: The requested resource was not found. Verify the project ID, job ID, or other resource identifiers.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    TooManyRequests:
-      description: The request was rate-limited. Retry the request after a brief delay using exponential backoff.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    Forbidden:
-      description: The caller does not have sufficient permissions to perform this operation. Verify IAM roles and permissions.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    Unauthorized:
-      description: Authentication credentials were missing or invalid. Provide valid OAuth 2.0 credentials or API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
+  parameters:
+    projectId:
+      name: projectId
+      in: path
+      required: true
+      description: The ID of the Google Cloud project that owns the job.
+      schema:
+        type: string
+    locationPath:
+      name: location
+      in: path
+      required: true
+      description: The regional endpoint where the job resides, such as us-central1 or europe-west1.
+      schema:
+        type: string
+    jobId:
+      name: jobId
+      in: path
+      required: true
+      description: The unique identifier of the Dataflow job.
+      schema:
+        type: string
   schemas:
+    GetDebugConfigRequest:
+      type: object
+      description: Request to get the debug configuration for a specific component of a Dataflow job.
+      properties:
+        workerId:
+          type: string
+          description: The internal VM hostname of the worker.
+        componentId:
+          type: string
+          description: The internal component identifier.
+        location:
+          type: string
+          description: The regional endpoint for the request.
     Status:
       type: object
       description: The Status type defines a logical error model, compatible with gRPC and Google API error conventions.
@@ -148,26 +146,6 @@ components:
           items:
             type: object
             additionalProperties: true
-    GetDebugConfigResponse:
-      type: object
-      description: Response to a request for debug configuration.
-      properties:
-        config:
-          type: string
-          description: The encoded debug configuration for the requested component.
-    GetDebugConfigRequest:
-      type: object
-      description: Request to get the debug configuration for a specific component of a Dataflow job.
-      properties:
-        workerId:
-          type: string
-          description: The internal VM hostname of the worker.
-        componentId:
-          type: string
-          description: The internal component identifier.
-        location:
-          type: string
-          description: The regional endpoint for the request.
     SendDebugCaptureResponse:
       type: object
       description: Response to a send debug capture request. This is an empty response body.
@@ -196,28 +174,50 @@ components:
         location:
           type: string
           description: The regional endpoint for the request.
-  parameters:
-    projectId:
-      name: projectId
-      in: path
-      required: true
-      description: The ID of the Google Cloud project that owns the job.
-      schema:
-        type: string
-    locationPath:
-      name: location
-      in: path
-      required: true
-      description: The regional endpoint where the job resides, such as us-central1 or europe-west1.
-      schema:
-        type: string
-    jobId:
-      name: jobId
-      in: path
-      required: true
-      description: The unique identifier of the Dataflow job.
-      schema:
-        type: string
+    GetDebugConfigResponse:
+      type: object
+      description: Response to a request for debug configuration.
+      properties:
+        config:
+          type: string
+          description: The encoded debug configuration for the requested component.
+  responses:
+    BadRequest:
+      description: The request was invalid or malformed. Check the request parameters and body for errors.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    Forbidden:
+      description: The caller does not have sufficient permissions to perform this operation. Verify IAM roles and permissions.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    InternalServerError:
+      description: An internal server error occurred. Retry the request using exponential backoff.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    TooManyRequests:
+      description: The request was rate-limited. Retry the request after a brief delay using exponential backoff.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    Unauthorized:
+      description: Authentication credentials were missing or invalid. Provide valid OAuth 2.0 credentials or API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    NotFound:
+      description: The requested resource was not found. Verify the project ID, job ID, or other resource identifiers.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
   securitySchemes:
     oauth2:
       type: oauth2
