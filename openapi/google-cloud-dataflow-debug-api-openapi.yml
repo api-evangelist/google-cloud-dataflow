@@ -93,37 +93,44 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 components:
+  responses:
+    BadRequest:
+      description: The request was invalid or malformed. Check the request parameters and body for errors.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    NotFound:
+      description: The requested resource was not found. Verify the project ID, job ID, or other resource identifiers.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    Unauthorized:
+      description: Authentication credentials were missing or invalid. Provide valid OAuth 2.0 credentials or API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    TooManyRequests:
+      description: The request was rate-limited. Retry the request after a brief delay using exponential backoff.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    Forbidden:
+      description: The caller does not have sufficient permissions to perform this operation. Verify IAM roles and permissions.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    InternalServerError:
+      description: An internal server error occurred. Retry the request using exponential backoff.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
   schemas:
-    Status:
-      type: object
-      description: The Status type defines a logical error model, compatible with gRPC and Google API error conventions.
-      properties:
-        code:
-          type: integer
-          format: int32
-          description: The status code, which should be an enum value of google.rpc.Code.
-        message:
-          type: string
-          description: A developer-facing error message, which should be in English.
-        details:
-          type: array
-          description: A list of messages that carry the error details.
-          items:
-            type: object
-            additionalProperties: true
-    GetDebugConfigRequest:
-      type: object
-      description: Request to get the debug configuration for a specific component of a Dataflow job.
-      properties:
-        workerId:
-          type: string
-          description: The internal VM hostname of the worker.
-        componentId:
-          type: string
-          description: The internal component identifier.
-        location:
-          type: string
-          description: The regional endpoint for the request.
     SendDebugCaptureRequest:
       type: object
       description: Request to send debug capture data for a specific component of a Dataflow job.
@@ -149,6 +156,19 @@ components:
         location:
           type: string
           description: The regional endpoint for the request.
+    GetDebugConfigRequest:
+      type: object
+      description: Request to get the debug configuration for a specific component of a Dataflow job.
+      properties:
+        workerId:
+          type: string
+          description: The internal VM hostname of the worker.
+        componentId:
+          type: string
+          description: The internal component identifier.
+        location:
+          type: string
+          description: The regional endpoint for the request.
     SendDebugCaptureResponse:
       type: object
       description: Response to a send debug capture request. This is an empty response body.
@@ -159,43 +179,23 @@ components:
         config:
           type: string
           description: The encoded debug configuration for the requested component.
-  responses:
-    BadRequest:
-      description: The request was invalid or malformed. Check the request parameters and body for errors.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    TooManyRequests:
-      description: The request was rate-limited. Retry the request after a brief delay using exponential backoff.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    Forbidden:
-      description: The caller does not have sufficient permissions to perform this operation. Verify IAM roles and permissions.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    Unauthorized:
-      description: Authentication credentials were missing or invalid. Provide valid OAuth 2.0 credentials or API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    NotFound:
-      description: The requested resource was not found. Verify the project ID, job ID, or other resource identifiers.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    InternalServerError:
-      description: An internal server error occurred. Retry the request using exponential backoff.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
+    Status:
+      type: object
+      description: The Status type defines a logical error model, compatible with gRPC and Google API error conventions.
+      properties:
+        code:
+          type: integer
+          format: int32
+          description: The status code, which should be an enum value of google.rpc.Code.
+        message:
+          type: string
+          description: A developer-facing error message, which should be in English.
+        details:
+          type: array
+          description: A list of messages that carry the error details.
+          items:
+            type: object
+            additionalProperties: true
   parameters:
     locationPath:
       name: location
