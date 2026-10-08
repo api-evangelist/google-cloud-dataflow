@@ -629,6 +629,12 @@ maintainers:
     email: kin@apievangelist.com
     url: https://apievangelist.com
 common:
+  - type: Plans
+    url: plans/google-cloud-dataflow-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/google-cloud-dataflow-rate-limits.yml
+  - type: FinOps
+    url: finops/google-cloud-dataflow-finops.yml
   - type: AgenticAccess
     url: agentic-access/google-cloud-dataflow-agentic-access.yml
   - type: VulnerabilityDisclosure
