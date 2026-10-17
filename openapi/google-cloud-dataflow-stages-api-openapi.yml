@@ -59,42 +59,80 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 components:
-  parameters:
-    jobId:
-      name: jobId
-      in: path
-      required: true
-      description: The unique identifier of the Dataflow job.
-      schema:
-        type: string
-    projectId:
-      name: projectId
-      in: path
-      required: true
-      description: The ID of the Google Cloud project that owns the job.
-      schema:
-        type: string
-    pageToken:
-      name: pageToken
-      in: query
-      description: A token identifying the page of results to return. Set this to the nextPageToken value returned by a previous list request.
-      schema:
-        type: string
-    pageSize:
-      name: pageSize
-      in: query
-      description: The maximum number of results to return per page. If unspecified, the server will determine the number of results to return.
-      schema:
-        type: integer
-        format: int32
-    locationPath:
-      name: location
-      in: path
-      required: true
-      description: The regional endpoint where the job resides, such as us-central1 or europe-west1.
-      schema:
-        type: string
   schemas:
+    Status:
+      type: object
+      description: The Status type defines a logical error model, compatible with gRPC and Google API error conventions.
+      properties:
+        code:
+          type: integer
+          format: int32
+          description: The status code, which should be an enum value of google.rpc.Code.
+        message:
+          type: string
+          description: A developer-facing error message, which should be in English.
+        details:
+          type: array
+          description: A list of messages that carry the error details.
+          items:
+            type: object
+            additionalProperties: true
+    MetricStructuredName:
+      type: object
+      description: Identifies a metric, using both the key and the context in which it appears.
+      properties:
+        origin:
+          type: string
+          description: Origin (namespace) of metric name. May be blank for user-defined metrics. Typical values are dataflow/v1b3 and user.
+        name:
+          type: string
+          description: Worker-defined metric name.
+        context:
+          type: object
+          description: Zero or more labeled fields that identify the part of the job this metric is associated with.
+          additionalProperties:
+            type: string
+    WorkItemDetails:
+      type: object
+      description: Information about an individual work item.
+      properties:
+        taskId:
+          type: string
+          description: Name of this work item.
+        attemptId:
+          type: string
+          description: Attempt ID of this work item.
+        startTime:
+          type: string
+          format: date-time
+          description: Start time of this work item attempt.
+        endTime:
+          type: string
+          format: date-time
+          description: End time of this work item attempt. Not set if still active.
+        state:
+          $ref: '#/components/schemas/ExecutionState'
+        progress:
+          $ref: '#/components/schemas/ProgressTimeseries'
+        metrics:
+          type: array
+          description: Metrics for this work item.
+          items:
+            $ref: '#/components/schemas/MetricUpdate'
+        stragglerInfo:
+          $ref: '#/components/schemas/StragglerInfo'
+    Point:
+      type: object
+      description: A point in the timeseries.
+      properties:
+        time:
+          type: string
+          format: date-time
+          description: The timestamp of this data point.
+        value:
+          type: number
+          format: double
+          description: The value at this data point.
     MetricUpdate:
       type: object
       description: Describes the state of a metric at a particular point in time.
@@ -125,33 +163,28 @@ components:
           type: string
           format: date-time
           description: Timestamp associated with the metric value.
-    WorkerDetails:
+    StageExecutionDetails:
       type: object
-      description: Information about an individual worker within a stage.
+      description: Information about the workers and work items within a stage.
       properties:
-        workerName:
-          type: string
-          description: Name of this worker.
-        workItems:
+        workers:
           type: array
-          description: Work items processed by this worker, sorted by time.
+          description: Workers that have done work on the stage.
           items:
-            $ref: '#/components/schemas/WorkItemDetails'
-    MetricStructuredName:
-      type: object
-      description: Identifies a metric, using both the key and the context in which it appears.
-      properties:
-        origin:
+            $ref: '#/components/schemas/WorkerDetails'
+        nextPageToken:
           type: string
-          description: Origin (namespace) of metric name. May be blank for user-defined metrics. Typical values are dataflow/v1b3 and user.
-        name:
-          type: string
-          description: Worker-defined metric name.
-        context:
-          type: object
-          description: Zero or more labeled fields that identify the part of the job this metric is associated with.
-          additionalProperties:
-            type: string
+          description: If present, this response is incomplete. Retrieve the next page of results by passing this value as the pageToken.
+    ExecutionState:
+      type: string
+      description: The state of a stage execution.
+      enum:
+      - EXECUTION_STATE_UNKNOWN
+      - EXECUTION_STATE_NOT_STARTED
+      - EXECUTION_STATE_RUNNING
+      - EXECUTION_STATE_SUCCEEDED
+      - EXECUTION_STATE_FAILED
+      - EXECUTION_STATE_CANCELLED
     StragglerInfo:
       type: object
       description: Information useful for straggler identification and debugging.
@@ -174,95 +207,56 @@ components:
           description: History of progress measurements.
           items:
             $ref: '#/components/schemas/Point'
-    StageExecutionDetails:
+    WorkerDetails:
       type: object
-      description: Information about the workers and work items within a stage.
+      description: Information about an individual worker within a stage.
       properties:
-        workers:
+        workerName:
+          type: string
+          description: Name of this worker.
+        workItems:
           type: array
-          description: Workers that have done work on the stage.
+          description: Work items processed by this worker, sorted by time.
           items:
-            $ref: '#/components/schemas/WorkerDetails'
-        nextPageToken:
-          type: string
-          description: If present, this response is incomplete. Retrieve the next page of results by passing this value as the pageToken.
-    Status:
-      type: object
-      description: The Status type defines a logical error model, compatible with gRPC and Google API error conventions.
-      properties:
-        code:
-          type: integer
-          format: int32
-          description: The status code, which should be an enum value of google.rpc.Code.
-        message:
-          type: string
-          description: A developer-facing error message, which should be in English.
-        details:
-          type: array
-          description: A list of messages that carry the error details.
-          items:
-            type: object
-            additionalProperties: true
-    ExecutionState:
-      type: string
-      description: The state of a stage execution.
-      enum:
-      - EXECUTION_STATE_UNKNOWN
-      - EXECUTION_STATE_NOT_STARTED
-      - EXECUTION_STATE_RUNNING
-      - EXECUTION_STATE_SUCCEEDED
-      - EXECUTION_STATE_FAILED
-      - EXECUTION_STATE_CANCELLED
-    Point:
-      type: object
-      description: A point in the timeseries.
-      properties:
-        time:
-          type: string
-          format: date-time
-          description: The timestamp of this data point.
-        value:
-          type: number
-          format: double
-          description: The value at this data point.
-    WorkItemDetails:
-      type: object
-      description: Information about an individual work item.
-      properties:
-        taskId:
-          type: string
-          description: Name of this work item.
-        attemptId:
-          type: string
-          description: Attempt ID of this work item.
-        startTime:
-          type: string
-          format: date-time
-          description: Start time of this work item attempt.
-        endTime:
-          type: string
-          format: date-time
-          description: End time of this work item attempt. Not set if still active.
-        state:
-          $ref: '#/components/schemas/ExecutionState'
-        progress:
-          $ref: '#/components/schemas/ProgressTimeseries'
-        metrics:
-          type: array
-          description: Metrics for this work item.
-          items:
-            $ref: '#/components/schemas/MetricUpdate'
-        stragglerInfo:
-          $ref: '#/components/schemas/StragglerInfo'
+            $ref: '#/components/schemas/WorkItemDetails'
+  parameters:
+    jobId:
+      name: jobId
+      in: path
+      required: true
+      description: The unique identifier of the Dataflow job.
+      schema:
+        type: string
+    projectId:
+      name: projectId
+      in: path
+      required: true
+      description: The ID of the Google Cloud project that owns the job.
+      schema:
+        type: string
+    locationPath:
+      name: location
+      in: path
+      required: true
+      description: The regional endpoint where the job resides, such as us-central1 or europe-west1.
+      schema:
+        type: string
+    pageSize:
+      name: pageSize
+      in: query
+      description: The maximum number of results to return per page. If unspecified, the server will determine the number of results to return.
+      schema:
+        type: integer
+        format: int32
+    pageToken:
+      name: pageToken
+      in: query
+      description: A token identifying the page of results to return. Set this to the nextPageToken value returned by a previous list request.
+      schema:
+        type: string
   responses:
-    Forbidden:
-      description: The caller does not have sufficient permissions to perform this operation. Verify IAM roles and permissions.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    BadRequest:
-      description: The request was invalid or malformed. Check the request parameters and body for errors.
+    NotFound:
+      description: The requested resource was not found. Verify the project ID, job ID, or other resource identifiers.
       content:
         application/json:
           schema:
@@ -279,14 +273,20 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Status'
+    BadRequest:
+      description: The request was invalid or malformed. Check the request parameters and body for errors.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
     InternalServerError:
       description: An internal server error occurred. Retry the request using exponential backoff.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Status'
-    NotFound:
-      description: The requested resource was not found. Verify the project ID, job ID, or other resource identifiers.
+    Forbidden:
+      description: The caller does not have sufficient permissions to perform this operation. Verify IAM roles and permissions.
       content:
         application/json:
           schema:
