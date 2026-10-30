@@ -1,4 +1,4 @@
-# Google Cloud Dataflow (google-cloud-dataflow)
+# Google Cloud Dataflow
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,105 +66,187 @@
 
 Google Cloud Dataflow is a fully managed service for executing Apache Beam pipelines for batch and streaming data processing. It provides a serverless, fast, and cost-effective way to process data at scale.
 
-**APIs.json:** [https://cloud.google.com/dataflow](https://cloud.google.com/dataflow)
+**Areas:** Apache Beam · Batch Processing · Big Data · Data Processing · ETL · Stream Processing
 
-## Scope
+## Google Cloud Dataflow on APIs.io
 
-- **Type:** Index
+Everything profiled for Google Cloud Dataflow is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/google-cloud-dataflow/](https://apis.io/providers/google-cloud-dataflow/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (8)
 
-- Apache Beam
-- Batch Processing
-- Big Data
-- Data Processing
-- ETL
-- Stream Processing
+- [Google Cloud Dataflow Debug API](https://apis.io/apis/google-cloud-dataflow/google-cloud-dataflow-debug-api/) — Operations for retrieving debug configuration and submitting debug captures.
+- [Google Cloud Dataflow Flex Templates API](https://apis.io/apis/google-cloud-dataflow/google-cloud-dataflow-flex-templates-api/) — Operations for launching Dataflow Flex Templates.
+- [Google Cloud Dataflow Jobs API](https://apis.io/apis/google-cloud-dataflow/google-cloud-dataflow-jobs-api/) — Operations for creating, managing, and monitoring Dataflow jobs.
+- [Google Cloud Dataflow Messages API](https://apis.io/apis/google-cloud-dataflow/google-cloud-dataflow-messages-api/) — Operations for retrieving job status messages and logs.
+- [Google Cloud Dataflow Metrics API](https://apis.io/apis/google-cloud-dataflow/google-cloud-dataflow-metrics-api/) — Operations for obtaining job and pipeline execution metrics.
+- [Google Cloud Dataflow Snapshots API](https://apis.io/apis/google-cloud-dataflow/google-cloud-dataflow-snapshots-api/) — Operations for creating, listing, getting, and deleting job snapshots.
+- [Google Cloud Dataflow Stages API](https://apis.io/apis/google-cloud-dataflow/google-cloud-dataflow-stages-api/) — Operations for retrieving stage-level execution details.
+- [Google Cloud Dataflow Templates API](https://apis.io/apis/google-cloud-dataflow/google-cloud-dataflow-templates-api/) — Operations for working with Dataflow classic templates.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2024-01-01
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Arazzo workflows (10)
 
-### Google Cloud Dataflow API
+Multi-step workflows that chain operations into a business task.
 
-Manages Google Cloud Dataflow projects on Google Cloud Platform for creating and managing data processing pipelines, including job submission, monitoring, and resource management for both batch and streaming workloads.
+- [Google Cloud Dataflow Cancel Running Job](https://apis.io/arazzos/google-cloud-dataflow/google-cloud-dataflow-cancel-running-job-workflow/)
+- [Google Cloud Dataflow Capture Worker Debug Data](https://apis.io/arazzos/google-cloud-dataflow/google-cloud-dataflow-capture-worker-debug-data-workflow/)
+- [Google Cloud Dataflow Cleanup Job Snapshots](https://apis.io/arazzos/google-cloud-dataflow/google-cloud-dataflow-cleanup-job-snapshots-workflow/)
+- [Google Cloud Dataflow Create Job From Template and Track](https://apis.io/arazzos/google-cloud-dataflow/google-cloud-dataflow-create-job-from-template-and-track-workflow/)
+- [Google Cloud Dataflow Diagnose Job](https://apis.io/arazzos/google-cloud-dataflow/google-cloud-dataflow-diagnose-job-workflow/)
+- [Google Cloud Dataflow Drain Running Job](https://apis.io/arazzos/google-cloud-dataflow/google-cloud-dataflow-drain-running-job-workflow/)
+- [Google Cloud Dataflow Launch Classic Template and Monitor](https://apis.io/arazzos/google-cloud-dataflow/google-cloud-dataflow-launch-classic-template-and-monitor-workflow/)
+- [Google Cloud Dataflow Launch Flex Template and Monitor](https://apis.io/arazzos/google-cloud-dataflow/google-cloud-dataflow-launch-flex-template-and-monitor-workflow/)
+- [Google Cloud Dataflow List Jobs and Snapshot](https://apis.io/arazzos/google-cloud-dataflow/google-cloud-dataflow-list-jobs-and-snapshot-workflow/)
+- [Google Cloud Dataflow Snapshot Streaming Job](https://apis.io/arazzos/google-cloud-dataflow/google-cloud-dataflow-snapshot-streaming-job-workflow/)
 
-- **Human URL:** [https://cloud.google.com/dataflow/docs](https://cloud.google.com/dataflow/docs)
-- **Base URL:** `https://dataflow.googleapis.com`
+#### Agentic access (1)
 
-#### Tags
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- Batch
-- Data Processing
-- Pipelines
-- Streaming
+- [Google Cloud Dataflow Agentic Access](https://apis.io/agentic-access/google-cloud-dataflow/google-cloud-dataflow-agentic-access/)
 
-#### Properties
+#### JSON Schema (7)
 
-- [Documentation](https://cloud.google.com/dataflow/docs/reference/rest)
-- [OpenAPI](openapi/google-cloud-dataflow-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/google-cloud-dataflow-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/google-cloud-dataflow-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Open A P I  Discovery](https://dataflow.googleapis.com/$discovery/rest?version=v1b3)
-- [Getting Started](https://cloud.google.com/dataflow/docs/quickstarts)
-- [Guides](https://cloud.google.com/dataflow/docs/guides)
-- [Pricing](https://cloud.google.com/dataflow/pricing)
-- [Authentication](https://cloud.google.com/dataflow/docs/concepts/access-control)
-- [Samples](https://cloud.google.com/dataflow/docs/samples)
-- [Support](https://cloud.google.com/dataflow/docs/support)
-- [Rate Limits](https://cloud.google.com/dataflow/quotas)
-- [S D Ks](https://cloud.google.com/dataflow/docs/reference/libraries)
-- [Console](https://console.cloud.google.com/dataflow)
-- [Status Page](https://status.cloud.google.com/)
-- [Security](https://cloud.google.com/dataflow/docs/concepts/security-and-permissions)
-- [Monitoring](https://cloud.google.com/dataflow/docs/guides/using-cloud-monitoring)
-- [Errors](https://cloud.google.com/dataflow/docs/guides/common-errors)
-- [Troubleshooting](https://cloud.google.com/dataflow/docs/guides/troubleshooting-your-pipeline)
-- [Templates](https://cloud.google.com/dataflow/docs/concepts/dataflow-templates)
-- [Python  S D K](https://cloud.google.com/python/docs/reference/dataflow/latest/index.html)
-- [Java  S D K](https://cloud.google.com/java/docs/reference/google-cloud-dataflow/latest/overview.html)
-- [Node.js  S D K](https://cloud.google.com/nodejs/docs/reference/dataflow/latest/overview)
-- [API Reference](https://cloud.google.com/dataflow/docs/apis)
-- [S D K  Version  Support](https://cloud.google.com/dataflow/docs/support/sdk-version-support-status)
-- [Metrics](https://cloud.google.com/dataflow/docs/guides/using-monitoring-intf)
-- [J S O N  Schema](json-schema/google-cloud-dataflow-job-schema.json)
-- [J S O N  Schema](json-schema/google-cloud-dataflow-environment-schema.json)
-- [J S O N  Schema](json-schema/google-cloud-dataflow-worker-pool-schema.json)
-- [J S O N  Schema](json-schema/google-cloud-dataflow-snapshot-schema.json)
-- [J S O N  Schema](json-schema/google-cloud-dataflow-pipeline-schema.json)
-- [J S O N  Schema](json-schema/google-cloud-dataflow-template-schema.json)
-- [J S O N  Schema](json-schema/google-cloud-dataflow-metrics-schema.json)
-- [J S O N- L D  Context](json-ld/google-cloud-dataflow-context.jsonld)
+The data models the API reads and writes.
 
-## Common Properties
+- [Google Cloud Dataflow Environment](https://apis.io/schemas/google-cloud-dataflow/google-cloud-dataflow-environment/)
+- [Google Cloud Dataflow Job](https://apis.io/schemas/google-cloud-dataflow/google-cloud-dataflow-job/)
+- [Google Cloud Dataflow Job Metrics](https://apis.io/schemas/google-cloud-dataflow/google-cloud-dataflow-metrics/)
+- [Google Cloud Dataflow Pipeline Description](https://apis.io/schemas/google-cloud-dataflow/google-cloud-dataflow-pipeline/)
+- [Google Cloud Dataflow Snapshot](https://apis.io/schemas/google-cloud-dataflow/google-cloud-dataflow-snapshot/)
+- [Google Cloud Dataflow Template](https://apis.io/schemas/google-cloud-dataflow/google-cloud-dataflow-template/)
+- [Google Cloud Dataflow Worker Pool](https://apis.io/schemas/google-cloud-dataflow/google-cloud-dataflow-worker-pool/)
 
-- [Arazzo Workflows](arazzo/) — [Arazzo Specification](https://spec.openapis.org/arazzo/latest.html)
-- [Portal](https://cloud.google.com/dataflow)
-- [Documentation](https://cloud.google.com/dataflow/docs)
-- [Getting Started](https://cloud.google.com/dataflow/docs/quickstarts)
-- [Authentication](https://cloud.google.com/dataflow/docs/concepts/authentication)
-- [Blog](https://cloud.google.com/blog/products/data-analytics)
-- [Status Page](https://status.cloud.google.com/)
-- [Support](https://cloud.google.com/dataflow/docs/support)
-- [Terms of Service](https://cloud.google.com/terms)
-- [Privacy Policy](https://cloud.google.com/privacy)
-- [Changelog](https://cloud.google.com/dataflow/docs/release-notes)
-- [Community](https://stackoverflow.com/questions/tagged/google-cloud-dataflow)
-- [Tutorials](https://cloud.google.com/dataflow/docs/tutorials)
-- [Videos](https://www.youtube.com/results?search_query=google+cloud+dataflow)
-- [GitHub Organization](https://github.com/GoogleCloudPlatform)
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Google Cloud Dataflow Context](https://apis.io/jsonld/google-cloud-dataflow/google-cloud-dataflow-context/)
+
+#### Collections (10)
+
+Postman and Open Collection request collections.
+
+- [Google Cloud Dataflow API](https://apis.io/collections/google-cloud-dataflow/open-google-cloud-dataflow-api/)
+- [Google Cloud Dataflow Debug API](https://apis.io/collections/google-cloud-dataflow/open-google-cloud-dataflow-debug-api/)
+- [Google Cloud Dataflow Debug Flex Templates API](https://apis.io/collections/google-cloud-dataflow/open-google-cloud-dataflow-flex-templates-api/)
+- [Google Cloud Dataflow Debug Jobs API](https://apis.io/collections/google-cloud-dataflow/open-google-cloud-dataflow-jobs-api/)
+- [Google Cloud Dataflow Debug Messages API](https://apis.io/collections/google-cloud-dataflow/open-google-cloud-dataflow-messages-api/)
+- [Google Cloud Dataflow Debug Metrics API](https://apis.io/collections/google-cloud-dataflow/open-google-cloud-dataflow-metrics-api/)
+- [Google Cloud Dataflow Debug Snapshots API](https://apis.io/collections/google-cloud-dataflow/open-google-cloud-dataflow-snapshots-api/)
+- [Google Cloud Dataflow Debug Stages API](https://apis.io/collections/google-cloud-dataflow/open-google-cloud-dataflow-stages-api/)
+- [Google Cloud Dataflow Debug Templates API](https://apis.io/collections/google-cloud-dataflow/open-google-cloud-dataflow-templates-api/)
+- [Google Cloud Dataflow API](https://apis.io/collections/google-cloud-dataflow/postman-google-cloud-dataflow-api/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Google Cloud Dataflow — jsonschema rules](https://apis.io/rules/google-cloud-dataflow/google-cloud-dataflow-jsonschema-spectral-rules/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Google Cloud Dataflow Authentication](https://apis.io/security/google-cloud-dataflow/google-cloud-dataflow-authentication/)
+- [Google Cloud Dataflow Domain Security](https://apis.io/security/google-cloud-dataflow/google-cloud-dataflow-domain-security/)
+- [Google Cloud Dataflow Vulnerability Disclosure](https://apis.io/security/google-cloud-dataflow/google-cloud-dataflow-vulnerability-disclosure/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Google Cloud Dataflow Scopes](https://apis.io/scopes/google-cloud-dataflow/google-cloud-dataflow-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Google Cloud Dataflow Plans Pricing](https://apis.io/plans/google-cloud-dataflow/google-cloud-dataflow-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Google Cloud Dataflow Rate Limits](https://apis.io/rate-limits/google-cloud-dataflow/google-cloud-dataflow-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Google Cloud Dataflow Finops](https://apis.io/finops/google-cloud-dataflow/google-cloud-dataflow-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://cloud.google.com)
-- [Login](https://console.cloud.google.com/)
-- [Sign Up](https://console.cloud.google.com/freetrial)
+- [Documentation](https://cloud.google.com/dataflow/docs)
+- [Getting started](https://cloud.google.com/dataflow/docs/quickstarts)
 - [Pricing](https://cloud.google.com/dataflow/pricing)
+- [Support](https://cloud.google.com/dataflow/docs/support)
+- [Changelog](https://cloud.google.com/dataflow/docs/release-notes)
+- [Blog](https://cloud.google.com/blog/products/data-analytics)
 - [Security](https://cloud.google.com/dataflow/docs/concepts/security-and-permissions)
-- [Integrations](https://cloud.google.com/marketplace)
+- [Terms of service](https://cloud.google.com/terms)
+- [Privacy policy](https://cloud.google.com/privacy)
+- [GitHub](https://github.com/GoogleCloudPlatform)
+- [Status](https://status.cloud.google.com/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
-**URL:** https://apievangelist.com
+**Kin Score 57.8** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 66.1 |
+| Contract governance | 9.8 |
+| Operational transparency | 52.6 |
+| Developer ergonomics | 75.0 |
+| Access clarity | 39.5 |
+
+**Agent readiness 33.3** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | negotiable (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | documented (partial credit) |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | yes |
+| Delegated Identity | documented (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 40.2** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/google-cloud-dataflow/](https://apis.io/providers/google-cloud-dataflow/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Google Cloud Dataflow: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/google-cloud-dataflow/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
